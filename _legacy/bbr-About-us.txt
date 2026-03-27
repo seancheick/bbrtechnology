@@ -1,0 +1,377 @@
+<!-- ==========================================
+     ABOUT HERO
+     ========================================== -->
+<section class="bbr-section" style="padding:80px 0 60px;position:relative;overflow:hidden;">
+  <div class="bbr-hero__grid"></div>
+  <div class="bbr-hero__glow-1"></div>
+  <div class="bbr-hero__glow-2"></div>
+
+  <div class="bbr-container" style="position:relative;z-index:2;text-align:center;">
+    <div class="bbr-reveal">
+      <span class="bbr-label" style="display:inline-block;padding:6px 16px;background:var(--bbr-accent-glow);border:1px solid rgba(37,99,235,0.15);border-radius:100px;margin-bottom:20px;">About B&amp;Br Technology</span>
+    </div>
+
+    <h1 class="bbr-display bbr-reveal" style="font-size:clamp(36px, 5.5vw, 64px);margin-bottom:20px;">
+      Built by Builders.<br>
+      <span class="bbr-gradient-text">Not by Hype.</span>
+    </h1>
+
+    <p class="bbr-body bbr-reveal" style="font-size:clamp(16px, 1.8vw, 19px);max-width:620px;margin:0 auto;line-height:1.7;">
+      We're a Boston-based digital studio that ships real systems for real businesses. No inflated promises, no trend-chasing — just precise, reliable technology that earns its place in your stack.
+    </p>
+  </div>
+</section>
+
+
+<!-- ==========================================
+     THE STORY
+     ========================================== -->
+<section class="bbr-section bbr-section--alt">
+  <div class="bbr-container" style="max-width:820px;">
+
+    <div class="bbr-reveal">
+      <span class="bbr-label" style="display:inline-block;padding:6px 16px;background:var(--bbr-accent-glow);border:1px solid rgba(37,99,235,0.15);border-radius:100px;margin-bottom:16px;">Our Story</span>
+      <h2 class="bbr-heading" style="font-size:clamp(26px, 3.5vw, 38px);margin-bottom:24px;">How B&amp;Br Technology Started</h2>
+    </div>
+
+    <div class="bbr-reveal bbr-body" style="font-size:16px;line-height:1.85;">
+      <p style="margin-bottom:20px;">
+        B&amp;Br Technology was founded by <strong style="color:var(--bbr-text);">Sean Cheick Baradji</strong> — a developer, systems architect, and problem-solver with roots in West Africa and a career built across New York, Boston, and Washington, D.C. Today, B&amp;Br Technology is based out of Boston — a city with deep roots in innovation, world-class universities, and a tech ecosystem that keeps us sharp.
+      </p>
+      <p style="margin-bottom:20px;">
+        The idea was simple: too many small businesses and solo founders were getting burned. Agencies that overcharged and underdelivered. Freelancers who disappeared mid-project. AI vendors wrapping basic automations in marketing jargon and calling it innovation. Sean saw the pattern again and again — good people with real businesses, stuck with bad technology and no one to trust.
+      </p>
+      <p style="margin-bottom:20px;">
+        So he built B&amp;Br Technology to operate differently. Every line of code has a reason, every recommendation is backed by evidence, and every project ships on time with nothing hidden in the fine print. A studio built the way he'd want to hire one — transparent, technically rigorous, and honest about what technology can and can't do.
+      </p>
+      <p style="margin-bottom:20px;">
+        We also believe great work doesn't happen in a vacuum. B&amp;Br Technology loves teaming up with other teams — whether that's partnering with agencies on complex builds, plugging into a startup's existing dev team, or serving as a third set of eyes for companies tackling large-scale projects. We consult, we collaborate, and we bring out the best in every team we work alongside.
+      </p>
+      <p style="margin-bottom:20px;">
+        And we're invested in the next generation. B&amp;Br Technology has hired interns from Boston-area colleges — giving students the chance to take the skills they learned in the classroom and apply them to real client projects with real stakes. It's how we grow our team, give back to the community, and stay connected to fresh perspectives.
+      </p>
+      <p>
+        Today, B&amp;Br Technology works with clinics, eCommerce brands, startups, and solopreneurs who need digital systems that actually perform. We aim to grow and make an impact — not just for our clients, but for the people and communities around us.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ==========================================
+     FOUNDER
+     ========================================== -->
+<section class="bbr-section">
+  <div class="bbr-container">
+    <div class="bbr-reveal" style="display:grid;grid-template-columns:1fr 1.4fr;gap:60px;align-items:center;">
+
+      <!-- Left: Founder Card -->
+      <div class="bbr-card" style="text-align:center;padding:40px 32px;">
+        <div style="width:100px;height:100px;border-radius:50%;background:var(--bbr-gradient);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:var(--bbr-font-display);font-weight:900;font-size:36px;color:#fff;">SC</span>
+        </div>
+        <h3 class="bbr-heading" style="font-size:22px;margin-bottom:4px;">Sean Cheick Baradji</h3>
+        <p class="bbr-body" style="font-size:14px;margin-bottom:20px;">Founder &amp; Lead Developer</p>
+
+        <div style="display:flex;flex-direction:column;gap:8px;text-align:left;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--bbr-text-mid);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Boston, MA
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--bbr-text-mid);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Full-Stack &amp; AI Systems
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--bbr-text-mid);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Healthcare, eCommerce, AI/ML
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Bio -->
+      <div>
+        <h2 class="bbr-heading" style="font-size:clamp(24px, 3vw, 32px);margin-bottom:16px;">The Person Behind the Code</h2>
+        <div class="bbr-body" style="font-size:15px;line-height:1.8;">
+          <p style="margin-bottom:16px;">
+            Sean is a full-stack developer and AI systems architect who's spent years building production software across healthcare, eCommerce, and data infrastructure. His work spans from clinical EHR integrations to building <strong style="color:var(--bbr-text);">PharmaGuide AI</strong> — a first-of-its-kind AI-powered supplement and medication scanner designed to analyze entire health stacks for safety, efficacy, and interactions.
+          </p>
+          <p style="margin-bottom:16px;">
+            PharmaGuide isn't a side project — it's a comprehensive health technology platform with a deterministic 100-point scoring algorithm, HIPAA-compliant architecture, multi-modal scanning (barcode, OCR, voice), and an AI pharmacist chat trained on NIH, PubMed, and FDA datasets. Sean designed every layer — from database normalization and ingredient identity pipelines to client-side personalization engines.
+          </p>
+          <p>
+            That same rigor is what he brings to every B&amp;Br Technology client engagement. Whether it's a WordPress site for a local clinic, an automated lead pipeline for a startup, or consulting as a third set of eyes on another team's complex build — Sean treats every system like it needs to hold up under real-world pressure. Because it does.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      #bbr-founder-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 768px) {
+      .bbr-section .bbr-container > .bbr-reveal[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</section>
+
+
+<!-- ==========================================
+     OUR PHILOSOPHY
+     ========================================== -->
+<section class="bbr-section bbr-section--alt">
+  <div class="bbr-container">
+
+    <div class="bbr-section-header bbr-reveal">
+      <span class="bbr-label">How We Think</span>
+      <h2 class="bbr-heading">Our Operating Principles</h2>
+      <p class="bbr-body">In a world where a new AI tool drops every 48 hours and yesterday's framework is tomorrow's legacy code, we anchor to principles that don't deprecate.</p>
+    </div>
+
+    <div class="bbr-grid bbr-grid--3 bbr-stagger">
+
+      <div class="bbr-card">
+        <div class="bbr-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>Accuracy Over Hype</h3>
+        <p>We don't recommend tools because they're trending — we recommend them because they solve the problem. Every technical decision is evidence-based and tested under real conditions.</p>
+      </div>
+
+      <div class="bbr-card">
+        <div class="bbr-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Performance First</h3>
+        <p>Fast load times, clean code, zero bloat. We obsess over the details that users feel but can't name — the milliseconds, the smooth transitions, the pages that just work.</p>
+      </div>
+
+      <div class="bbr-card">
+        <div class="bbr-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3>Continuous Learning</h3>
+        <p>In AI, today's best practice is tomorrow's anti-pattern. We invest hours every week studying new models, frameworks, and research — so our clients never inherit outdated systems.</p>
+      </div>
+
+      <div class="bbr-card">
+        <div class="bbr-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Authenticity</h3>
+        <p>We cut through the noise. If a $50/month tool solves your problem, we'll tell you — even if it means a smaller invoice. Our reputation is built on honesty, not upsells.</p>
+      </div>
+
+      <div class="bbr-card">
+        <div class="bbr-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <h3>Human-Centered</h3>
+        <p>Technology is a tool, not the point. We build for the humans on the other end — the patient checking their meds, the founder checking their dashboard at midnight, the customer placing an order.</p>
+      </div>
+
+      <div class="bbr-card">
+        <div class="bbr-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <h3>Ship, Then Iterate</h3>
+        <p>Perfection is the enemy of progress. We get functional systems into your hands fast, then refine based on real data and real user behavior — not assumptions.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================
+     WHAT WE'VE BUILT
+     ========================================== -->
+<section class="bbr-section">
+  <div class="bbr-container">
+
+    <div class="bbr-section-header bbr-reveal">
+      <span class="bbr-label">Track Record</span>
+      <h2 class="bbr-heading">Systems We've Built</h2>
+      <p class="bbr-body">From healthcare data pipelines to AI-powered consumer apps — here's a look at the work that defines our capabilities.</p>
+    </div>
+
+    <div class="bbr-grid bbr-grid--2 bbr-stagger" style="gap:28px;">
+
+      <!-- Project 1: PharmaGuide AI -->
+      <div class="bbr-card" style="border-left:4px solid var(--bbr-accent);">
+        <span class="bbr-label" style="margin-bottom:12px;display:inline-block;">Health Technology</span>
+        <h3 style="font-size:20px;">PharmaGuide AI — Supplement &amp; Medication Scanner</h3>
+        <p style="margin-bottom:16px;">First-of-its-kind AI pharmacist app that scans supplements via barcode and OCR, evaluates quality on a 100-point deterministic scoring algorithm, checks drug-supplement interactions, and provides personalized safety recommendations — all with HIPAA-compliant, privacy-first architecture.</p>
+        <div class="bbr-tools" style="justify-content:flex-start;">
+          <span class="bbr-tool">Flutter</span>
+          <span class="bbr-tool">Python</span>
+          <span class="bbr-tool">NLP/RAG</span>
+          <span class="bbr-tool">DSLD Database</span>
+          <span class="bbr-tool">HIPAA</span>
+        </div>
+      </div>
+
+      <!-- Project 2: Clinical EHR -->
+      <div class="bbr-card" style="border-left:4px solid var(--bbr-success);">
+        <span class="bbr-label" style="margin-bottom:12px;display:inline-block;color:var(--bbr-success);">Healthcare</span>
+        <h3 style="font-size:20px;">Clinical EHR Integration &amp; Workflow Systems</h3>
+        <p style="margin-bottom:16px;">Custom electronic health record integrations for medical clinics — connecting patient intake, scheduling, billing, and clinical documentation into unified workflows. Designed with HIPAA compliance, role-based access controls, and automated reporting.</p>
+        <div class="bbr-tools" style="justify-content:flex-start;">
+          <span class="bbr-tool">EHR/EMR</span>
+          <span class="bbr-tool">HL7/FHIR</span>
+          <span class="bbr-tool">HIPAA</span>
+          <span class="bbr-tool">API Integration</span>
+        </div>
+      </div>
+
+      <!-- Project 3: eCommerce -->
+      <div class="bbr-card" style="border-left:4px solid var(--bbr-accent-2);">
+        <span class="bbr-label" style="margin-bottom:12px;display:inline-block;color:var(--bbr-accent-2);">eCommerce</span>
+        <h3 style="font-size:20px;">eCommerce Platforms &amp; Conversion Optimization</h3>
+        <p style="margin-bottom:16px;">Full-stack eCommerce builds on Shopify and WooCommerce — custom storefronts, payment processing, inventory management, and conversion-optimized checkout flows. Includes SEO structure, analytics integration, and automated email sequences.</p>
+        <div class="bbr-tools" style="justify-content:flex-start;">
+          <span class="bbr-tool">Shopify</span>
+          <span class="bbr-tool">WooCommerce</span>
+          <span class="bbr-tool">Stripe</span>
+          <span class="bbr-tool">GA4</span>
+        </div>
+      </div>
+
+      <!-- Project 4: AI Chatbots -->
+      <div class="bbr-card" style="border-left:4px solid #f59e0b;">
+        <span class="bbr-label" style="margin-bottom:12px;display:inline-block;color:#f59e0b;">AI &amp; Automation</span>
+        <h3 style="font-size:20px;">AI Chatbots &amp; Automated Lead Pipelines</h3>
+        <p style="margin-bottom:16px;">Custom GPT-powered chatbots deployed on business websites for 24/7 customer support, lead qualification, appointment booking, and FAQ handling. Integrated with CRM systems and connected to automated follow-up workflows via Zapier and Make.</p>
+        <div class="bbr-tools" style="justify-content:flex-start;">
+          <span class="bbr-tool">GPT API</span>
+          <span class="bbr-tool">RAG</span>
+          <span class="bbr-tool">Zapier</span>
+          <span class="bbr-tool">CRM</span>
+        </div>
+      </div>
+
+      <!-- Project 5: Pharmaceutical Data -->
+      <div class="bbr-card" style="border-left:4px solid #06b6d4;">
+        <span class="bbr-label" style="margin-bottom:12px;display:inline-block;color:#06b6d4;">Data Engineering</span>
+        <h3 style="font-size:20px;">Pharmaceutical Data Management &amp; Pipeline Architecture</h3>
+        <p style="margin-bottom:16px;">Designed and built multi-phase data pipelines for processing 100,000+ supplement products from the DSLD database — including cleaning, normalization, ingredient identity preservation, enrichment, and deterministic scoring. Every field validated for accuracy because health data can't afford silent errors.</p>
+        <div class="bbr-tools" style="justify-content:flex-start;">
+          <span class="bbr-tool">Python</span>
+          <span class="bbr-tool">JSON/CSV</span>
+          <span class="bbr-tool">DSLD</span>
+          <span class="bbr-tool">Data Validation</span>
+        </div>
+      </div>
+
+      <!-- Project 6: Web Development -->
+      <div class="bbr-card" style="border-left:4px solid #8b5cf6;">
+        <span class="bbr-label" style="margin-bottom:12px;display:inline-block;color:#8b5cf6;">Web Development</span>
+        <h3 style="font-size:20px;">Business Websites &amp; Landing Pages</h3>
+        <p style="margin-bottom:16px;">Custom responsive websites for small businesses and professional brands — built with React, Next.js, or WordPress depending on the client's needs and technical maturity. SEO-optimized, fast-loading, accessible, and designed for lead conversion from day one.</p>
+        <div class="bbr-tools" style="justify-content:flex-start;">
+          <span class="bbr-tool">React</span>
+          <span class="bbr-tool">Next.js</span>
+          <span class="bbr-tool">WordPress</span>
+          <span class="bbr-tool">SEO</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================
+     TOOLS WE USE
+     ========================================== -->
+<section class="bbr-section bbr-section--alt">
+  <div class="bbr-container" style="max-width:800px;">
+
+    <div class="bbr-section-header bbr-reveal">
+      <span class="bbr-label">Our Stack</span>
+      <h2 class="bbr-heading">Tools We Trust</h2>
+      <p class="bbr-body">We're tool-agnostic — we pick what works best for the job, not what's trending on Twitter. Here's what we reach for most often.</p>
+    </div>
+
+    <div class="bbr-reveal">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+
+        <div style="text-align:center;">
+          <h3 class="bbr-heading" style="font-size:14px;margin-bottom:10px;color:var(--bbr-accent);">Frontend</h3>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--bbr-text-mid);">
+            <span>React / Next.js</span>
+            <span>Flutter</span>
+            <span>WordPress / Elementor</span>
+            <span>Tailwind CSS</span>
+            <span>HTML / CSS / JS</span>
+          </div>
+        </div>
+
+        <div style="text-align:center;">
+          <h3 class="bbr-heading" style="font-size:14px;margin-bottom:10px;color:var(--bbr-accent);">Backend &amp; Data</h3>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--bbr-text-mid);">
+            <span>Python / Node.js</span>
+            <span>PostgreSQL / Firebase</span>
+            <span>REST / GraphQL</span>
+            <span>Pandas / NumPy</span>
+            <span>Supabase</span>
+          </div>
+        </div>
+
+        <div style="text-align:center;">
+          <h3 class="bbr-heading" style="font-size:14px;margin-bottom:10px;color:var(--bbr-accent);">AI &amp; Tools</h3>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--bbr-text-mid);">
+            <span>OpenAI / Claude API</span>
+            <span>RAG / Vector Search</span>
+            <span>Zapier / Make</span>
+            <span>GA4 / Looker Studio</span>
+            <span>Figma / Notion</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <style>
+    @media (max-width: 640px) {
+      .bbr-section--alt .bbr-reveal > div[style*="grid-template-columns: repeat(3"] {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+      }
+    }
+  </style>
+</section>
+
+
+<!-- ==========================================
+     CTA
+     ========================================== -->
+<section class="bbr-section" style="padding:80px 0;position:relative;overflow:hidden;">
+  <div class="bbr-hero__glow-1" style="top:auto;bottom:-20%;right:-10%;"></div>
+
+  <div class="bbr-container" style="position:relative;z-index:2;max-width:700px;text-align:center;">
+    <div class="bbr-reveal">
+      <h2 class="bbr-heading" style="font-size:clamp(28px, 4vw, 42px);margin-bottom:16px;">
+        Ready to Work With a Team<br>That Delivers?
+      </h2>
+      <p class="bbr-body" style="font-size:17px;margin-bottom:32px;line-height:1.7;">
+        No pitch decks. No jargon. Just a conversation about what you need built and whether we're the right fit. If we're not, we'll tell you that too.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
+        <a href="/contact" class="bbr-btn bbr-btn--primary">
+          Get Started
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="/services" class="bbr-btn bbr-btn--secondary">Explore Services</a>
+      </div>
+    </div>
+  </div>
+</section>

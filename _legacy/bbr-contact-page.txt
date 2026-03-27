@@ -1,0 +1,326 @@
+<!-- ==========================================
+     CONTACT HERO
+     ========================================== -->
+<section class="bbr-section" style="padding:80px 0 40px;position:relative;overflow:hidden;">
+  <div class="bbr-hero__grid"></div>
+  <div class="bbr-hero__glow-1"></div>
+
+  <div class="bbr-container" style="position:relative;z-index:2;text-align:center;">
+    <div class="bbr-reveal">
+      <span class="bbr-label" style="display:inline-block;padding:6px 16px;background:var(--bbr-accent-glow);border:1px solid rgba(37,99,235,0.15);border-radius:100px;margin-bottom:20px;">Get in Touch</span>
+    </div>
+
+    <h1 class="bbr-display bbr-reveal" style="font-size:clamp(36px, 5.5vw, 56px);margin-bottom:16px;">
+      Let's Build Something<br>
+      <span class="bbr-gradient-text">That Actually Works</span>
+    </h1>
+
+    <p class="bbr-body bbr-reveal" style="font-size:clamp(16px, 1.8vw, 18px);max-width:560px;margin:0 auto;line-height:1.7;">
+      Tell us where you are and where you want to be. We'll tell you honestly whether we're the right fit — and if we're not, we'll point you in the right direction.
+    </p>
+  </div>
+</section>
+
+
+<!-- ==========================================
+     CONTACT LAYOUT: Info + Form
+     ========================================== -->
+<section class="bbr-section" style="padding:40px 0 100px;">
+  <div class="bbr-container">
+    <div class="bbr-reveal bbr-contact-layout">
+
+      <!-- LEFT: Info Sidebar -->
+      <div class="bbr-contact-info">
+
+        <!-- What Happens Next -->
+        <div class="bbr-card" style="margin-bottom:24px;">
+          <h3 style="font-size:17px;margin-bottom:16px;">What Happens Next</h3>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--bbr-accent-glow);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-family:var(--bbr-font-display);font-weight:700;font-size:13px;color:var(--bbr-accent);">1</span>
+              </div>
+              <div>
+                <p style="font-size:14px;font-weight:600;color:var(--bbr-text);margin-bottom:2px;">We Read Every Detail</p>
+                <p style="font-size:13px;color:var(--bbr-text-muted);line-height:1.5;">Your inquiry goes directly to our team — no bots, no ticket queues.</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--bbr-accent-glow);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-family:var(--bbr-font-display);font-weight:700;font-size:13px;color:var(--bbr-accent);">2</span>
+              </div>
+              <div>
+                <p style="font-size:14px;font-weight:600;color:var(--bbr-text);margin-bottom:2px;">We Respond Within 24 Hours</p>
+                <p style="font-size:13px;color:var(--bbr-text-muted);line-height:1.5;">With honest feedback on scope, timeline, and whether we're the right match.</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--bbr-accent-glow);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-family:var(--bbr-font-display);font-weight:700;font-size:13px;color:var(--bbr-accent);">3</span>
+              </div>
+              <div>
+                <p style="font-size:14px;font-weight:600;color:var(--bbr-text);margin-bottom:2px;">Free Discovery Call</p>
+                <p style="font-size:13px;color:var(--bbr-text-muted);line-height:1.5;">A 30-minute conversation to dig into your goals — zero obligation, zero pressure.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct Contact -->
+        <div class="bbr-card" style="margin-bottom:24px;">
+          <h3 style="font-size:17px;margin-bottom:16px;">Reach Us Directly</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <a href="mailto:hello@bbrtechnology.com" style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--bbr-text-mid);transition:color 0.2s ease;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              hello@bbrtechnology.com
+            </a>
+            <a href="tel:+16467268345" style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--bbr-text-mid);transition:color 0.2s ease;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              (646) 726-8345
+            </a>
+            <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--bbr-text-mid);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Boston, MA
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Signals -->
+        <div style="display:flex;flex-direction:column;gap:10px;padding:0 4px;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--bbr-text-muted);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            No contracts required to start
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--bbr-text-muted);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Free 30-minute discovery call
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--bbr-text-muted);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Honest about what we can and can't do
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--bbr-text-muted);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Your data stays private — always
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Contact Form -->
+      <div class="bbr-contact-form-wrap">
+        <div style="background:var(--bbr-bg-card);border:1px solid var(--bbr-border);border-radius:var(--bbr-radius-xl);padding:40px;box-shadow:var(--bbr-shadow-lg);position:relative;overflow:hidden;">
+
+          <!-- Decorative gradient line at top -->
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--bbr-gradient);"></div>
+
+          <h2 class="bbr-heading" style="font-size:22px;margin-bottom:6px;">Start a Conversation</h2>
+          <p class="bbr-body" style="font-size:14px;margin-bottom:28px;">Fill out the form below and we'll get back to you within 24 hours.</p>
+
+          <form id="bbr-contact-form" class="bbr-form" action="https://formspree.io/f/mzdaenay" method="POST">
+
+            <!-- Name Row -->
+            <div class="bbr-form__row">
+              <div class="bbr-form__group">
+                <label for="bbr-fname">First Name *</label>
+                <input type="text" id="bbr-fname" name="first_name" placeholder="Sean" required>
+              </div>
+              <div class="bbr-form__group">
+                <label for="bbr-lname">Last Name</label>
+                <input type="text" id="bbr-lname" name="last_name" placeholder="Baradji">
+              </div>
+            </div>
+
+            <!-- Email & Phone Row -->
+            <div class="bbr-form__row">
+              <div class="bbr-form__group">
+                <label for="bbr-email">Email *</label>
+                <input type="email" id="bbr-email" name="email" placeholder="you@company.com" required>
+              </div>
+              <div class="bbr-form__group">
+                <label for="bbr-phone">Phone <span style="color:var(--bbr-text-muted);font-weight:400;">(optional)</span></label>
+                <input type="tel" id="bbr-phone" name="phone" placeholder="(555) 123-4567">
+              </div>
+            </div>
+
+            <!-- Service & Budget Row -->
+            <div class="bbr-form__row">
+              <div class="bbr-form__group">
+                <label for="bbr-service">What are you looking for? *</label>
+                <select id="bbr-service" name="service" required>
+                  <option value="" disabled selected>Select a service...</option>
+                  <option value="website">Website or App Development</option>
+                  <option value="ai-automation">AI &amp; Automation</option>
+                  <option value="seo-growth">SEO &amp; Growth Marketing</option>
+                  <option value="data">Data &amp; Analytics</option>
+                  <option value="it-support">IT Support &amp; Maintenance</option>
+                  <option value="consulting">Consulting &amp; Third-Party Review</option>
+                  <option value="multiple">Multiple Services</option>
+                  <option value="not-sure">Not Sure Yet — Let's Talk</option>
+                </select>
+              </div>
+              <div class="bbr-form__group">
+                <label for="bbr-budget">Budget Range</label>
+                <select id="bbr-budget" name="budget">
+                  <option value="" disabled selected>Select a range...</option>
+                  <option value="under-2k">Under $2,000</option>
+                  <option value="2k-5k">$2,000 – $5,000</option>
+                  <option value="5k-10k">$5,000 – $10,000</option>
+                  <option value="10k-25k">$10,000 – $25,000</option>
+                  <option value="25k+">$25,000+</option>
+                  <option value="retainer">Monthly Retainer</option>
+                  <option value="unsure">Not Sure Yet</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- How did you hear about us -->
+            <div class="bbr-form__group">
+              <label for="bbr-source">How did you find us? <span style="color:var(--bbr-text-muted);font-weight:400;">(optional)</span></label>
+              <select id="bbr-source" name="source">
+                <option value="" disabled selected>Select...</option>
+                <option value="google">Google Search</option>
+                <option value="social">Social Media</option>
+                <option value="referral">Referral</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Message -->
+            <div class="bbr-form__group">
+              <label for="bbr-message">Tell us about your project *</label>
+              <textarea id="bbr-message" name="message" placeholder="What are you building? What problems are you facing? What does success look like for you?" required></textarea>
+            </div>
+
+            <!-- Honeypot (anti-spam, hidden) -->
+            <div style="position:absolute;left:-9999px;" aria-hidden="true">
+              <input type="text" name="_honeypot" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="bbr-form__submit">
+              <span class="bbr-form__submit-text">Send Project Inquiry</span>
+              <svg class="bbr-form__submit-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+
+            <p style="text-align:center;font-size:12px;color:var(--bbr-text-muted);margin-top:16px;">
+              We respect your privacy. No spam, no sales pressure, no data sharing — ever.
+            </p>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================
+     PAGE-SPECIFIC STYLES
+     ========================================== -->
+<style>
+  .bbr-contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .bbr-contact-layout {
+      grid-template-columns: 1fr !important;
+    }
+    .bbr-contact-info { order: 2; }
+    .bbr-contact-form-wrap { order: 1; }
+  }
+
+  /* Submit button with arrow */
+  .bbr-form__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .bbr-form__submit-arrow {
+    transition: transform 0.25s ease;
+  }
+
+  .bbr-form__submit:hover .bbr-form__submit-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Sending state animation */
+  .bbr-form__submit--sending {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .bbr-form__submit--sending .bbr-form__submit-arrow {
+    animation: bbr-send-pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes bbr-send-pulse {
+    0%, 100% { transform: translateX(0); opacity: 1; }
+    50% { transform: translateX(8px); opacity: 0.3; }
+  }
+
+  /* Enhanced success state */
+  .bbr-form__success {
+    text-align: center;
+    padding: 48px 24px;
+    animation: bbr-success-enter 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  @keyframes bbr-success-enter {
+    0% { opacity: 0; transform: scale(0.9) translateY(16px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .bbr-success-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--bbr-success-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+
+  .bbr-success-circle svg {
+    width: 36px;
+    height: 36px;
+    color: var(--bbr-success);
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+    animation: bbr-check-draw 0.6s ease 0.3s forwards;
+  }
+
+  @keyframes bbr-check-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .bbr-success-circle::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--bbr-success);
+    opacity: 0;
+    animation: bbr-ring-expand 0.6s ease 0.2s forwards;
+  }
+
+  @keyframes bbr-ring-expand {
+    0% { transform: scale(0.8); opacity: 0.6; }
+    100% { transform: scale(1); opacity: 0.15; }
+  }
+
+  /* Contact info link hover */
+  .bbr-contact-info a:hover {
+    color: var(--bbr-accent) !important;
+  }
+</style>

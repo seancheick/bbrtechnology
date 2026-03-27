@@ -1,0 +1,83 @@
+<section class="bbr-section" style="padding:80px 0 60px;position:relative;overflow:hidden;">
+  
+  <!-- Background Effects -->
+  <div class="bbr-hero__grid"></div>
+  <div class="bbr-hero__glow-1"></div>
+  <div class="bbr-hero__glow-2"></div>
+
+  <div class="bbr-container" style="position:relative;z-index:2;text-align:center;">
+    
+    <!-- Availability Badge -->
+    <div class="bbr-reveal" style="margin-bottom:32px;">
+      <span style="
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:8px 18px;
+        background:var(--bbr-bg-card);
+        border:1px solid var(--bbr-border);
+        border-radius:100px;
+        font-size:13px;
+        font-weight:500;
+        color:var(--bbr-text-mid);
+        box-shadow:var(--bbr-shadow-sm);
+      ">
+        <span style="position:relative;display:flex;width:8px;height:8px;">
+          <span class="bbr-pulse" style="position:absolute;inset:0;border-radius:50%;background:#22c55e;opacity:0.6;"></span>
+          <span style="position:relative;width:8px;height:8px;border-radius:50%;background:#22c55e;"></span>
+        </span>
+        Now booking new projects
+      </span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="bbr-display bbr-reveal" style="font-size:clamp(40px, 6.5vw, 76px);margin-bottom:24px;">
+      AI-Powered Tech.<br>
+      <span class="bbr-gradient-text">Built for Real Growth.</span>
+    </h1>
+
+    <!-- Subheadline -->
+    <p class="bbr-body bbr-reveal" style="font-size:clamp(17px, 2vw, 20px);max-width:620px;margin:0 auto 40px;line-height:1.7;">
+      We build strong digital foundations — websites, apps, and automation systems — that help founders and growing businesses operate efficiently in the digital-first economy.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="bbr-reveal" style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:64px;">
+      <a href="#services" class="bbr-btn bbr-btn--primary">
+        Explore Services
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#process" class="bbr-btn bbr-btn--secondary">How We Work</a>
+    </div>
+
+    <!-- Trust Signals -->
+    <div class="bbr-reveal" style="
+      display:grid;
+      grid-template-columns:repeat(4, auto);
+      gap:32px;
+      justify-content:center;
+      padding-top:40px;
+      border-top:1px solid var(--bbr-border);
+      max-width:600px;
+      margin:0 auto;
+    ">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span style="font-weight:600;font-size:14px;color:var(--bbr-text-mid);">Founder-Led</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span style="font-weight:600;font-size:14px;color:var(--bbr-text-mid);">System-First</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span style="font-weight:600;font-size:14px;color:var(--bbr-text-mid);">AI-Native</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span style="font-weight:600;font-size:14px;color:var(--bbr-text-mid);">Scalable</span>
+      </div>
+    </div>
+
+  </div>
+</section>

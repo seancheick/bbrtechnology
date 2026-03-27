@@ -1,0 +1,397 @@
+<!-- ==========================================
+     SERVICES HERO
+     ========================================== -->
+<section class="bbr-section" style="padding:80px 0 60px;position:relative;overflow:hidden;">
+  <div class="bbr-hero__grid"></div>
+  <div class="bbr-hero__glow-1"></div>
+
+  <div class="bbr-container" style="position:relative;z-index:2;text-align:center;">
+    <div class="bbr-reveal">
+      <span class="bbr-label" style="display:inline-block;padding:6px 16px;background:var(--bbr-accent-glow);border:1px solid rgba(37,99,235,0.15);border-radius:100px;margin-bottom:20px;">What We Do</span>
+    </div>
+
+    <h1 class="bbr-display bbr-reveal" style="font-size:clamp(36px, 5.5vw, 64px);margin-bottom:20px;">
+      Digital Systems That <br>
+      <span class="bbr-gradient-text">Actually Move the Needle</span>
+    </h1>
+
+    <p class="bbr-body bbr-reveal" style="font-size:clamp(16px, 1.8vw, 19px);max-width:600px;margin:0 auto 40px;line-height:1.7;">
+      We don't just build websites. We design complete digital systems — from your first online presence to advanced automation — so you can focus on running your business while your tech works for you.
+    </p>
+
+    <div class="bbr-reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+      <a href="#svc-web" class="bbr-btn bbr-btn--secondary" style="font-size:13px;padding:10px 20px;">Web &amp; Mobile</a>
+      <a href="#svc-ai" class="bbr-btn bbr-btn--secondary" style="font-size:13px;padding:10px 20px;">AI &amp; Automation</a>
+      <a href="#svc-seo" class="bbr-btn bbr-btn--secondary" style="font-size:13px;padding:10px 20px;">SEO &amp; Growth</a>
+      <a href="#svc-data" class="bbr-btn bbr-btn--secondary" style="font-size:13px;padding:10px 20px;">Data &amp; Insights</a>
+      <a href="#svc-it" class="bbr-btn bbr-btn--secondary" style="font-size:13px;padding:10px 20px;">IT Support</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================
+     SERVICE 1: Web & Mobile Development
+     ========================================== -->
+<section id="svc-web" class="bbr-section bbr-section--alt">
+  <div class="bbr-container">
+    <div class="bbr-reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+
+      <!-- Left: Content -->
+      <div>
+        <span class="bbr-label" style="display:inline-block;padding:6px 16px;background:var(--bbr-accent-glow);border:1px solid rgba(37,99,235,0.15);border-radius:100px;margin-bottom:16px;">Core Service</span>
+        <h2 class="bbr-heading" style="font-size:clamp(26px, 3.5vw, 38px);margin-bottom:16px;">Web &amp; Mobile Development</h2>
+        <p class="bbr-body" style="font-size:16px;margin-bottom:24px;line-height:1.75;">
+          Your website is more than a brochure — it's the engine of your business. We build fast, responsive, SEO-ready sites and mobile apps that look great, load quickly, and convert visitors into customers. Every project is architected for growth, so you're never stuck rebuilding from scratch when your business scales.
+        </p>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">What We Deliver</h3>
+        <ul class="bbr-card__features" style="margin-bottom:28px;">
+          <li>Custom business websites built with React, Next.js, or WordPress</li>
+          <li>Shopify and WooCommerce eCommerce stores</li>
+          <li>iOS and Android mobile applications</li>
+          <li>Landing pages optimized for lead generation and conversions</li>
+          <li>Portfolio and personal brand sites</li>
+          <li>UX/UI design with performance and accessibility baked in</li>
+        </ul>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">Who This Is For</h3>
+        <p class="bbr-body" style="font-size:14px;line-height:1.7;">
+          Founders launching their first site, established businesses needing a redesign, creators building a personal brand, and startups that need an MVP shipped fast without cutting corners.
+        </p>
+      </div>
+
+      <!-- Right: Visual Card Stack -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="bbr-metric">
+          <div class="bbr-metric__value">React</div>
+          <div class="bbr-metric__label">Next.js &amp; Modern Stacks</div>
+          <div class="bbr-metric__sub">Fast, SEO-optimized, maintainable codebases built to last.</div>
+        </div>
+        <div class="bbr-metric">
+          <div class="bbr-metric__value">Mobile</div>
+          <div class="bbr-metric__label">iOS &amp; Android Apps</div>
+          <div class="bbr-metric__sub">Cross-platform development with Flutter for native performance.</div>
+        </div>
+        <div class="bbr-metric">
+          <div class="bbr-metric__value">eCommerce</div>
+          <div class="bbr-metric__label">Shopify &amp; WooCommerce</div>
+          <div class="bbr-metric__sub">Fully configured stores with payment, inventory, and shipping.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      #svc-web .bbr-container > div { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</section>
+
+
+<!-- ==========================================
+     SERVICE 2: AI & Automation
+     ========================================== -->
+<section id="svc-ai" class="bbr-section">
+  <div class="bbr-container">
+    <div class="bbr-reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+
+      <!-- Left: Visual -->
+      <div style="display:flex;flex-direction:column;gap:16px;order:1;">
+        <div class="bbr-card" style="border-left:3px solid var(--bbr-accent);">
+          <h3 style="font-size:17px;">Workflow Automation</h3>
+          <p style="font-size:13.5px;">Connect your tools — CRM, email, scheduling, invoicing — into automated workflows that run while you sleep. Built with Zapier, Make, and custom integrations.</p>
+        </div>
+        <div class="bbr-card" style="border-left:3px solid var(--bbr-accent-2);">
+          <h3 style="font-size:17px;">AI Chatbots &amp; Assistants</h3>
+          <p style="font-size:13.5px;">Custom AI chatbots embedded on your website for 24/7 customer support, lead qualification, FAQ handling, and appointment booking — trained on your business data.</p>
+        </div>
+        <div class="bbr-card" style="border-left:3px solid var(--bbr-success);">
+          <h3 style="font-size:17px;">Smart Onboarding Flows</h3>
+          <p style="font-size:13.5px;">Automated intake forms, lead scoring, and client onboarding sequences that eliminate manual busywork and reduce response time.</p>
+        </div>
+      </div>
+
+      <!-- Right: Content -->
+      <div style="order:2;">
+        <span class="bbr-label" style="display:inline-block;padding:6px 16px;background:var(--bbr-accent-glow);border:1px solid rgba(37,99,235,0.15);border-radius:100px;margin-bottom:16px;">Key Differentiator</span>
+        <h2 class="bbr-heading" style="font-size:clamp(26px, 3.5vw, 38px);margin-bottom:16px;">AI &amp; Automation Solutions</h2>
+        <p class="bbr-body" style="font-size:16px;margin-bottom:24px;line-height:1.75;">
+          This is what sets us apart. While other agencies treat AI as a buzzword, we implement it as practical infrastructure. We identify the repetitive tasks eating your time, then build automation systems that handle them — accurately, consistently, and at scale.
+        </p>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">What We Deliver</h3>
+        <ul class="bbr-card__features" style="margin-bottom:28px;">
+          <li>AI chatbots for customer support, lead capture, and FAQ automation</li>
+          <li>Custom GPT-powered internal assistants</li>
+          <li>Zapier and Make workflow automation</li>
+          <li>CRM automation and pipeline management</li>
+          <li>Smart forms with conditional logic and AI processing</li>
+          <li>Internal tools that replace manual spreadsheet work</li>
+          <li>AI-powered onboarding and client intake flows</li>
+        </ul>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">Who This Is For</h3>
+        <p class="bbr-body" style="font-size:14px;line-height:1.7;">
+          Solopreneurs drowning in admin work, service businesses with repetitive client intake, growing teams that need structure without hiring more people, and anyone spending hours on tasks a machine could do better.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      #svc-ai .bbr-container > div { grid-template-columns: 1fr !important; }
+      #svc-ai .bbr-container > div > div:first-child { order: 2 !important; }
+      #svc-ai .bbr-container > div > div:last-child { order: 1 !important; }
+    }
+  </style>
+</section>
+
+
+<!-- ==========================================
+     SERVICE 3: SEO & Growth Marketing
+     ========================================== -->
+<section id="svc-seo" class="bbr-section bbr-section--alt">
+  <div class="bbr-container">
+    <div class="bbr-reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+
+      <!-- Left: Content -->
+      <div>
+        <span class="bbr-label" style="display:inline-block;padding:6px 16px;background:var(--bbr-accent-glow);border:1px solid rgba(37,99,235,0.15);border-radius:100px;margin-bottom:16px;">Long-Term Value</span>
+        <h2 class="bbr-heading" style="font-size:clamp(26px, 3.5vw, 38px);margin-bottom:16px;">SEO &amp; Growth Marketing</h2>
+        <p class="bbr-body" style="font-size:16px;margin-bottom:24px;line-height:1.75;">
+          Getting found online isn't optional — it's survival. We implement technical SEO foundations, content strategies, and local search optimization that compound over time. No black-hat tricks, no empty promises — just methodical work that builds real organic traffic and turns searchers into paying customers.
+        </p>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">What We Deliver</h3>
+        <ul class="bbr-card__features" style="margin-bottom:28px;">
+          <li>Technical SEO audits and fixes (speed, structure, indexing)</li>
+          <li>On-page optimization for target keywords</li>
+          <li>Local SEO for service-based businesses (Google Business, citations)</li>
+          <li>Content strategy and ranking roadmaps</li>
+          <li>Conversion rate optimization (CRO)</li>
+          <li>Personal and business brand positioning</li>
+        </ul>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">Who This Is For</h3>
+        <p class="bbr-body" style="font-size:14px;line-height:1.7;">
+          Local businesses that depend on "near me" searches, eCommerce stores competing for product keywords, consultants building authority in their niche, and any business with a website that isn't generating leads.
+        </p>
+      </div>
+
+      <!-- Right: Visual -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="bbr-metric">
+          <div class="bbr-metric__value">Technical</div>
+          <div class="bbr-metric__label">Site Speed &amp; Structure</div>
+          <div class="bbr-metric__sub">Core Web Vitals, crawlability, schema markup, and indexing fixes.</div>
+        </div>
+        <div class="bbr-metric">
+          <div class="bbr-metric__value">Local</div>
+          <div class="bbr-metric__label">Google Business &amp; Maps</div>
+          <div class="bbr-metric__sub">Optimized profiles, citations, and review strategy for local ranking.</div>
+        </div>
+        <div class="bbr-metric">
+          <div class="bbr-metric__value">Content</div>
+          <div class="bbr-metric__label">Strategy &amp; Execution</div>
+          <div class="bbr-metric__sub">Keyword research, content calendars, and pages that rank and convert.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      #svc-seo .bbr-container > div { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</section>
+
+
+<!-- ==========================================
+     SERVICE 4: Data & Insights
+     ========================================== -->
+<section id="svc-data" class="bbr-section">
+  <div class="bbr-container">
+    <div class="bbr-reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+
+      <!-- Left: Visual -->
+      <div style="display:flex;flex-direction:column;gap:16px;order:1;">
+        <div class="bbr-card" style="border-left:3px solid var(--bbr-accent);">
+          <h3 style="font-size:17px;">Analytics Setup</h3>
+          <p style="font-size:13.5px;">Proper GA4 configuration with event tracking, conversion goals, and UTM frameworks so you know exactly where your traffic and revenue come from.</p>
+        </div>
+        <div class="bbr-card" style="border-left:3px solid var(--bbr-accent-2);">
+          <h3 style="font-size:17px;">Custom Dashboards</h3>
+          <p style="font-size:13.5px;">Visual dashboards in Looker Studio, Tableau, or Power BI that turn raw data into decisions — updated automatically, no spreadsheet wrangling.</p>
+        </div>
+        <div class="bbr-card" style="border-left:3px solid var(--bbr-success);">
+          <h3 style="font-size:17px;">Data Storytelling</h3>
+          <p style="font-size:13.5px;">Clear, visual reports designed for founders and stakeholders. We translate numbers into narratives that drive action, not confusion.</p>
+        </div>
+      </div>
+
+      <!-- Right: Content -->
+      <div style="order:2;">
+        <span class="bbr-label" style="display:inline-block;padding:6px 16px;background:var(--bbr-accent-glow);border:1px solid rgba(37,99,235,0.15);border-radius:100px;margin-bottom:16px;">Insight Engine</span>
+        <h2 class="bbr-heading" style="font-size:clamp(26px, 3.5vw, 38px);margin-bottom:16px;">Data Analysis &amp; Visualization</h2>
+        <p class="bbr-body" style="font-size:16px;margin-bottom:24px;line-height:1.75;">
+          You can't improve what you don't measure. We set up proper analytics, build custom dashboards, and deliver clear reporting that helps you make smarter decisions faster. No more guessing whether your marketing is working or where your revenue is coming from.
+        </p>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">What We Deliver</h3>
+        <ul class="bbr-card__features" style="margin-bottom:28px;">
+          <li>Google Analytics 4 setup with custom events and goals</li>
+          <li>Looker Studio, Tableau, and Power BI dashboards</li>
+          <li>Traffic, sales, and performance reporting</li>
+          <li>Funnel analysis and conversion tracking</li>
+          <li>Decision-focused data storytelling for teams and investors</li>
+        </ul>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">Who This Is For</h3>
+        <p class="bbr-body" style="font-size:14px;line-height:1.7;">
+          Startups that need investor-ready metrics, eCommerce brands tracking multi-channel performance, marketing teams that want clarity on ROI, and founders who are tired of flying blind.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      #svc-data .bbr-container > div { grid-template-columns: 1fr !important; }
+      #svc-data .bbr-container > div > div:first-child { order: 2 !important; }
+      #svc-data .bbr-container > div > div:last-child { order: 1 !important; }
+    }
+  </style>
+</section>
+
+
+<!-- ==========================================
+     SERVICE 5: IT Support & Maintenance
+     ========================================== -->
+<section id="svc-it" class="bbr-section bbr-section--alt">
+  <div class="bbr-container">
+    <div class="bbr-reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+
+      <!-- Left: Content -->
+      <div>
+        <span class="bbr-label" style="display:inline-block;padding:6px 16px;background:var(--bbr-accent-glow);border:1px solid rgba(37,99,235,0.15);border-radius:100px;margin-bottom:16px;">Trust &amp; Retention</span>
+        <h2 class="bbr-heading" style="font-size:clamp(26px, 3.5vw, 38px);margin-bottom:16px;">IT Support &amp; Maintenance</h2>
+        <p class="bbr-body" style="font-size:16px;margin-bottom:24px;line-height:1.75;">
+          We don't build and disappear. Your website, apps, and systems need ongoing care — security updates, performance tuning, bug fixes, and someone to call when something breaks. We act as your on-call technical team so you never have to scramble for help or worry about downtime.
+        </p>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">What We Deliver</h3>
+        <ul class="bbr-card__features" style="margin-bottom:28px;">
+          <li>Website and application maintenance</li>
+          <li>Proactive system monitoring and health checks</li>
+          <li>Security patches and software updates</li>
+          <li>Office IT setup (networks, devices, software provisioning)</li>
+          <li>Troubleshooting and ongoing technical support</li>
+          <li>Preventive maintenance and performance optimization</li>
+        </ul>
+
+        <h3 class="bbr-heading" style="font-size:16px;margin-bottom:12px;">Who This Is For</h3>
+        <p class="bbr-body" style="font-size:14px;line-height:1.7;">
+          Any business that depends on its website being up and fast, teams without a dedicated IT person, growing companies that need reliable infrastructure, and anyone who's been burned by a developer who disappeared after launch.
+        </p>
+      </div>
+
+      <!-- Right: Visual -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="bbr-metric">
+          <div class="bbr-metric__value" style="font-size:28px;">Proactive</div>
+          <div class="bbr-metric__label">System Monitoring</div>
+          <div class="bbr-metric__sub">We catch issues before they become outages. Regular health checks and alerts.</div>
+        </div>
+        <div class="bbr-metric">
+          <div class="bbr-metric__value" style="font-size:28px;">Secure</div>
+          <div class="bbr-metric__label">Updates &amp; Patches</div>
+          <div class="bbr-metric__sub">WordPress, plugins, server software — kept current and vulnerability-free.</div>
+        </div>
+        <div class="bbr-metric">
+          <div class="bbr-metric__value" style="font-size:28px;">Reliable</div>
+          <div class="bbr-metric__label">Ongoing Support</div>
+          <div class="bbr-metric__sub">A real technical partner you can reach — not a ticket queue.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      #svc-it .bbr-container > div { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</section>
+
+
+<!-- ==========================================
+     ON-DEMAND SERVICES
+     ========================================== -->
+<section class="bbr-section">
+  <div class="bbr-container" style="max-width:800px;">
+
+    <div class="bbr-section-header bbr-reveal">
+      <span class="bbr-label">Expand When You Need To</span>
+      <h2 class="bbr-heading">On-Demand &amp; Partner-Led Services</h2>
+      <p class="bbr-body">Some needs don't fit a monthly retainer. For specialized work like cloud infrastructure and cybersecurity, we bring in vetted partners so you get expert-level execution without the overhead.</p>
+    </div>
+
+    <div class="bbr-grid bbr-grid--2 bbr-stagger">
+      <div class="bbr-card" style="text-align:center;">
+        <div class="bbr-card__icon" style="margin:0 auto 20px;background:var(--bbr-accent-2-glow);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        </div>
+        <h3>Cloud Infrastructure</h3>
+        <p>Scalable architecture, cloud migration, and server planning for businesses ready to grow beyond shared hosting.</p>
+      </div>
+
+      <div class="bbr-card" style="text-align:center;">
+        <div class="bbr-card__icon" style="margin:0 auto 20px;background:var(--bbr-accent-2-glow);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--bbr-accent-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Cybersecurity</h3>
+        <p>Security audits, compliance support, and advanced protection delivered through our vetted external partners.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ==========================================
+     CTA — BOTTOM OF PAGE
+     ========================================== -->
+<section class="bbr-section" style="padding:80px 0;position:relative;overflow:hidden;">
+  <div class="bbr-hero__glow-2" style="bottom:-20%;right:-10%;left:auto;"></div>
+
+  <div class="bbr-container" style="position:relative;z-index:2;max-width:700px;text-align:center;">
+    <div class="bbr-reveal">
+      <h2 class="bbr-heading" style="font-size:clamp(28px, 4vw, 42px);margin-bottom:16px;">
+        Not Sure Which Service You Need?
+      </h2>
+      <p class="bbr-body" style="font-size:17px;margin-bottom:32px;line-height:1.7;">
+        That's completely fine. Most of our clients start with a conversation, not a shopping cart. Tell us where you are and where you want to be — we'll recommend exactly what makes sense for your stage and budget.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
+        <a href="/#contact" class="bbr-btn bbr-btn--primary">
+          Start a Conversation
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="/#pricing" class="bbr-btn bbr-btn--secondary">View Pricing Models</a>
+      </div>
+
+      <p class="bbr-body" style="font-size:13px;margin-top:24px;color:var(--bbr-text-muted);">
+        No sales scripts. No pressure. Just an honest conversation about your goals.
+      </p>
+    </div>
+  </div>
+</section>
