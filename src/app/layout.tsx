@@ -72,7 +72,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="antialiased bg-bg text-navy-900" suppressHydrationWarning>
+      <body className="antialiased bg-bg text-foreground" suppressHydrationWarning>
         <Providers>
           <a
             href="#main-content"

@@ -88,8 +88,8 @@ function AnimatedBeamSVG({ paths }: { paths: BeamPath[] }) {
           100% { stroke-dashoffset: 0; }
         }
         @keyframes beam-out {
-          0% { stroke-dashoffset: -300; }
-          100% { stroke-dashoffset: 0; }
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: -300; }
         }
       `}</style>
     </svg>

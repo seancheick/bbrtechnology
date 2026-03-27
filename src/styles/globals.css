@@ -16,6 +16,10 @@
   --color-bg-alt: #fafafa;
   --color-border: #e2e5ee;
   --color-success: #22c55e;
+  /* text-foreground flips in dark mode, navy-900 stays fixed for backgrounds */
+  --color-foreground: #0f172a;
+  --color-foreground-muted: #475569;
+  --color-foreground-subtle: #94a3b8;
   --font-display: "Cabinet Grotesk", sans-serif;
   --font-body: "Satoshi", sans-serif;
 }
@@ -23,19 +27,20 @@
 .dark {
   --color-bg: #0a0f1a;
   --color-bg-alt: #111827;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-navy-900: #f8fafc;
-  --color-navy-600: #94a3b8;
-  --color-navy-400: #64748b;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-foreground: #f8fafc;
+  --color-foreground-muted: #94a3b8;
+  --color-foreground-subtle: #64748b;
 }
 
 @layer base {
   body {
     font-family: var(--font-body);
     background-color: var(--color-bg);
-    color: var(--color-navy-900);
+    color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
@@ -65,14 +70,7 @@
 }
 
 .gradient-text {
-  background: linear-gradient(to bottom right, #0f172a 30%, rgba(15, 23, 42, 0.4));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.dark .gradient-text {
-  background: linear-gradient(to bottom right, #ffffff 30%, rgba(255, 255, 255, 0.4));
+  background: linear-gradient(to bottom right, var(--color-foreground) 30%, color-mix(in srgb, var(--color-foreground) 40%, transparent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
