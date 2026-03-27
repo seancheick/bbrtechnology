@@ -139,7 +139,7 @@ export function Hero() {
               transition={{ duration: 0.52, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
             >
               <ShineButton
-                href="https://cal.com"
+                href="https://cal.com/bbrtechnology"
                 target="_blank"
                 rel="noopener noreferrer"
               >

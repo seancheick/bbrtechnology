@@ -27,7 +27,7 @@ export function CtaBanner() {
 
         <div className="mt-8">
           <ShineButton
-            href="https://cal.com"
+            href="https://cal.com/bbrtechnology"
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -65,7 +65,7 @@ export function Header() {
 
             {/* Book a Call CTA */}
             <ShineButton
-              href="https://cal.com"
+              href="https://cal.com/bbrtechnology"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -110,7 +110,7 @@ export function Header() {
             </Link>
           ))}
           <ShineButton
-            href="https://cal.com"
+            href="https://cal.com/bbrtechnology"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full justify-center"

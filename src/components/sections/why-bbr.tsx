@@ -47,22 +47,18 @@ export function WhyBbr() {
             </div>
           </motion.div>
 
-          <div className="grid gap-5 md:grid-cols-2 md:items-start">
+          <div className="grid gap-4 md:grid-cols-2">
             {differentiators.map((diff, index) => {
               const Icon = icons[index];
-              const featured = index === 0;
 
               return (
                 <motion.article
                   key={diff.title}
                   className={cn(
-                    "overflow-hidden rounded-[1.75rem] border border-border p-6 shadow-sm",
-                    featured
-                      ? "bg-[linear-gradient(145deg,color-mix(in_srgb,var(--color-bg-alt)_88%,transparent),var(--color-bg))] md:row-span-2"
-                      : "bg-bg-alt",
-                    index === 1 && "md:col-start-2 md:row-start-1",
-                    index === 3 && "md:col-start-2 md:row-start-2",
-                    index === 2 && "md:col-span-2 md:row-start-3"
+                    "flex h-full min-h-[15.5rem] flex-col overflow-hidden rounded-[1.75rem] border border-border p-6 shadow-sm",
+                    index === 0
+                      ? "bg-[linear-gradient(145deg,color-mix(in_srgb,var(--color-bg-alt)_88%,transparent),var(--color-bg))]"
+                      : "bg-bg-alt"
                   )}
                   {...fadeInUp}
                   transition={{
@@ -81,15 +77,19 @@ export function WhyBbr() {
                     {diff.description}
                   </p>
 
-                  {featured ? (
-                    <div className="mt-8 border-t border-border pt-5">
-                      <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                        <ArrowRight className="h-4 w-4 text-amber-600" />
-                        You work with the person thinking about the system, not
-                        just the ticket queue.
+                  {index === 0 ? (
+                    <div className="mt-auto pt-5">
+                      <div className="rounded-2xl border border-border bg-bg/70 px-4 py-4">
+                        <div className="flex items-start gap-2 text-sm font-medium leading-relaxed text-foreground">
+                          <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
+                          You work with the person thinking about the system,
+                          not just the ticket queue.
+                        </div>
                       </div>
                     </div>
-                  ) : null}
+                  ) : (
+                    <div className="mt-auto" />
+                  )}
                 </motion.article>
               );
             })}
@@ -117,16 +117,16 @@ export function WhyBbr() {
                   key={row[0]}
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                  className="grid items-center gap-3 rounded-[1.5rem] border border-border bg-bg p-4 md:grid-cols-[minmax(9rem,0.9fr)_repeat(3,minmax(0,1fr))]"
+                  className="grid items-stretch gap-3 rounded-[1.5rem] border border-border bg-bg p-4 md:grid-cols-[minmax(9rem,0.9fr)_repeat(3,minmax(0,1fr))]"
                 >
-                  <div className="text-xs font-semibold uppercase tracking-[0.22em] text-foreground-subtle">
+                  <div className="flex items-center text-xs font-semibold uppercase tracking-[0.22em] text-foreground-subtle">
                     {row[0]}
                   </div>
                   {row.slice(1).map((cell, cellIdx) => (
                     <div
                       key={`${row[0]}-${cellIdx}`}
                       className={cn(
-                        "rounded-2xl border px-4 py-3 text-sm leading-relaxed",
+                        "flex min-h-[5.75rem] h-full flex-col justify-between rounded-2xl border px-4 py-3 text-sm leading-relaxed",
                         cellIdx === 0
                           ? "border-emerald-200/80 bg-emerald-50/90 text-emerald-950 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-50"
                           : "border-rose-200/80 bg-rose-50/85 text-rose-950 dark:border-rose-900/60 dark:bg-rose-950/25 dark:text-rose-100"
@@ -134,7 +134,7 @@ export function WhyBbr() {
                     >
                       <div
                         className={cn(
-                          "text-[11px] font-semibold uppercase tracking-[0.22em]",
+                          "min-h-[2rem] text-[11px] font-semibold uppercase tracking-[0.22em]",
                           cellIdx === 0
                             ? "text-emerald-700 dark:text-emerald-300"
                             : "text-rose-700 dark:text-rose-300"

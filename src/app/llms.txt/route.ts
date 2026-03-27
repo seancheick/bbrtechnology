@@ -33,7 +33,7 @@ This file is a compact guide for AI assistants and retrieval systems. Canonical 
 ## Contact
 - Email: hello@bbrtechnology.com
 - Phone: +1 646 726 8345
-- Discovery call: https://cal.com
+- Discovery call: https://cal.com/bbrtechnology
 `;
 
 export async function GET() {
