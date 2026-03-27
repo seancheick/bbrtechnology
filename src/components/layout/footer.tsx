@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MagneticDock } from "@/components/ui/magnetic-dock";
 
 const currentYear = new Date().getFullYear();
 
@@ -7,7 +8,7 @@ export function Footer() {
     <footer className="bg-navy-950 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         {/* Top section: logo + tagline + columns */}
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           {/* Logo + tagline */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-0.5 font-[family-name:var(--font-display)] text-xl font-extrabold text-white">
@@ -42,34 +43,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Connect */}
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white mb-4">
-              Connect
-            </h3>
-            <ul className="flex flex-col gap-3">
-              {[
-                {
-                  href: "https://linkedin.com/company/bbrtechnology",
-                  label: "LinkedIn",
-                },
-                { href: "https://twitter.com/bbrtechnology", label: "Twitter / X" },
-                { href: "https://github.com/bbrtechnology", label: "GitHub" },
-              ].map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-navy-400 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Direct */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-white mb-4">
@@ -94,6 +67,11 @@ export function Footer() {
               </li>
             </ul>
           </div>
+        </div>
+
+        {/* Magnetic Social Dock — visual centerpiece */}
+        <div className="mt-12 flex justify-center">
+          <MagneticDock />
         </div>
 
         {/* Divider */}

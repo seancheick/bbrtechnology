@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ShineButton } from "@/components/effects/shine-button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -14,15 +14,8 @@ const navLinks = [
 ];
 
 export function Header() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  // Avoid hydration mismatch for theme toggle
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -31,10 +24,6 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   return (
     <header
@@ -72,21 +61,7 @@ export function Header() {
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
             {/* Theme toggle */}
-            <button
-              onClick={toggleTheme}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-navy-600 hover:text-navy-900 hover:bg-bg-alt transition-colors"
-              aria-label="Toggle theme"
-            >
-              {mounted ? (
-                theme === "dark" ? (
-                  <Sun className="h-4 w-4" />
-                ) : (
-                  <Moon className="h-4 w-4" />
-                )
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
-            </button>
+            <ThemeToggle />
 
             {/* Book a Call CTA */}
             <ShineButton
@@ -100,21 +75,7 @@ export function Header() {
 
           {/* Mobile: theme toggle + hamburger */}
           <div className="flex md:hidden items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-navy-600 hover:text-navy-900 hover:bg-bg-alt transition-colors"
-              aria-label="Toggle theme"
-            >
-              {mounted ? (
-                theme === "dark" ? (
-                  <Sun className="h-4 w-4" />
-                ) : (
-                  <Moon className="h-4 w-4" />
-                )
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
-            </button>
+            <ThemeToggle />
             <button
               onClick={() => setMobileOpen((prev) => !prev)}
               className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-navy-600 hover:text-navy-900 hover:bg-bg-alt transition-colors"
