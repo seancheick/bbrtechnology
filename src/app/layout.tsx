@@ -6,9 +6,9 @@ import "@/styles/globals.css";
 
 const siteUrl = "https://bbrtechnology.com";
 const siteTitle =
-  "B&Br Technology — Automation Systems for Founders Who Need Leverage";
+  "B&Br Technology — Custom Software & Automation for Service Teams";
 const siteDescription =
-  "Founder-led studio building automation systems, internal tools, and product layers that reduce manual work and help lean teams scale.";
+  "Engineering team building custom web apps, mobile apps, and workflow automation systems for service businesses and operator-led teams.";
 
 export const metadata: Metadata = {
   title: siteTitle,
