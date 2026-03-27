@@ -65,8 +65,8 @@ function DockIcon({ href, label, children }: DockIconProps) {
     return val - (rect.x + rect.width / 2);
   });
 
-  // Map distance to size: close → 60, far → 48
-  const sizeRaw = useTransform(distance, [-100, 0, 100], [48, 60, 48]);
+  // Map distance to size: close → 40, far → 32 (compact)
+  const sizeRaw = useTransform(distance, [-80, 0, 80], [32, 40, 32]);
   const size = useSpring(sizeRaw, { mass: 0.1, stiffness: 200, damping: 15 });
 
   return (
@@ -93,22 +93,22 @@ const socialLinks = [
   {
     href: "https://github.com/bbrtechnology",
     label: "GitHub",
-    icon: <GithubIcon className="h-5 w-5" />,
+    icon: <GithubIcon className="h-4 w-4" />,
   },
   {
     href: "https://linkedin.com/company/bbrtechnology",
     label: "LinkedIn",
-    icon: <LinkedinIcon className="h-5 w-5" />,
+    icon: <LinkedinIcon className="h-4 w-4" />,
   },
   {
     href: "https://twitter.com/bbrtechnology",
     label: "Twitter / X",
-    icon: <XIcon className="h-5 w-5" />,
+    icon: <XIcon className="h-4 w-4" />,
   },
   {
     href: "mailto:hello@bbrtechnology.com",
     label: "Email",
-    icon: <Mail className="h-5 w-5" />,
+    icon: <Mail className="h-4 w-4" />,
   },
 ];
 
@@ -120,7 +120,7 @@ export function MagneticDock() {
       <motion.div
         onMouseMove={(e: React.MouseEvent) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
-        className="mx-auto flex items-end gap-3 rounded-2xl bg-white/5 backdrop-blur border border-white/10 px-4 pb-3 pt-8"
+        className="inline-flex items-end gap-2 rounded-xl bg-white/5 border border-white/10 px-3 pb-2 pt-4"
       >
         {socialLinks.map((link) => (
           <DockIcon key={link.href} href={link.href} label={link.label}>

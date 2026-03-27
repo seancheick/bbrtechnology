@@ -9,7 +9,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         {/* Top section: logo + tagline + columns */}
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-          {/* Logo + tagline */}
+          {/* Logo + tagline + social dock */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-0.5 font-[family-name:var(--font-display)] text-xl font-extrabold text-white">
               B&amp;Br
@@ -18,6 +18,9 @@ export function Footer() {
             <p className="mt-3 text-sm text-navy-400 leading-relaxed">
               AI-Powered Tech Studio · Boston, MA
             </p>
+            <div className="mt-4">
+              <MagneticDock />
+            </div>
           </div>
 
           {/* Pages */}
@@ -67,11 +70,6 @@ export function Footer() {
               </li>
             </ul>
           </div>
-        </div>
-
-        {/* Magnetic Social Dock — visual centerpiece */}
-        <div className="mt-12 flex justify-center">
-          <MagneticDock />
         </div>
 
         {/* Divider */}
