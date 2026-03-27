@@ -39,7 +39,7 @@ export function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-0.5 font-[family-name:var(--font-display)] text-xl font-extrabold text-navy-900"
+            className="flex items-center gap-0.5 font-[family-name:var(--font-display)] text-xl font-extrabold text-foreground"
           >
             B&amp;Br
             <span className="ml-0.5 inline-block h-1.5 w-1.5 rounded-full bg-amber-600" />
@@ -51,7 +51,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-navy-600 hover:text-navy-900 transition-colors"
+                className="text-sm font-medium text-foreground-muted hover:text-foreground transition-colors"
               >
                 {link.label}
               </Link>
@@ -78,7 +78,7 @@ export function Header() {
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-navy-600 hover:text-navy-900 hover:bg-bg-alt transition-colors"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground-muted hover:text-foreground hover:bg-bg-alt transition-colors"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
               {mobileOpen ? (
@@ -104,7 +104,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="text-sm font-medium text-navy-600 hover:text-navy-900 transition-colors py-1"
+              className="text-sm font-medium text-foreground-muted hover:text-foreground transition-colors py-1"
             >
               {link.label}
             </Link>

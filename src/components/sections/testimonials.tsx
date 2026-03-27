@@ -23,7 +23,7 @@ function TestimonialCard({
 }) {
   return (
     <div className="rounded-xl border border-border bg-bg p-6">
-      <p className="text-sm leading-relaxed text-navy-600">
+      <p className="text-sm leading-relaxed text-foreground-muted">
         &ldquo;{text}&rdquo;
       </p>
       <div className="mt-4 flex items-center gap-3">
@@ -35,8 +35,8 @@ function TestimonialCard({
           className="rounded-full"
         />
         <div>
-          <div className="text-sm font-medium text-navy-900">{name}</div>
-          <div className="text-xs text-navy-400">{role}</div>
+          <div className="text-sm font-medium text-foreground">{name}</div>
+          <div className="text-xs text-foreground-subtle">{role}</div>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@ export function Testimonials() {
           <span className="text-sm font-semibold uppercase tracking-widest text-amber-600">
             Testimonials
           </span>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             What Our Clients Say
           </h2>
         </div>

@@ -23,10 +23,10 @@ export function FaqSection() {
       <div className="mx-auto max-w-3xl px-6">
         {/* Section heading */}
         <div className="mb-10 text-center">
-          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Frequently Asked Questions
           </h2>
-          <p className="mt-2 text-navy-600">
+          <p className="mt-2 text-foreground-muted">
             Everything you need to know before we start working together.
           </p>
         </div>
@@ -41,7 +41,7 @@ export function FaqSection() {
                 "rounded-full px-4 py-2 text-sm font-medium transition-colors",
                 activeCategory === key
                   ? "bg-navy-900 text-gold-400"
-                  : "border border-border text-navy-600 hover:bg-bg hover:text-navy-900"
+                  : "border border-border text-foreground-muted hover:bg-bg hover:text-foreground"
               )}
             >
               {faqCategories[key]}
@@ -75,7 +75,7 @@ export function FaqSection() {
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                     className="flex w-full items-center justify-between px-6 py-4 text-left"
                   >
-                    <span className="pr-4 text-sm font-medium text-navy-900">
+                    <span className="pr-4 text-sm font-medium text-foreground">
                       {item.question}
                     </span>
                     <motion.span
@@ -83,7 +83,7 @@ export function FaqSection() {
                       transition={{ duration: 0.2 }}
                       className="shrink-0"
                     >
-                      <Plus className="h-4 w-4 text-navy-400" />
+                      <Plus className="h-4 w-4 text-foreground-subtle" />
                     </motion.span>
                   </button>
 
@@ -99,7 +99,7 @@ export function FaqSection() {
                         }}
                         className="overflow-hidden"
                       >
-                        <div className="px-6 pb-4 text-sm leading-relaxed text-navy-600">
+                        <div className="px-6 pb-4 text-sm leading-relaxed text-foreground-muted">
                           {item.answer}
                         </div>
                       </motion.div>

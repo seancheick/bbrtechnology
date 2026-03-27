@@ -164,7 +164,7 @@ export default function ServicesPage() {
               </span>
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-navy-600">
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground-muted">
               We don&apos;t just build websites. We design complete digital systems
               — from your first online presence to advanced automation — so you can
               focus on running your business while your tech works for you.
@@ -203,18 +203,18 @@ export default function ServicesPage() {
               {service.title}
             </h2>
 
-            <p className="mt-4 text-navy-600 leading-relaxed">
+            <p className="mt-4 text-foreground-muted leading-relaxed">
               {service.description}
             </p>
 
-            <h3 className="mt-8 text-xs font-semibold uppercase tracking-widest text-navy-400">
+            <h3 className="mt-8 text-xs font-semibold uppercase tracking-widest text-foreground-subtle">
               What We Deliver
             </h3>
             <ul className="mt-3 space-y-2">
               {service.deliverables.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-2 text-sm text-navy-600"
+                  className="flex items-start gap-2 text-sm text-foreground-muted"
                 >
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />
                   {item}
@@ -222,10 +222,10 @@ export default function ServicesPage() {
               ))}
             </ul>
 
-            <h3 className="mt-8 text-xs font-semibold uppercase tracking-widest text-navy-400">
+            <h3 className="mt-8 text-xs font-semibold uppercase tracking-widest text-foreground-subtle">
               Who This Is For
             </h3>
-            <p className="mt-3 text-sm text-navy-600 leading-relaxed">
+            <p className="mt-3 text-sm text-foreground-muted leading-relaxed">
               {service.audience}
             </p>
           </div>
@@ -238,7 +238,7 @@ export default function ServicesPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-navy-900">
                 <Icon className="h-6 w-6 text-gold-400" />
               </div>
-              <span className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900">
+              <span className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground">
                 {service.tagline}
               </span>
             </div>
@@ -249,10 +249,10 @@ export default function ServicesPage() {
                 key={card.title}
                 className={`rounded-lg border border-border bg-bg p-5 border-l-4 ${accent} shadow-sm`}
               >
-                <h4 className="font-[family-name:var(--font-display)] font-bold text-navy-900">
+                <h4 className="font-[family-name:var(--font-display)] font-bold text-foreground">
                   {card.title}
                 </h4>
-                <p className="mt-2 text-sm text-navy-600 leading-relaxed">
+                <p className="mt-2 text-sm text-foreground-muted leading-relaxed">
                   {card.description}
                 </p>
               </div>
@@ -297,7 +297,7 @@ export default function ServicesPage() {
               On-Demand &amp; Partner-Led Services
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-navy-600">
+            <p className="mx-auto mt-4 max-w-2xl text-foreground-muted">
               Some needs don&apos;t fit a monthly retainer. For specialized work
               like cloud infrastructure and cybersecurity, we bring in vetted
               partners so you get expert-level execution without the overhead.
@@ -311,10 +311,10 @@ export default function ServicesPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 mb-4">
                   <Cloud className="h-5 w-5 text-gold-400" />
                 </div>
-                <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-navy-900">
+                <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-foreground">
                   Cloud Infrastructure
                 </h3>
-                <p className="mt-3 text-sm text-navy-600 leading-relaxed">
+                <p className="mt-3 text-sm text-foreground-muted leading-relaxed">
                   Scalable architecture, cloud migration, and server planning for
                   businesses ready to grow beyond shared hosting.
                 </p>
@@ -327,10 +327,10 @@ export default function ServicesPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 mb-4">
                   <ShieldCheck className="h-5 w-5 text-gold-400" />
                 </div>
-                <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-navy-900">
+                <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-foreground">
                   Cybersecurity
                 </h3>
-                <p className="mt-3 text-sm text-navy-600 leading-relaxed">
+                <p className="mt-3 text-sm text-foreground-muted leading-relaxed">
                   Security audits, compliance support, and advanced protection
                   delivered through our vetted external partners.
                 </p>

@@ -165,10 +165,10 @@ export function AnimatedBeamSection() {
           <span className="text-sm font-semibold uppercase tracking-widest text-amber-600">
             How It Works
           </span>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Everything Flows Into One System
           </h2>
-          <p className="mt-3 text-navy-600 max-w-xl mx-auto">
+          <p className="mt-3 text-foreground-muted max-w-xl mx-auto">
             Your pain points flow in. Solutions flow out. B&Br is the engine in the middle.
           </p>
         </div>
@@ -205,10 +205,10 @@ export function AnimatedBeamSection() {
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="text-sm font-bold text-navy-900 block">
+                    <span className="text-sm font-bold text-foreground block">
                       {item.label}
                     </span>
-                    <span className="text-xs text-navy-400 block mt-0.5">
+                    <span className="text-xs text-foreground-subtle block mt-0.5">
                       {item.sublabel}
                     </span>
                   </div>
@@ -253,10 +253,10 @@ export function AnimatedBeamSection() {
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="text-sm font-bold text-navy-900 block">
+                    <span className="text-sm font-bold text-foreground block">
                       {item.label}
                     </span>
-                    <span className="text-xs text-navy-400 block mt-0.5">
+                    <span className="text-xs text-foreground-subtle block mt-0.5">
                       {item.sublabel}
                     </span>
                   </div>

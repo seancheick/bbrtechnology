@@ -81,7 +81,7 @@ export default function ContactPage() {
             <span className="gradient-text">That Actually Works</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-navy-600">
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground-muted">
             Tell us where you are and where you want to be. We&apos;ll tell you
             honestly whether we&apos;re the right fit.
           </p>
@@ -96,7 +96,7 @@ export default function ContactPage() {
             <ScrollReveal className="lg:col-span-2 space-y-8">
               {/* What Happens Next */}
               <div className="rounded-xl border border-border bg-bg p-6 shadow-sm">
-                <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900 mb-6">
+                <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground mb-6">
                   What Happens Next
                 </h3>
 
@@ -107,10 +107,10 @@ export default function ContactPage() {
                         {step.number}
                       </div>
                       <div>
-                        <h4 className="font-medium text-navy-900 text-sm">
+                        <h4 className="font-medium text-foreground text-sm">
                           {step.title}
                         </h4>
-                        <p className="mt-1 text-sm text-navy-600">
+                        <p className="mt-1 text-sm text-foreground-muted">
                           {step.description}
                         </p>
                       </div>
@@ -121,27 +121,27 @@ export default function ContactPage() {
 
               {/* Reach Us Directly */}
               <div className="rounded-xl border border-border bg-bg p-6 shadow-sm">
-                <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900 mb-5">
+                <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground mb-5">
                   Reach Us Directly
                 </h3>
 
                 <div className="space-y-4">
                   <a
                     href="mailto:hello@bbrtechnology.com"
-                    className="flex items-center gap-3 text-sm text-navy-600 hover:text-amber-600 transition-colors group"
+                    className="flex items-center gap-3 text-sm text-foreground-muted hover:text-amber-600 transition-colors group"
                   >
-                    <Mail className="h-4 w-4 text-navy-400 group-hover:text-amber-600 transition-colors" />
+                    <Mail className="h-4 w-4 text-foreground-subtle group-hover:text-amber-600 transition-colors" />
                     hello@bbrtechnology.com
                   </a>
                   <a
                     href="tel:+16467268345"
-                    className="flex items-center gap-3 text-sm text-navy-600 hover:text-amber-600 transition-colors group"
+                    className="flex items-center gap-3 text-sm text-foreground-muted hover:text-amber-600 transition-colors group"
                   >
-                    <Phone className="h-4 w-4 text-navy-400 group-hover:text-amber-600 transition-colors" />
+                    <Phone className="h-4 w-4 text-foreground-subtle group-hover:text-amber-600 transition-colors" />
                     (646) 726-8345
                   </a>
-                  <div className="flex items-center gap-3 text-sm text-navy-600">
-                    <MapPin className="h-4 w-4 text-navy-400" />
+                  <div className="flex items-center gap-3 text-sm text-foreground-muted">
+                    <MapPin className="h-4 w-4 text-foreground-subtle" />
                     Boston, MA
                   </div>
                 </div>
@@ -152,7 +152,7 @@ export default function ContactPage() {
                 {trustSignals.map((signal) => (
                   <div
                     key={signal}
-                    className="flex items-center gap-2.5 text-sm text-navy-600"
+                    className="flex items-center gap-2.5 text-sm text-foreground-muted"
                   >
                     <Check className="h-4 w-4 shrink-0 text-success" />
                     {signal}

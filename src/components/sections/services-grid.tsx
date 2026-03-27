@@ -44,7 +44,7 @@ export function ServicesGrid() {
           <span className="text-sm font-semibold uppercase tracking-widest text-amber-600">
             What We Build
           </span>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Systems Built to Scale
           </h2>
         </div>
@@ -117,7 +117,7 @@ export function ServicesGrid() {
                       <div>
                         <h3
                           className={cn(
-                            "font-[family-name:var(--font-display)] font-bold text-navy-900",
+                            "font-[family-name:var(--font-display)] font-bold text-foreground",
                             isLarge ? "text-xl" : "text-lg"
                           )}
                         >
@@ -138,7 +138,7 @@ export function ServicesGrid() {
                         "shrink-0 rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
                         isExpanded
                           ? "bg-navy-900 text-gold-400"
-                          : "bg-bg-alt text-navy-600 group-hover:bg-navy-900 group-hover:text-gold-400"
+                          : "bg-bg-alt text-foreground-muted group-hover:bg-navy-900 group-hover:text-gold-400"
                       )}
                     >
                       {isExpanded ? "Less" : "More"}
@@ -148,7 +148,7 @@ export function ServicesGrid() {
                   {/* Tagline */}
                   <p
                     className={cn(
-                      "mt-4 text-sm leading-relaxed text-navy-600",
+                      "mt-4 text-sm leading-relaxed text-foreground-muted",
                       isLarge && "md:max-w-lg"
                     )}
                   >
@@ -175,18 +175,18 @@ export function ServicesGrid() {
                       className="overflow-hidden relative z-10"
                     >
                       <div className="mt-4 border-t border-border pt-4">
-                        <p className="text-sm leading-relaxed text-navy-600">
+                        <p className="text-sm leading-relaxed text-foreground-muted">
                           {service.description}
                         </p>
 
-                        <h4 className="mt-4 text-xs font-semibold uppercase tracking-widest text-navy-400">
+                        <h4 className="mt-4 text-xs font-semibold uppercase tracking-widest text-foreground-subtle">
                           What We Deliver
                         </h4>
                         <ul className="mt-2 space-y-1.5">
                           {service.deliverables.map((item) => (
                             <li
                               key={item}
-                              className="flex items-start gap-2 text-sm text-navy-600"
+                              className="flex items-start gap-2 text-sm text-foreground-muted"
                             >
                               <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />
                               {item}
@@ -194,10 +194,10 @@ export function ServicesGrid() {
                           ))}
                         </ul>
 
-                        <h4 className="mt-4 text-xs font-semibold uppercase tracking-widest text-navy-400">
+                        <h4 className="mt-4 text-xs font-semibold uppercase tracking-widest text-foreground-subtle">
                           Who This Is For
                         </h4>
-                        <p className="mt-2 text-sm leading-relaxed text-navy-600">
+                        <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
                           {service.audience}
                         </p>
                       </div>

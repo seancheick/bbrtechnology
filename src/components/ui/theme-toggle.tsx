@@ -19,11 +19,11 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <div className="flex h-9 items-center rounded-full bg-navy-900/10 dark:bg-white/10 border border-border px-1">
-        <div className="flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium text-navy-600">
+        <div className="flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium text-foreground-muted">
           <Sun className="h-3.5 w-3.5" />
           <span>Light</span>
         </div>
-        <div className="flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium text-navy-600">
+        <div className="flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium text-foreground-muted">
           <Moon className="h-3.5 w-3.5" />
           <span>Dark</span>
         </div>
@@ -48,7 +48,7 @@ export function ThemeToggle() {
       <button
         onClick={() => setTheme("light")}
         className={`relative z-10 flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium transition-colors ${
-          !isDark ? "text-navy-900" : "text-navy-600"
+          !isDark ? "text-foreground" : "text-foreground-muted"
         }`}
         aria-label="Switch to light theme"
       >
@@ -60,7 +60,7 @@ export function ThemeToggle() {
       <button
         onClick={() => setTheme("dark")}
         className={`relative z-10 flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium transition-colors ${
-          isDark ? "text-navy-900" : "text-navy-600"
+          isDark ? "text-foreground" : "text-foreground-muted"
         }`}
         aria-label="Switch to dark theme"
       >

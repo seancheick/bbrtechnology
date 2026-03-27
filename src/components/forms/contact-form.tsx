@@ -33,9 +33,9 @@ const sourceOptions = [
 ];
 
 const inputClasses =
-  "w-full rounded-lg border border-border bg-bg px-4 py-3 text-sm text-navy-900 placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-shadow";
+  "w-full rounded-lg border border-border bg-bg px-4 py-3 text-sm text-foreground placeholder:text-foreground-subtle focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-shadow";
 
-const labelClasses = "block text-sm font-medium text-navy-900 mb-1.5";
+const labelClasses = "block text-sm font-medium text-foreground mb-1.5";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -73,10 +73,10 @@ export function ContactForm() {
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-success/10 mb-6">
             <CheckCircle className="h-8 w-8 text-success" />
           </div>
-          <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-navy-900">
+          <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-foreground">
             Message Sent!
           </h3>
-          <p className="mt-3 max-w-sm text-navy-600">
+          <p className="mt-3 max-w-sm text-foreground-muted">
             Thank you for reaching out. We&apos;ll review your inquiry and get
             back to you within 24 hours.
           </p>
@@ -98,10 +98,10 @@ export function ContactForm() {
       <div className="h-1 bg-gradient-to-r from-amber-600 to-gold-400" />
 
       <div className="p-8 sm:p-10">
-        <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-navy-900">
+        <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-foreground">
           Start a Conversation
         </h3>
-        <p className="mt-2 text-sm text-navy-600">
+        <p className="mt-2 text-sm text-foreground-muted">
           Fill out the form below and we&apos;ll get back to you within 24
           hours.
         </p>
@@ -296,7 +296,7 @@ export function ContactForm() {
             </p>
           )}
 
-          <p className="text-xs text-navy-400 text-center">
+          <p className="text-xs text-foreground-subtle text-center">
             We respect your privacy. No spam, no sales pressure, no data sharing
             — ever.
           </p>

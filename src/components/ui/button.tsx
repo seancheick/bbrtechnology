@@ -11,9 +11,9 @@ const buttonVariants = cva(
         default:
           "bg-navy-900 text-gold-400 hover:bg-navy-800",
         outline:
-          "border-2 border-border bg-transparent text-navy-900 hover:bg-bg-alt",
+          "border-2 border-border bg-transparent text-foreground hover:bg-bg-alt",
         ghost:
-          "bg-transparent text-navy-900 hover:bg-bg-alt",
+          "bg-transparent text-foreground hover:bg-bg-alt",
         link:
           "text-amber-600 underline-offset-4 hover:underline bg-transparent",
       },

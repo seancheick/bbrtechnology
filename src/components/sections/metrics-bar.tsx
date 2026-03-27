@@ -10,13 +10,13 @@ export function MetricsBar() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           {metrics.map((metric) => (
             <div key={metric.label} className="text-center">
-              <div className="font-[family-name:var(--font-display)] text-3xl font-extrabold tracking-tight tabular-nums text-navy-900 sm:text-4xl">
+              <div className="font-[family-name:var(--font-display)] text-3xl font-extrabold tracking-tight tabular-nums text-foreground sm:text-4xl">
                 {metric.value}
               </div>
-              <div className="mt-1 text-sm font-medium text-navy-900">
+              <div className="mt-1 text-sm font-medium text-foreground">
                 {metric.label}
               </div>
-              <div className="mt-0.5 text-xs text-navy-400">
+              <div className="mt-0.5 text-xs text-foreground-subtle">
                 {metric.sub}
               </div>
             </div>
@@ -36,7 +36,7 @@ export function MetricsBar() {
             {[...techStack, ...techStack].map((tech, i) => (
               <span
                 key={`${tech}-${i}`}
-                className="mx-6 whitespace-nowrap text-sm font-medium text-navy-400 transition-colors hover:text-navy-900"
+                className="mx-6 whitespace-nowrap text-sm font-medium text-foreground-subtle transition-colors hover:text-foreground"
               >
                 {tech}
               </span>

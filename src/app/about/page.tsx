@@ -75,7 +75,7 @@ export default function AboutPage() {
             <span className="gradient-text">Not by Hype.</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-navy-600">
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground-muted">
             We&apos;re a Boston-based digital studio that ships real systems for
             real businesses. No inflated promises, no trend-chasing — just
             precise, reliable technology that earns its place in your stack.
@@ -97,7 +97,7 @@ export default function AboutPage() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <div className="space-y-6 text-navy-600 leading-relaxed">
+            <div className="space-y-6 text-foreground-muted leading-relaxed">
               <p>
                 B&amp;Br Technology was founded by Sean Cheick Baradji — a
                 developer, systems architect, and first-generation American with
@@ -159,7 +159,7 @@ export default function AboutPage() {
                   </span>
                 </div>
 
-                <h3 className="mt-5 font-[family-name:var(--font-display)] text-xl font-bold text-navy-900">
+                <h3 className="mt-5 font-[family-name:var(--font-display)] text-xl font-bold text-foreground">
                   Sean Cheick Baradji
                 </h3>
                 <p className="text-sm text-amber-600 font-medium">
@@ -167,23 +167,23 @@ export default function AboutPage() {
                 </p>
 
                 <div className="mt-6 space-y-3 text-left">
-                  <div className="flex items-center gap-3 text-sm text-navy-600">
-                    <span className="text-navy-400">Location</span>
-                    <span className="ml-auto font-medium text-navy-900">
+                  <div className="flex items-center gap-3 text-sm text-foreground-muted">
+                    <span className="text-foreground-subtle">Location</span>
+                    <span className="ml-auto font-medium text-foreground">
                       Boston, MA
                     </span>
                   </div>
                   <div className="border-t border-border" />
-                  <div className="flex items-center gap-3 text-sm text-navy-600">
-                    <span className="text-navy-400">Focus</span>
-                    <span className="ml-auto font-medium text-navy-900">
+                  <div className="flex items-center gap-3 text-sm text-foreground-muted">
+                    <span className="text-foreground-subtle">Focus</span>
+                    <span className="ml-auto font-medium text-foreground">
                       Full-Stack &amp; AI Systems
                     </span>
                   </div>
                   <div className="border-t border-border" />
-                  <div className="flex items-center gap-3 text-sm text-navy-600">
-                    <span className="text-navy-400">Industries</span>
-                    <span className="ml-auto font-medium text-navy-900">
+                  <div className="flex items-center gap-3 text-sm text-foreground-muted">
+                    <span className="text-foreground-subtle">Industries</span>
+                    <span className="ml-auto font-medium text-foreground">
                       Healthcare / eCommerce / AI-ML
                     </span>
                   </div>
@@ -197,7 +197,7 @@ export default function AboutPage() {
                 The Person Behind the Code
               </Badge>
 
-              <div className="space-y-5 text-navy-600 leading-relaxed">
+              <div className="space-y-5 text-foreground-muted leading-relaxed">
                 <p>
                   Before B&amp;Br, Sean built PharmaGuide AI — a first-of-its-kind
                   AI pharmacist app that scans supplements via barcode and OCR,
@@ -266,10 +266,10 @@ export default function AboutPage() {
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600/10 mb-4">
                       <Icon className="h-5 w-5 text-amber-600" />
                     </div>
-                    <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900">
+                    <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground">
                       {principle.title}
                     </h3>
-                    <p className="mt-2 text-sm text-navy-600 leading-relaxed">
+                    <p className="mt-2 text-sm text-foreground-muted leading-relaxed">
                       {principle.description}
                     </p>
                   </div>
@@ -309,11 +309,11 @@ export default function AboutPage() {
                     {project.category}
                   </span>
 
-                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900">
+                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground">
                     {project.title}
                   </h3>
 
-                  <p className="mt-2 text-sm text-navy-600 leading-relaxed">
+                  <p className="mt-2 text-sm text-foreground-muted leading-relaxed">
                     {project.description}
                   </p>
 
@@ -321,7 +321,7 @@ export default function AboutPage() {
                     {project.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="rounded-full border border-border bg-bg-alt px-2.5 py-0.5 text-xs font-medium text-navy-600"
+                        className="rounded-full border border-border bg-bg-alt px-2.5 py-0.5 text-xs font-medium text-foreground-muted"
                       >
                         {tech}
                       </span>
@@ -344,7 +344,7 @@ export default function AboutPage() {
             <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
               Tools We Trust
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-navy-600">
+            <p className="mx-auto mt-4 max-w-xl text-foreground-muted">
               We&apos;re tool-agnostic — we pick what works best for the job,
               not what&apos;s trending on Twitter.
             </p>
@@ -361,7 +361,7 @@ export default function AboutPage() {
                     {category.items.map((item) => (
                       <li
                         key={item}
-                        className="flex items-center gap-2 text-sm text-navy-600"
+                        className="flex items-center gap-2 text-sm text-foreground-muted"
                       >
                         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />
                         {item}
