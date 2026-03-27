@@ -74,8 +74,14 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-bg text-navy-900">
         <Providers>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-navy-900 focus:text-gold-400 focus:px-4 focus:py-2 focus:rounded-lg"
+          >
+            Skip to content
+          </a>
           <Header />
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
           <Footer />
         </Providers>
       </body>
