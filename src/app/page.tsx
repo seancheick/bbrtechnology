@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
 import { ProductsShowcase } from "@/components/sections/products-showcase";
 import { ServicesGrid } from "@/components/sections/services-grid";
-import { AnimatedBeamSection } from "@/components/sections/animated-beam-section";
 import { WhyBbr } from "@/components/sections/why-bbr";
-import { ProcessRoadmap } from "@/components/sections/process-roadmap";
 import { Testimonials } from "@/components/sections/testimonials";
 import { FaqSection } from "@/components/sections/faq-section";
 import { CtaBanner } from "@/components/sections/cta-banner";
@@ -13,25 +11,25 @@ import { flatFaqItems } from "@/data/faq";
 const siteUrl = "https://bbrtechnology.com";
 
 export const metadata: Metadata = {
-  title: "AI Automation, Internal Tools & Websites for Founders | B&Br Technology",
+  title: "Custom Software & Automation for Service Teams | B&Br Technology",
   description:
-    "Founder-led studio building AI automation systems, internal tools, websites, and technical SEO for founders, operators, and growing small businesses.",
+    "Engineering team building custom web apps, mobile apps, and workflow automation systems for service businesses and operator-led teams.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "AI Automation, Internal Tools & Websites for Founders | B&Br Technology",
+    title: "Custom Software & Automation for Service Teams | B&Br Technology",
     description:
-      "Founder-led studio building AI automation systems, internal tools, websites, and technical SEO for founders, operators, and growing small businesses.",
+      "Engineering team building custom web apps, mobile apps, and workflow automation systems for service businesses and operator-led teams.",
     type: "website",
     locale: "en_US",
     url: siteUrl,
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Automation, Internal Tools & Websites for Founders | B&Br Technology",
+    title: "Custom Software & Automation for Service Teams | B&Br Technology",
     description:
-      "Founder-led studio building AI automation systems, internal tools, websites, and technical SEO for founders, operators, and growing small businesses.",
+      "Engineering team building custom web apps, mobile apps, and workflow automation systems for service businesses and operator-led teams.",
   },
 };
 
@@ -44,7 +42,7 @@ const homeJsonLd = {
       url: siteUrl,
       name: "B&Br Technology",
       description:
-        "Founder-led studio building automation systems, internal tools, websites, and technical SEO.",
+        "Engineering studio building custom web apps, internal tools, and workflow automation.",
       isPartOf: {
         "@id": `${siteUrl}/#website`,
       },
@@ -72,7 +70,7 @@ const homeJsonLd = {
         "@id": `${siteUrl}/#organization`,
       },
       areaServed: "US",
-      audience: "Founders, operators, consultants, and growing small businesses",
+      audience: "Service businesses, growing agencies, operator-led teams, and clinics",
     },
     {
       "@type": "FAQPage",
@@ -99,9 +97,7 @@ export default function HomePage() {
       <Hero />
       <ProductsShowcase />
       <ServicesGrid />
-      <AnimatedBeamSection />
       <WhyBbr />
-      <ProcessRoadmap />
       <Testimonials />
       <FaqSection />
       <CtaBanner />

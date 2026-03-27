@@ -53,17 +53,14 @@ export function ServicesGrid() {
         {/* Section heading */}
         <div className="mb-12 text-center">
           <span className="text-sm font-semibold uppercase tracking-widest text-amber-600">
-            Where We Create Leverage
+            What We Build
           </span>
           <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Automation First.
-            <br />
-            Everything Else Supports It.
+            Custom Software.<br />
+            Lightweight Automation.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-foreground-muted">
-            We lead with workflow automation because that is usually where the
-            fastest operational gains live. Websites, apps, analytics, and
-            support layers are built around that core.
+            From 1-click simple integrations on Zapier to fully custom Next.js web applications and Flutter mobile apps. We match the tech to your exact business scale so you don't overpay for things you don't need.
           </p>
         </div>
 

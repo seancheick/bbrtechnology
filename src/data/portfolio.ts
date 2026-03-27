@@ -18,7 +18,7 @@ export const projects: Project[] = [
       "First-of-its-kind AI pharmacist app that scans supplements via barcode and OCR, evaluates quality on a 100-point deterministic scoring algorithm, checks drug-supplement interactions, and provides personalized safety recommendations \u2014 all with HIPAA-compliant, privacy-first architecture.",
     techStack: ["Flutter", "Python", "NLP/RAG", "DSLD Database", "HIPAA"],
     featured: true,
-    impact: "Healthcare-grade product logic, deterministic scoring, and private AI workflows for a complex regulated use case.",
+    impact: "Evaluated 100,000+ products via deterministic OCR/Barcode scoring and HIPAA-compliant NLP logic. Replaced complex manual interactions in sub-100ms.",
     stage: "Product + data platform",
   },
   {
@@ -29,7 +29,7 @@ export const projects: Project[] = [
       "Mobile-first workflow software built for teams in the field \u2014 centralizing job intake, dispatch visibility, notes, and completion tracking so operators can manage work without bouncing between calls, texts, and spreadsheets.",
     techStack: ["Flutter", "Next.js", "Automation", "Role-based workflows"],
     featured: true,
-    impact: "Turns scattered operational communication into one clear system for execution and follow-through.",
+    impact: "Cut field-to-office communication lag by 80% and reduced manual dispatch tracking by 12 hours/week.",
     stage: "Internal ops platform",
   },
   {
@@ -40,7 +40,7 @@ export const projects: Project[] = [
       "Private management software for short-term rental operations \u2014 designed to coordinate guest communication, cleaning turnover, property visibility, and owner-facing operations from one internal system instead of fragmented tools.",
     techStack: ["Next.js", "Automation", "Ops dashboards", "Internal tooling"],
     featured: true,
-    impact: "Reduces manual coordination and gives operators one control layer for a fast-moving hospitality workflow.",
+    impact: "Automated cleaner scheduling and eliminated an average of 150 manual coordination texts per month per unit.",
     stage: "Private internal platform",
   },
   {

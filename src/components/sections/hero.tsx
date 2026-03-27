@@ -31,10 +31,10 @@ const heroCards = [
 ];
 
 const proofPoints = [
-  "Founder-led delivery",
-  "Automation-first builds",
-  "Products + internal tools",
-  "Fast launch cycles",
+  "Dedicated engineering team",
+  "Custom Web & Mobile Apps",
+  "Lightweight Automations",
+  "Real, durable code",
 ];
 
 export function Hero() {
@@ -106,7 +106,7 @@ export function Hero() {
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             >
-              Founder-led systems for operators
+              Custom Software & Automations for Operators
               <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </motion.a>
 
@@ -116,9 +116,9 @@ export function Hero() {
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.62, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
-              Automation systems
+              Custom software & automations
               <br />
-              <span className="text-amber-600">that give founders leverage.</span>
+              <span className="text-amber-600">for teams moving fast.</span>
             </motion.h1>
 
             <motion.p
@@ -127,9 +127,8 @@ export function Hero() {
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.62, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
             >
-              B&Br builds the workflows, internal tools, and product layers that
-              cut manual work, tighten operations, and help lean teams scale
-              without adding chaos.
+              From custom Next.js websites and mobile apps, to simple workflow automations—B&Br builds 
+              the technical systems that reduce manual work and help service teams scale without adding chaos.
             </motion.p>
 
             <motion.div
@@ -158,8 +157,7 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
             >
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-foreground-subtle">
-                Built for founders, operators, and small teams who need systems
-                that carry more of the load.
+                Built for service businesses, clinics, and operators looking for a team that delivers.
               </p>
               <div className="mt-4 flex flex-wrap gap-2.5">
                 {proofPoints.map((point) => (
