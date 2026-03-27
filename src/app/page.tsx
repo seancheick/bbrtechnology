@@ -1,9 +1,25 @@
-export default function Home() {
+import { Hero } from "@/components/sections/hero";
+import { MetricsBar } from "@/components/sections/metrics-bar";
+import { ServicesGrid } from "@/components/sections/services-grid";
+import { AnimatedBeamSection } from "@/components/sections/animated-beam-section";
+import { WhyBbr } from "@/components/sections/why-bbr";
+import { OrbitalProcess } from "@/components/sections/orbital-process";
+import { Testimonials } from "@/components/sections/testimonials";
+import { FaqSection } from "@/components/sections/faq-section";
+import { CtaBanner } from "@/components/sections/cta-banner";
+
+export default function HomePage() {
   return (
-    <div className="pt-20 flex flex-col items-center justify-center min-h-screen">
-      <h1 className="font-[family-name:var(--font-display)] text-5xl font-extrabold tracking-[-0.04em] text-navy-900">
-        B&amp;Br Technology
-      </h1>
-    </div>
+    <>
+      <Hero />
+      <MetricsBar />
+      <ServicesGrid />
+      <AnimatedBeamSection />
+      <WhyBbr />
+      <OrbitalProcess />
+      <Testimonials />
+      <FaqSection />
+      <CtaBanner />
+    </>
   );
 }
