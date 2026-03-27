@@ -5,22 +5,25 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { ScrollReveal } from "@/components/effects/scroll-reveal";
 
 export const metadata: Metadata = {
-  title: "Contact — B&Br Technology",
+  title: "Contact B&Br Technology | Book a Discovery Call",
   description:
-    "Get in touch with B&Br Technology. Tell us about your project and we'll respond within 24 hours.",
+    "Talk to B&Br Technology about automation, websites, internal tools, or SEO. Share your project and get a response within 24 hours.",
+  alternates: {
+    canonical: "/contact",
+  },
   openGraph: {
-    title: "Contact — B&Br Technology",
+    title: "Contact B&Br Technology | Book a Discovery Call",
     description:
-      "Get in touch with B&Br Technology. Tell us about your project and we'll respond within 24 hours.",
+      "Talk to B&Br Technology about automation, websites, internal tools, or SEO. Share your project and get a response within 24 hours.",
     type: "website",
     locale: "en_US",
     url: "https://bbrtechnology.com/contact",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact — B&Br Technology",
+    title: "Contact B&Br Technology | Book a Discovery Call",
     description:
-      "Get in touch with B&Br Technology. Tell us about your project and we'll respond within 24 hours.",
+      "Talk to B&Br Technology about automation, websites, internal tools, or SEO. Share your project and get a response within 24 hours.",
   },
 };
 

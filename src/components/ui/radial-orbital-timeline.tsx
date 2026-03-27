@@ -54,12 +54,12 @@ function TimelineNode({
   return (
     <motion.button
       className={cn(
-        "absolute z-10 flex items-center justify-center rounded-full border-2 transition-all duration-300 cursor-pointer",
+        "absolute z-10 flex cursor-pointer items-center justify-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
         isExpanded
           ? "h-14 w-14 bg-gold-400 text-navy-950 border-gold-400 shadow-lg shadow-gold-400/30"
           : isRelated
-            ? "h-12 w-12 bg-gold-400/50 text-navy-950 border-gold-400/60"
-            : "h-11 w-11 bg-navy-950 text-white border-white/40 hover:border-gold-400/60 hover:bg-navy-900"
+            ? "h-12 w-12 border-amber-600/50 bg-amber-600/15 text-amber-600"
+            : "h-11 w-11 border-border bg-bg-alt text-foreground hover:border-amber-600/50 hover:bg-[color:color-mix(in_srgb,var(--color-bg-alt)_80%,var(--color-gold-400)_20%)]"
       )}
       style={{
         left: `calc(50% + ${x}px)`,
@@ -89,20 +89,21 @@ function DetailCard({ item, onClose }: { item: TimelineItem; onClose: () => void
       className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
     >
       <div
-        className="pointer-events-auto w-72 rounded-2xl bg-navy-950/90 backdrop-blur-lg border border-white/30 p-5 shadow-2xl"
+        className="pointer-events-auto w-72 rounded-2xl border border-border bg-bg/95 p-5 shadow-2xl backdrop-blur-lg"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <item.icon className="h-5 w-5 text-gold-400" />
-            <h3 className="font-[family-name:var(--font-display)] text-base font-bold text-white">
+            <h3 className="font-[family-name:var(--font-display)] text-base font-bold text-foreground">
               {item.title}
             </h3>
           </div>
           <button
+            type="button"
             onClick={onClose}
-            className="text-white/50 hover:text-white text-lg leading-none"
+            className="text-lg leading-none text-foreground-subtle transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
           >
             &times;
           </button>
@@ -113,9 +114,9 @@ function DetailCard({ item, onClose }: { item: TimelineItem; onClose: () => void
           <span
             className={cn(
               "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border",
-              item.status === "completed" && "text-white bg-navy-900 border-gold-400",
+              item.status === "completed" && "border-amber-600/40 bg-bg-alt text-foreground",
               item.status === "in-progress" && "text-navy-950 bg-gold-400 border-navy-950",
-              item.status === "pending" && "text-white/60 bg-white/10 border-white/20"
+              item.status === "pending" && "border-border bg-bg-alt text-foreground-muted"
             )}
           >
             {item.status === "completed"
@@ -127,15 +128,15 @@ function DetailCard({ item, onClose }: { item: TimelineItem; onClose: () => void
         </div>
 
         {/* Content */}
-        <p className="text-sm text-white/70 leading-relaxed">{item.content}</p>
+        <p className="text-sm leading-relaxed text-foreground-muted">{item.content}</p>
 
         {/* Energy bar */}
         <div className="mt-4">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs text-white/50">Energy</span>
+            <span className="text-xs text-foreground-subtle">Energy</span>
             <span className="text-xs font-medium text-gold-400">{item.energy}%</span>
           </div>
-          <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-bg-alt">
             <motion.div
               className="h-full rounded-full bg-gradient-to-r from-amber-600 to-gold-400"
               initial={{ width: 0 }}
@@ -146,7 +147,7 @@ function DetailCard({ item, onClose }: { item: TimelineItem; onClose: () => void
         </div>
 
         {/* Category */}
-        <div className="mt-3 text-xs text-white/40">{item.category}</div>
+        <div className="mt-3 text-xs text-foreground-subtle">{item.category}</div>
       </div>
     </motion.div>
   );
@@ -203,7 +204,7 @@ export function RadialOrbitalTimeline({ items }: RadialOrbitalTimelineProps) {
   return (
     <div
       ref={containerRef}
-      className="relative w-full bg-navy-950 rounded-2xl overflow-hidden"
+      className="relative w-full overflow-hidden rounded-2xl border border-border bg-bg"
       style={{ height: containerSize }}
     >
       {/* Background glow */}
@@ -218,7 +219,7 @@ export function RadialOrbitalTimeline({ items }: RadialOrbitalTimelineProps) {
 
       {/* Orbit ring */}
       <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border/80"
         style={{
           width: orbitRadius * 2,
           height: orbitRadius * 2,
@@ -227,7 +228,7 @@ export function RadialOrbitalTimeline({ items }: RadialOrbitalTimelineProps) {
 
       {/* Second subtle orbit ring */}
       <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.04]"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border/40"
         style={{
           width: orbitRadius * 2.5,
           height: orbitRadius * 2.5,
@@ -278,9 +279,10 @@ export function RadialOrbitalTimeline({ items }: RadialOrbitalTimelineProps) {
               y1={cy}
               x2={endX}
               y2={endY}
-              stroke={isRelatedOrExpanded ? "#fbbf24" : "rgba(255,255,255,0.08)"}
+              stroke={isRelatedOrExpanded ? "#fbbf24" : "var(--color-border)"}
               strokeWidth={isRelatedOrExpanded ? 1.5 : 0.5}
               strokeDasharray={isRelatedOrExpanded ? "none" : "4 4"}
+              strokeOpacity={isRelatedOrExpanded ? 0.8 : 0.65}
               className="transition-all duration-500"
             />
           );

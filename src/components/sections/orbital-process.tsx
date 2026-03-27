@@ -39,14 +39,14 @@ export function OrbitalProcess() {
   );
 
   return (
-    <section className="bg-navy-950/90 py-20 text-white border-t border-white/5">
+    <section className="border-t border-border bg-bg-alt py-20">
       <div className="mx-auto max-w-5xl px-6">
         {/* Section heading */}
         <div className="mb-12 text-center">
           <span className="text-sm font-semibold uppercase tracking-widest text-gold-400">
             Our Process
           </span>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             How We Work
           </h2>
         </div>
@@ -57,9 +57,9 @@ export function OrbitalProcess() {
             <RadialOrbitalTimeline items={timelineItems} />
           </div>
           {/* Legend */}
-          <div className="mt-8 flex items-center justify-center gap-6 text-xs text-white/50">
+          <div className="mt-8 flex items-center justify-center gap-6 text-xs text-foreground-subtle">
             <div className="flex items-center gap-2">
-              <span className="inline-block h-2.5 w-2.5 rounded-full border border-gold-400 bg-navy-900" />
+              <span className="inline-block h-2.5 w-2.5 rounded-full border border-amber-600/40 bg-bg" />
               Completed
             </div>
             <div className="flex items-center gap-2">
@@ -67,7 +67,7 @@ export function OrbitalProcess() {
               In Progress
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-block h-2.5 w-2.5 rounded-full border border-white/20 bg-white/10" />
+              <span className="inline-block h-2.5 w-2.5 rounded-full border border-border bg-bg" />
               Pending
             </div>
           </div>
@@ -75,13 +75,13 @@ export function OrbitalProcess() {
 
         {/* Mobile: vertical timeline */}
         <div className="md:hidden">
-          <div className="relative border-l-2 border-white/10 pl-8">
+          <div className="relative border-l-2 border-border pl-8">
             {processSteps.map((step, i) => {
               const Icon = stepIcons[i];
               return (
                 <div key={step.id} className="relative mb-8 last:mb-0">
                   {/* Timeline dot */}
-                  <div className="absolute -left-[calc(1rem+5px)] flex h-8 w-8 items-center justify-center rounded-full border border-gold-400/30 bg-navy-900">
+                  <div className="absolute -left-[calc(1rem+5px)] flex h-8 w-8 items-center justify-center rounded-full border border-amber-600/30 bg-bg">
                     <Icon className="h-4 w-4 text-gold-400" />
                   </div>
                   <motion.div
@@ -94,10 +94,10 @@ export function OrbitalProcess() {
                       ease: [0.16, 1, 0.3, 1] as const,
                     }}
                   >
-                    <h3 className="font-[family-name:var(--font-display)] text-lg font-bold">
+                    <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground">
                       {step.title}
                     </h3>
-                    <p className="mt-1 text-sm text-navy-400">
+                    <p className="mt-1 text-sm text-foreground-muted">
                       {step.description}
                     </p>
                   </motion.div>

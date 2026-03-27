@@ -9,7 +9,11 @@ interface ScrollRevealProps {
   delay?: number;
 }
 
-export function ScrollReveal({ children, className, delay = 0 }: ScrollRevealProps) {
+export function ScrollReveal({
+  children,
+  className,
+  delay = 0,
+}: ScrollRevealProps) {
   const shouldReduceMotion = useReducedMotion();
 
   if (shouldReduceMotion) {
@@ -33,7 +37,13 @@ export function ScrollReveal({ children, className, delay = 0 }: ScrollRevealPro
   );
 }
 
-export function StaggerContainer({ children, className }: { children: ReactNode; className?: string }) {
+export function StaggerContainer({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const shouldReduceMotion = useReducedMotion();
 
   if (shouldReduceMotion) {
@@ -60,7 +70,13 @@ export function StaggerContainer({ children, className }: { children: ReactNode;
   );
 }
 
-export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
+export function StaggerItem({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <motion.div
       className={className}

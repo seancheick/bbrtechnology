@@ -1,122 +1,227 @@
-import { ChevronRight, ArrowRight } from "lucide-react";
+"use client";
+
+import { useRef } from "react";
+import { ArrowRight, ChevronRight, Layers3, Workflow, Zap } from "lucide-react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { ShineButton } from "@/components/effects/shine-button";
 import { Button } from "@/components/ui/button";
 
+const heroCards = [
+  {
+    title: "Workflow friction",
+    body: "Manual follow-up, disconnected tools, and no clean view of what is actually happening.",
+    icon: Workflow,
+  },
+  {
+    title: "B&Br system layer",
+    body: "Automation, product logic, and operator-grade interfaces designed to reduce overhead.",
+    icon: Layers3,
+  },
+  {
+    title: "Leverage",
+    body: "A business that moves faster because the system is finally doing its share of the work.",
+    icon: Zap,
+  },
+];
+
+const proofPoints = [
+  "Founder-led delivery",
+  "Automation-first builds",
+  "Products + internal tools",
+  "Fast launch cycles",
+];
+
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 20,
+    mass: 0.2,
+  });
+
+  const gridY = useTransform(smoothProgress, [0, 1], [0, 140]);
+  const glowY = useTransform(smoothProgress, [0, 1], [0, 90]);
+  const stageY = useTransform(smoothProgress, [0, 1], [0, -50]);
+  const stageRotate = useTransform(smoothProgress, [0, 1], [0, -4]);
+  const cardYOffset = [
+    useTransform(smoothProgress, [0, 1], [0, -16]),
+    useTransform(smoothProgress, [0, 1], [0, 10]),
+    useTransform(smoothProgress, [0, 1], [0, -24]),
+  ];
+
   return (
     <section
+      ref={sectionRef}
       id="hero"
-      className="relative mx-auto w-full pt-40 px-6 text-center md:px-8
-      min-h-[calc(100vh-40px)] overflow-hidden
-      bg-[linear-gradient(to_bottom,var(--color-bg),var(--color-bg)_50%,var(--color-border)_88%)]
-      dark:bg-[linear-gradient(to_bottom,var(--color-bg),var(--color-bg)_50%,var(--color-bg-alt)_88%)]
-      rounded-b-xl"
+      className="relative overflow-hidden border-b border-border pt-28 sm:pt-32 lg:pt-36"
     >
-      {/* Grid BG */}
-      <div
-        className="absolute -z-10 inset-0 opacity-80 h-[600px] w-full
-        bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)]
-        bg-[size:6rem_5rem]
-        [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={shouldReduceMotion ? undefined : { y: gridY }}
+      >
+        <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] [background-size:6rem_5rem]" />
+      </motion.div>
+
+      <motion.div
+        aria-hidden="true"
+        className="absolute right-[-14rem] top-16 h-[34rem] w-[34rem] rounded-full opacity-60 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, color-mix(in srgb, var(--color-gold-400) 20%, transparent) 0%, transparent 70%)",
+          ...(shouldReduceMotion ? {} : { y: glowY }),
+        }}
       />
 
-      {/* Radial Accent — the big ellipse at the bottom */}
-      <div
-        className="absolute left-1/2 top-[calc(100%-90px)] lg:top-[calc(100%-150px)]
-        h-[500px] w-[700px] md:h-[500px] md:w-[1100px] lg:h-[750px] lg:w-[140%]
-        -translate-x-1/2 rounded-[100%] bg-bg
-        bg-[radial-gradient(closest-side,var(--color-bg)_82%,var(--color-navy-950))]
-        dark:bg-[radial-gradient(closest-side,var(--color-bg)_82%,#ffffff)]
-        animate-[fade-up_1s_ease-out]"
+      <motion.div
+        aria-hidden="true"
+        className="absolute left-[-10rem] top-40 h-[28rem] w-[28rem] rounded-full opacity-40 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, color-mix(in srgb, var(--color-navy-700) 18%, transparent) 0%, transparent 72%)",
+          ...(shouldReduceMotion ? {} : { y: glowY }),
+        }}
       />
 
-      {/* Eyebrow — Now Booking */}
-      <a href="#services" className="group">
-        <span
-          className="animate-[fade-in_0.6s_ease-out_0.1s_both] text-sm text-foreground-muted
-          mx-auto px-5 py-2
-          bg-gradient-to-tr from-navy-400/5 via-navy-400/5 to-transparent
-          dark:from-white/5 dark:via-white/5
-          border-[2px] border-border
-          rounded-3xl w-fit tracking-tight uppercase flex items-center justify-center"
-        >
-          <span className="relative mr-2 flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-[pulse-dot_2s_infinite] rounded-full bg-success" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
-          </span>
-          Now booking new projects
-          <ChevronRight className="inline w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-        </span>
-      </a>
+      <div className="relative mx-auto max-w-7xl px-6 pb-20 sm:pb-24 lg:pb-28">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(24rem,0.95fr)] lg:items-center">
+          <div>
+            <motion.a
+              href="#systems-shipped"
+              className="group inline-flex items-center gap-2 rounded-full border border-border bg-bg/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-foreground-muted backdrop-blur-sm"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+              animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Founder-led systems for operators
+              <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </motion.a>
 
-      {/* Title */}
-      <h1
-        className="animate-[fade-in_0.8s_ease-out_0.2s_both] -translate-y-4 text-balance
-        py-6 text-5xl font-semibold leading-none tracking-tighter
-        sm:text-6xl md:text-7xl lg:text-8xl
-        font-[family-name:var(--font-display)]"
-      >
-        <span className="gradient-text">AI-Powered Tech.</span>
-        <br />
-        <span className="gradient-text">Built for Real Growth.</span>
-      </h1>
+            <motion.h1
+              className="mt-6 max-w-4xl font-[family-name:var(--font-display)] text-5xl font-bold tracking-[-0.06em] text-foreground sm:text-6xl lg:text-7xl"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+              animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.62, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Automation systems
+              <br />
+              <span className="text-amber-600">that give founders leverage.</span>
+            </motion.h1>
 
-      {/* Subtitle */}
-      <p
-        className="animate-[fade-in_0.8s_ease-out_0.35s_both] mb-8 -translate-y-4 text-balance
-        text-lg tracking-tight text-foreground-muted
-        md:text-xl max-w-xl mx-auto"
-      >
-        We build websites, apps, and automation systems that help founders
-        and growing businesses launch faster, work smarter, and scale
-        with confidence.
-      </p>
+            <motion.p
+              className="mt-6 max-w-2xl text-lg leading-relaxed text-foreground-muted sm:text-xl"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+              animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.62, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            >
+              B&Br builds the workflows, internal tools, and product layers that
+              cut manual work, tighten operations, and help lean teams scale
+              without adding chaos.
+            </motion.p>
 
-      {/* CTAs */}
-      <div className="animate-[fade-in_0.8s_ease-out_0.45s_both] flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <ShineButton
-          href="https://cal.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Book a Discovery Call
-          <ArrowRight className="ml-1 h-4 w-4" />
-        </ShineButton>
-        <Button variant="outline" asChild>
-          <a href="#services">View Services</a>
-        </Button>
-      </div>
+            <motion.div
+              className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.52, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <ShineButton
+                href="https://cal.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book a Discovery Call
+                <ArrowRight className="ml-1 h-4 w-4" />
+              </ShineButton>
+              <Button variant="outline" asChild>
+                <a href="#systems-shipped">See Systems Shipped</a>
+              </Button>
+            </motion.div>
 
-      {/* Audience pills */}
-      <div className="animate-[fade-in_0.6s_ease-out_0.55s_both] mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-navy-400">
-        <span>For Founders</span>
-        <span className="text-navy-400/40">&middot;</span>
-        <span>Solopreneurs</span>
-        <span className="text-navy-400/40">&middot;</span>
-        <span>Local Biz</span>
-        <span className="text-navy-400/40">&middot;</span>
-        <span>Startups</span>
-      </div>
+            <motion.div
+              className="mt-10 border-t border-border pt-6"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-foreground-subtle">
+                Built for founders, operators, and small teams who need systems
+                that carry more of the load.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2.5">
+                {proofPoints.map((point) => (
+                  <span
+                    key={point}
+                    className="rounded-full border border-border bg-bg-alt px-3 py-2 text-sm text-foreground-muted"
+                  >
+                    {point}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
 
-      {/* Trust signals */}
-      <div className="animate-[fade-in_0.6s_ease-out_0.65s_both] mt-10 border-t border-border pt-6">
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-foreground-muted">
-          <span>Founder-Led &#10003;</span>
-          <span className="hidden sm:inline text-navy-400/30">|</span>
-          <span>System-First &#10003;</span>
-          <span className="hidden sm:inline text-navy-400/30">|</span>
-          <span>AI-Native &#10003;</span>
-          <span className="hidden sm:inline text-navy-400/30">|</span>
-          <span>Scalable &#10003;</span>
+          <motion.div
+            className="relative mx-auto w-full max-w-[34rem] lg:max-w-none"
+            style={shouldReduceMotion ? undefined : { y: stageY, rotate: stageRotate }}
+          >
+            <div className="relative overflow-hidden rounded-[2rem] border border-border bg-[linear-gradient(145deg,color-mix(in_srgb,var(--color-bg)_88%,transparent),color-mix(in_srgb,var(--color-bg-alt)_82%,transparent))] p-5 shadow-[0_30px_80px_rgba(15,23,42,0.08)]">
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-amber-600 to-transparent opacity-80" />
+
+              <div className="grid gap-4">
+                {heroCards.map((card, index) => {
+                  const Icon = card.icon;
+
+                  return (
+                    <motion.div
+                      key={card.title}
+                      className="rounded-[1.5rem] border border-border bg-bg/95 p-5 backdrop-blur-sm"
+                      style={shouldReduceMotion ? undefined : { y: cardYOffset[index] }}
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                      animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.56,
+                        delay: 0.18 + index * 0.08,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-navy-900 text-gold-400 dark:bg-navy-800">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-foreground-subtle">
+                            {index === 0 ? "Before" : index === 1 ? "Build" : "After"}
+                          </div>
+                          <h3 className="mt-2 font-[family-name:var(--font-display)] text-2xl font-bold tracking-tight text-foreground">
+                            {card.title}
+                          </h3>
+                          <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
+                            {card.body}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
-
-      {/* Bottom Fade */}
-      <div
-        className="animate-[fade-up_1s_ease-out_0.4s_both] relative mt-32 [perspective:2000px]
-        after:absolute after:inset-0 after:z-50
-        after:[background:linear-gradient(to_top,var(--color-bg)_10%,transparent)]"
-      />
     </section>
   );
 }

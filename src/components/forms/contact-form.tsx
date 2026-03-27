@@ -33,12 +33,14 @@ const sourceOptions = [
 ];
 
 const inputClasses =
-  "w-full rounded-lg border border-border bg-bg px-4 py-3 text-sm text-foreground placeholder:text-foreground-subtle focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-shadow dark:bg-navy-900 dark:border-white/10 dark:text-foreground";
+  "w-full rounded-lg border border-border bg-bg-alt px-4 py-3 text-sm text-foreground placeholder:text-foreground-subtle transition-[color,background-color,border-color,box-shadow] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-600";
 
 const labelClasses = "block text-sm font-medium text-foreground mb-1.5";
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -108,10 +110,7 @@ export function ContactForm() {
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           {/* Honeypot */}
-          <div
-            className="absolute left-[-9999px]"
-            aria-hidden="true"
-          >
+          <div className="absolute left-[-9999px]" aria-hidden="true">
             <label htmlFor="_gotcha">
               Do not fill this out
               <input
@@ -268,7 +267,7 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-navy-900 px-6 py-3.5 text-sm font-medium text-gold-400 transition-colors hover:bg-navy-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 dark:ring-offset-navy-950 dark:bg-navy-800 dark:border dark:border-gold-400/20 disabled:opacity-60 disabled:pointer-events-none"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gold-400/20 bg-navy-900 px-6 py-3.5 text-sm font-medium text-gold-400 transition-colors hover:bg-navy-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-60 dark:bg-navy-800"
           >
             {status === "submitting" ? (
               <>
@@ -284,7 +283,7 @@ export function ContactForm() {
           </button>
 
           {status === "error" && (
-            <p className="text-sm text-red-600 text-center">
+            <p className="text-center text-sm text-red-600 dark:text-red-400">
               Something went wrong. Please try again or email us directly at{" "}
               <a
                 href="mailto:hello@bbrtechnology.com"

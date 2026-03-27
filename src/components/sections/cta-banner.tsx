@@ -3,25 +3,23 @@ import { ShineButton } from "@/components/effects/shine-button";
 
 export function CtaBanner() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-navy-950 to-navy-800 py-20">
+    <section className="relative overflow-hidden border-t border-border bg-[linear-gradient(to_bottom_right,color-mix(in_srgb,var(--color-bg-alt)_88%,var(--color-navy-950)_12%),var(--color-bg))] py-20">
       {/* Subtle grid overlay */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+            "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
           backgroundSize: "6rem 5rem",
         }}
       />
 
       <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-          <span className="bg-gradient-to-br from-white via-white/90 to-white/40 bg-clip-text text-transparent">
-            Ready to Build Something Real?
-          </span>
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          Ready to Build Something <span className="text-amber-600">Real</span>?
         </h2>
 
-        <p className="mx-auto mt-4 max-w-lg text-navy-400">
+        <p className="mx-auto mt-4 max-w-lg text-foreground-muted">
           Let&apos;s talk about your business, your goals, and how we can build
           the systems you need to grow. Free 30-minute discovery call — no
           strings attached.
@@ -38,7 +36,7 @@ export function CtaBanner() {
           </ShineButton>
         </div>
 
-        <p className="mt-4 text-sm text-navy-400/60">
+        <p className="mt-4 text-sm text-foreground-subtle">
           Or email us directly:{" "}
           <a
             href="mailto:hello@bbrtechnology.com"
@@ -48,7 +46,7 @@ export function CtaBanner() {
           </a>
         </p>
 
-        <p className="mt-6 text-xs text-navy-400/50">
+        <p className="mt-6 text-xs text-foreground-subtle">
           No sales scripts — just a conversation about your goals.
         </p>
       </div>

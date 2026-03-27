@@ -4,99 +4,111 @@ export interface FaqItem {
 }
 
 export const faqCategories: Record<string, string> = {
-  general: "General",
-  services: "Services",
-  pricing: "Pricing",
-  process: "Process",
+  automation: "Automation",
+  builds: "Websites & Apps",
+  seo: "SEO & Growth",
+  pricing: "Pricing & Process",
 };
 
 export const faqData: Record<string, FaqItem[]> = {
-  general: [
+  automation: [
     {
-      question: "How long does a typical project take?",
+      question: "What does an AI automation agency actually do for a small business?",
       answer:
-        "Most projects launch within 7\u201321 days depending on scope. A simple business website might take 1\u20132 weeks, while a full automation system or custom app could take 3\u20136 weeks. We'll give you a realistic timeline during our discovery call.",
+        "An AI automation agency helps a business reduce manual work by connecting the tools it already uses and building smarter workflows around them. That can include lead capture and follow-up, CRM updates, client intake, scheduling, quoting, reporting, support workflows, internal assistants, and custom dashboards. At B&Br, the goal is not to add flashy AI for its own sake. The goal is to remove bottlenecks, speed up response time, and give founders more leverage.",
     },
     {
-      question: "Do you work with clients outside Boston?",
+      question: "What can you automate for a service business, clinic, or operator-led company?",
       answer:
-        "Absolutely. While we're based in Boston, we work with clients across the US and internationally. Everything is done remotely with regular check-ins via video call.",
+        "Common starting points are lead routing, appointment reminders, onboarding, estimates, follow-up sequences, customer support triage, reporting, and admin-heavy handoffs between tools. For clinics and regulated workflows, we can also design privacy-conscious systems around intake, messaging, internal search, and operational visibility. The right place to start is usually the most repetitive workflow tied to revenue, response time, or team capacity.",
     },
     {
-      question: "What makes B&Br different from other agencies?",
+      question: "Can you automate lead capture, follow-up, and client onboarding?",
       answer:
-        "We're founder-led, AI-native, and system-first. You work directly with Sean \u2014 no account managers, no hand-offs. AI isn't an add-on; it's core to how we build. And we focus on systems that scale, not fragile one-offs.",
+        "Yes. This is one of the most common use cases. We can connect forms, CRM pipelines, email or SMS follow-up, scheduling, qualification logic, onboarding checklists, and internal notifications so leads do not sit untouched and new clients do not fall into a manual gap. The point is to turn scattered steps into one clear operating system.",
     },
     {
-      question: "Do I need to know about technology to work with you?",
+      question: "Can AI handle customer support without making the business feel robotic?",
       answer:
-        "Not at all. We translate technical concepts into plain language. You tell us your business goals, and we handle the technical decisions. We'll explain everything along the way so you always know what's happening and why.",
+        "Yes, if the workflow is designed properly. Good support automation handles repetitive questions, routing, intake, and first-response coverage while keeping a clean path to a real person when nuance matters. We focus on systems that improve response speed and consistency without making the experience feel canned or careless.",
     },
   ],
-  services: [
+  builds: [
     {
-      question: "Can you rebuild my existing website?",
+      question: "Can you redesign or rebuild my existing website without hurting SEO?",
       answer:
-        "Yes \u2014 redesigns and rebuilds are one of our most common projects. We'll audit your current site, preserve what's working, and rebuild it on a modern, fast, SEO-optimized stack.",
+        "Yes. Website redesigns and rebuilds are a common engagement. We audit the existing site, preserve the pages and signals that are already working, improve speed and structure, and handle technical SEO details like crawlability, redirects, metadata, internal linking, and schema where relevant. The goal is a stronger site, not a reset that destroys existing momentum.",
     },
     {
-      question: "What platforms do you build on?",
+      question: "Do you build custom web apps, internal tools, and client portals?",
       answer:
-        "We work with React, Next.js, WordPress, Shopify, WooCommerce, and Flutter for mobile. We pick the platform that best fits your needs and budget \u2014 not what's trending.",
+        "Yes. B&Br builds more than brochure sites. We build custom web apps, internal dashboards, workflow systems, client-facing portals, and product layers that sit on top of your operations. That includes tools for service teams, hospitality workflows, healthcare-adjacent products, and founder-led businesses that have outgrown spreadsheets and patchwork software.",
     },
     {
-      question: "Do you offer ongoing support after launch?",
+      question: "How long does it take to build a business website, automation system, or MVP?",
       answer:
-        "Yes. Our IT Support & Maintenance service covers security updates, performance monitoring, bug fixes, and ongoing technical support. We don't build and disappear.",
+        "A focused website project can often launch in 1 to 3 weeks. A workflow automation system or internal tool is usually closer to 2 to 6 weeks depending on complexity, integrations, and review speed. During discovery, we map the actual scope so the timeline is based on the system being built rather than a generic promise.",
     },
     {
-      question: "Can you help with just AI automation without a new website?",
+      question: "What platforms, integrations, and stacks do you work with?",
       answer:
-        "Absolutely. Many clients come to us specifically for workflow automation, chatbot setup, or AI assistant development. We can work with your existing tech stack.",
+        "We regularly work with Next.js, React, Flutter, WordPress, Shopify, Python, Zapier, Make, GA4, dashboards, CRM systems, scheduling tools, forms, email providers, and custom APIs. We choose the stack based on the business need, the budget, and the long-term maintenance reality rather than whatever happens to be trendy.",
+    },
+    {
+      question: "Do you only work on new builds, or can you improve what we already have?",
+      answer:
+        "We do both. Some engagements start from zero, but many start with an existing website, CRM, automation setup, or internal workflow that needs to be cleaned up, rebuilt, or extended. If the current system can be improved instead of replaced, we will say that directly.",
+    },
+  ],
+  seo: [
+    {
+      question: "Do you offer technical SEO audits and on-page SEO improvements?",
+      answer:
+        "Yes. Technical SEO is part of how we build and part of how we audit. That includes crawlability, site structure, metadata, heading hierarchy, internal links, schema, speed, indexing issues, image handling, and the technical foundation needed before content strategy can do its job.",
+    },
+    {
+      question: "Can you help us rank in local search, traditional search, and AI-driven search experiences?",
+      answer:
+        "Yes, but the approach is practical. We improve the fundamentals that help across search environments: clear service pages, crawlable content, useful FAQs, strong metadata, internal linking, structured data, fast rendering, and content that answers real buyer questions. There is no legitimate shortcut for AI search ranking. The best path is being the clearest useful source on the topic.",
+    },
+    {
+      question: "How do you approach SEO for a brand-new website?",
+      answer:
+        "We start with the technical foundation and information architecture first, then map the content opportunities. That means page structure, keyword intent, service positioning, metadata, internal links, schema, and fast performance are handled early so the site is ready to earn traffic instead of needing an SEO rescue after launch.",
+    },
+    {
+      question: "Do you help with content strategy, FAQs, and keyword targeting?",
+      answer:
+        "Yes. We help identify the questions buyers are actually asking, map those to service pages and supporting content, and turn them into useful copy, FAQs, and landing-page structure. The goal is not keyword stuffing. The goal is coverage of real search intent in language your buyers actually use.",
     },
   ],
   pricing: [
     {
-      question: "How does pricing work?",
+      question: "How much does workflow automation or a custom business system cost?",
       answer:
-        "We offer two models: project-based pricing for defined scope work (websites, apps, automation setup), and monthly retainers for ongoing support and continuous development. We'll recommend the right model during your discovery call.",
+        "It depends on the scope, the number of integrations, and whether the project is mostly workflow design, custom UI, or product logic. A smaller automation engagement can be relatively lean, while a broader internal system or custom app is a larger investment. We price based on the business problem being solved and the amount of system complexity involved, not on vague agency packaging.",
     },
     {
-      question: "What's a 'Launch & Build' engagement?",
+      question: "Do you offer fixed-price projects or monthly retainers?",
       answer:
-        "Launch & Build is our project-based model \u2014 perfect for websites, app launches, or setting up a new automation system. Clear scope, clear timeline, fixed price. It includes custom website development, app MVP launch, one-time automation setup, and brand identity systems.",
+        "Both. We use project-based pricing for clearly defined builds like websites, MVPs, automation systems, and internal tools. We use retainers for ongoing development, technical SEO, maintenance, analytics, and continuous system improvement after launch.",
     },
     {
-      question: "Do you offer monthly retainers?",
+      question: "What happens during the discovery call?",
       answer:
-        "Yes. Retainers are ideal for businesses that need ongoing development, maintenance, SEO work, or continuous automation improvements. You get a dedicated allocation of hours each month with priority response times.",
+        "The discovery call is a practical 30-minute conversation about your current setup, bottlenecks, goals, tools, and timeline. We use it to understand where the friction actually lives and whether the right answer is a website project, an automation system, an SEO fix, or a smaller tactical improvement. No scripts, no pressure, and no inflated proposals.",
     },
     {
-      question: "What if my budget is small?",
+      question: "How involved do I need to be once the project starts?",
       answer:
-        "We work with businesses at every stage. If a $50/month tool solves your problem, we'll tell you \u2014 even if it means a smaller invoice. We'd rather build trust than pad a proposal. During the discovery call, we'll be honest about what makes sense for your budget.",
-    },
-  ],
-  process: [
-    {
-      question: "What's the discovery call like?",
-      answer:
-        "It's a free 30-minute conversation where we learn about your business, your goals, and your current setup. No sales scripts, no pressure. We'll give you honest feedback on what you need and whether we're the right fit.",
+        "You do not need to manage the build day-to-day, but your input matters at key points. We usually need fast feedback on priorities, content, approvals, and business rules. The process is designed to keep you informed without turning you into a project manager.",
     },
     {
-      question: "How involved do I need to be?",
+      question: "What makes B&Br different from a traditional agency or freelancer?",
       answer:
-        "We keep you in the loop without overwhelming you. Expect brief weekly check-ins and milestone reviews. We handle the technical decisions \u2014 you focus on your business. We'll ask for your input when it matters (brand, content, priorities) and handle the rest.",
-    },
-    {
-      question: "What if I'm not happy with the direction?",
-      answer:
-        "We build in review checkpoints at every phase. If something isn't right, we course-correct before moving forward. Our Blueprint phase exists specifically to align on direction before any code is written.",
-    },
-    {
-      question: "How do you handle revisions?",
-      answer:
-        "Revisions are built into every project. Each milestone includes a review round where you can request changes. We find that our Blueprint phase eliminates most major revisions because we align on direction early.",
+        "B&Br is founder-led, automation-first, and system-first. You work directly with the person building the system. There are no account-manager layers, no disappearing freelancer pattern, and no inflated AI theatre. The work is designed to hold up under real business use, not just look good in a pitch deck.",
     },
   ],
 };
+
+export const flatFaqItems = Object.values(faqData).flat();

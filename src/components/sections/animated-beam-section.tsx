@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   ClipboardList,
   UserX,
@@ -29,7 +30,15 @@ interface BeamPath {
   direction: "in" | "out";
 }
 
-function AnimatedBeamSVG({ paths }: { paths: BeamPath[] }) {
+function AnimatedBeamSVG({
+  paths,
+  active,
+  reducedMotion,
+}: {
+  paths: BeamPath[];
+  active: boolean;
+  reducedMotion: boolean;
+}) {
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-0"
@@ -75,7 +84,11 @@ function AnimatedBeamSVG({ paths }: { paths: BeamPath[] }) {
             filter="url(#beam-glow)"
             style={{
               strokeDasharray: "50 250",
-              animation: `beam-${beam.direction} 2.5s linear infinite`,
+              animationName:
+                active && !reducedMotion ? `beam-${beam.direction}` : "none",
+              animationDuration: "3.2s",
+              animationTimingFunction: "linear",
+              animationIterationCount: "infinite",
               animationDelay: `${i * 0.35}s`,
             }}
           />
@@ -99,9 +112,12 @@ function AnimatedBeamSVG({ paths }: { paths: BeamPath[] }) {
 export function AnimatedBeamSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const centerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const leftRefs = useRef<(HTMLDivElement | null)[]>([]);
   const rightRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [beamPaths, setBeamPaths] = useState<BeamPath[]>([]);
+  const shouldReduceMotion = useReducedMotion();
+  const isInView = useInView(sectionRef, { once: false, amount: 0.35 });
 
   const calculatePaths = useCallback(() => {
     const container = containerRef.current;
@@ -112,6 +128,9 @@ export function AnimatedBeamSection() {
     const cenR = center.getBoundingClientRect();
     const cx = cenR.left + cenR.width / 2 - cr.left;
     const cy = cenR.top + cenR.height / 2 - cr.top;
+    const hubInset = 6;
+    const hubLeftX = cx - cenR.width / 2 + hubInset;
+    const hubRightX = cx + cenR.width / 2 - hubInset;
 
     const newPaths: BeamPath[] = [];
 
@@ -121,11 +140,11 @@ export function AnimatedBeamSection() {
       const r = el.getBoundingClientRect();
       const sx = r.right - cr.left;
       const sy = r.top + r.height / 2 - cr.top;
-      const cpx1 = sx + (cx - sx) * 0.5;
-      const cpx2 = cx - (cx - sx) * 0.2;
+      const cpx1 = sx + (hubLeftX - sx) * 0.5;
+      const cpx2 = hubLeftX - (hubLeftX - sx) * 0.2;
       newPaths.push({
         id: `in-${i}`,
-        d: `M ${sx} ${sy} C ${cpx1} ${sy}, ${cpx2} ${cy}, ${cx} ${cy}`,
+        d: `M ${sx} ${sy} C ${cpx1} ${sy}, ${cpx2} ${cy}, ${hubLeftX} ${cy}`,
         direction: "in",
       });
     });
@@ -136,11 +155,11 @@ export function AnimatedBeamSection() {
       const r = el.getBoundingClientRect();
       const ex = r.left - cr.left;
       const ey = r.top + r.height / 2 - cr.top;
-      const cpx1 = cx + (ex - cx) * 0.2;
-      const cpx2 = ex - (ex - cx) * 0.5;
+      const cpx1 = hubRightX + (ex - hubRightX) * 0.2;
+      const cpx2 = ex - (ex - hubRightX) * 0.5;
       newPaths.push({
         id: `out-${i}`,
-        d: `M ${cx} ${cy} C ${cpx1} ${cy}, ${cpx2} ${ey}, ${ex} ${ey}`,
+        d: `M ${hubRightX} ${cy} C ${cpx1} ${cy}, ${cpx2} ${ey}, ${ex} ${ey}`,
         direction: "out",
       });
     });
@@ -158,10 +177,16 @@ export function AnimatedBeamSection() {
   }, [calculatePaths]);
 
   return (
-    <section className="bg-bg-alt py-24 overflow-hidden">
+    <section ref={sectionRef} className="overflow-hidden bg-bg-alt py-24">
       <div className="mx-auto max-w-6xl px-6">
         {/* Section heading */}
-        <div className="mb-6 text-center">
+        <motion.div
+          className="mb-6 text-center"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        >
           <span className="text-sm font-semibold uppercase tracking-widest text-amber-600">
             How It Works
           </span>
@@ -171,7 +196,11 @@ export function AnimatedBeamSection() {
           <p className="mt-3 text-foreground-muted max-w-xl mx-auto">
             Your pain points flow in. Solutions flow out. B&Br is the engine in the middle.
           </p>
-        </div>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-foreground-subtle">
+            This is the transformation layer: friction comes in messy, the
+            system comes out cleaner, faster, and easier to operate.
+          </p>
+        </motion.div>
 
         {/* Flow direction labels */}
         <div className="hidden md:flex justify-between items-center max-w-3xl mx-auto mb-4 px-8">
@@ -189,7 +218,11 @@ export function AnimatedBeamSection() {
           className="relative grid grid-cols-1 items-center gap-12 md:grid-cols-[1fr_180px_1fr] md:gap-16 min-h-[320px]"
         >
           {/* SVG beam overlay */}
-          <AnimatedBeamSVG paths={beamPaths} />
+          <AnimatedBeamSVG
+            paths={beamPaths}
+            active={isInView}
+            reducedMotion={!!shouldReduceMotion}
+          />
 
           {/* Left: Pain points */}
           <div className="flex flex-col items-center gap-6 md:items-end relative z-10">
@@ -224,10 +257,16 @@ export function AnimatedBeamSection() {
               className="relative flex h-32 w-32 items-center justify-center rounded-full bg-navy-900 shadow-2xl shadow-navy-900/50"
             >
               {/* Outer glow rings */}
-              <div className="absolute inset-[-12px] rounded-full border-2 border-gold-400/25 animate-[pulse-dot_2.5s_ease-in-out_infinite]" />
-              <div className="absolute inset-[-24px] rounded-full border border-gold-400/10 animate-[pulse-dot_2.5s_ease-in-out_0.8s_infinite]" />
+              {!shouldReduceMotion ? (
+                <>
+                  <div className="absolute inset-[-12px] rounded-full border-2 border-gold-400/25 animate-[pulse-dot_3.6s_ease-in-out_infinite]" />
+                  <div className="absolute inset-[-24px] rounded-full border border-gold-400/10 animate-[pulse-dot_3.6s_ease-in-out_1.1s_infinite]" />
+                </>
+              ) : null}
               {/* Inner glow */}
-              <div className="absolute inset-0 rounded-full bg-gold-400/10 animate-pulse" />
+              <div
+                className={`absolute inset-0 rounded-full bg-gold-400/10 ${shouldReduceMotion ? "" : "animate-pulse"}`}
+              />
               <div className="relative text-center">
                 <span className="font-[family-name:var(--font-display)] text-2xl font-extrabold text-gold-400 block">
                   B&amp;Br

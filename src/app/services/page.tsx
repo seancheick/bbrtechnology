@@ -7,23 +7,45 @@ import { ShineButton } from "@/components/effects/shine-button";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/effects/scroll-reveal";
 
 export const metadata: Metadata = {
-  title: "Services — B&Br Technology",
+  title: "AI Automation, Web Development & SEO Services | B&Br Technology",
   description:
-    "Explore B&Br Technology's full range of digital services — web development, AI automation, SEO, data analytics, and IT support.",
+    "Explore B&Br Technology services: AI automation, workflow systems, websites, technical SEO, data dashboards, and ongoing support.",
+  alternates: {
+    canonical: "/services",
+  },
   openGraph: {
-    title: "Services — B&Br Technology",
+    title: "AI Automation, Web Development & SEO Services | B&Br Technology",
     description:
-      "Explore B&Br Technology's full range of digital services — web development, AI automation, SEO, data analytics, and IT support.",
+      "Explore B&Br Technology services: AI automation, workflow systems, websites, technical SEO, data dashboards, and ongoing support.",
     type: "website",
     locale: "en_US",
     url: "https://bbrtechnology.com/services",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Services — B&Br Technology",
+    title: "AI Automation, Web Development & SEO Services | B&Br Technology",
     description:
-      "Explore B&Br Technology's full range of digital services — web development, AI automation, SEO, data analytics, and IT support.",
+      "Explore B&Br Technology services: AI automation, workflow systems, websites, technical SEO, data dashboards, and ongoing support.",
   },
+};
+
+const servicesJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: services.map((service, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Service",
+      name: service.title,
+      description: service.description,
+      provider: {
+        "@type": "Organization",
+        name: "B&Br Technology",
+        url: "https://bbrtechnology.com",
+      },
+    },
+  })),
 };
 
 /* Accent colors per service (for visual cards' left border) */
@@ -136,6 +158,10 @@ const highlights: Record<string, { title: string; description: string }[]> = {
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+      />
       {/* ─── Hero ─── */}
       <section className="relative overflow-hidden py-28 lg:py-36">
         {/* Grid bg effect */}
@@ -341,24 +367,22 @@ export default function ServicesPage() {
       </section>
 
       {/* ─── Bottom CTA ─── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-navy-950 to-navy-800 py-20">
+      <section className="relative overflow-hidden border-t border-border bg-[linear-gradient(to_bottom_right,color-mix(in_srgb,var(--color-bg-alt)_88%,var(--color-navy-950)_12%),var(--color-bg))] py-20">
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage:
-              "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
             backgroundSize: "6rem 5rem",
           }}
         />
 
         <ScrollReveal className="relative z-10 mx-auto max-w-3xl px-6 text-center">
-          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            <span className="bg-gradient-to-br from-white via-white/90 to-white/40 bg-clip-text text-transparent">
-              Not Sure Which Service You Need?
-            </span>
+          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            Not Sure Which Service You <span className="text-amber-600">Need</span>?
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-navy-400">
+          <p className="mx-auto mt-4 max-w-xl text-foreground-muted">
             That&apos;s completely fine. Most of our clients start with a
             conversation, not a shopping cart. Tell us where you are and where
             you want to be — we&apos;ll recommend exactly what makes sense for
@@ -373,14 +397,14 @@ export default function ServicesPage() {
             <Button variant="outline" asChild>
               <a
                 href="/contact"
-                className="border-white/20 text-white hover:bg-white/10"
+                className="border-border text-foreground hover:bg-bg-alt"
               >
                 View Pricing Models
               </a>
             </Button>
           </div>
 
-          <p className="mt-6 text-sm text-navy-400/60">
+          <p className="mt-6 text-sm text-foreground-subtle">
             No sales scripts. No pressure. Just an honest conversation about
             your goals.
           </p>

@@ -5,13 +5,28 @@ import { Footer } from "@/components/layout/footer";
 import "@/styles/globals.css";
 
 const siteUrl = "https://bbrtechnology.com";
-const siteTitle = "B&Br Technology — AI-Powered Tech. Built for Real Growth.";
+const siteTitle =
+  "B&Br Technology — Automation Systems for Founders Who Need Leverage";
 const siteDescription =
-  "Boston-based digital studio building websites, apps, and AI automation systems for founders and growing businesses.";
+  "Founder-led studio building automation systems, internal tools, and product layers that reduce manual work and help lean teams scale.";
 
 export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     title: siteTitle,
     description: siteDescription,
@@ -30,11 +45,21 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "LocalBusiness"],
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
   name: "B&Br Technology",
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   description: siteDescription,
+  areaServed: "US",
+  knowsAbout: [
+    "AI automation",
+    "workflow automation",
+    "internal tools",
+    "website development",
+    "technical SEO",
+    "lead capture systems",
+  ],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Boston",
@@ -43,14 +68,22 @@ const jsonLd = {
   },
   telephone: "+16467268345",
   email: "hello@bbrtechnology.com",
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email: "hello@bbrtechnology.com",
+    telephone: "+16467268345",
+    areaServed: "US",
+    availableLanguage: ["en"],
+  },
   founder: {
     "@type": "Person",
     name: "Sean Cheick Baradji",
   },
   sameAs: [
-    "https://linkedin.com",
-    "https://twitter.com",
-    "https://github.com",
+    "https://linkedin.com/company/bbrtechnology",
+    "https://twitter.com/bbrtechnology",
+    "https://github.com/bbrtechnology",
   ],
 };
 

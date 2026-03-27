@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
+@theme {
   --color-navy-950: #0a0f1a;
   --color-navy-900: #0f172a;
   --color-navy-800: #1e293b;
@@ -14,12 +14,14 @@
   --color-gold-400: #fbbf24;
   --color-bg: #ffffff;
   --color-bg-alt: #fafafa;
+  --color-bg-elevated: #ffffff;
   --color-border: #e2e5ee;
   --color-success: #22c55e;
   /* text-foreground flips in dark mode, navy-900 stays fixed for backgrounds */
   --color-foreground: #0f172a;
   --color-foreground-muted: #475569;
   --color-foreground-subtle: #94a3b8;
+  --color-foreground-inverse: #f8fafc;
   --font-display: "Cabinet Grotesk", sans-serif;
   --font-body: "Satoshi", sans-serif;
 }
@@ -27,13 +29,23 @@
 .dark {
   --color-bg: #0a0f1a;
   --color-bg-alt: #111827;
+  --color-bg-elevated: #172033;
   --color-border: rgba(255, 255, 255, 0.12);
   --color-foreground: #f8fafc;
   --color-foreground-muted: #94a3b8;
   --color-foreground-subtle: #64748b;
+  --color-foreground-inverse: #0f172a;
 }
 
 @layer base {
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
   body {
     font-family: var(--font-body);
     background-color: var(--color-bg);
@@ -41,6 +53,89 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-gold-400) 35%, transparent);
+    color: var(--color-foreground);
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    color-scheme: inherit;
+  }
+
+  select option {
+    background-color: var(--color-bg-elevated);
+    color: var(--color-foreground);
+  }
+}
+
+@layer utilities {
+  .bg-bg {
+    background-color: var(--color-bg) !important;
+  }
+
+  .bg-bg-alt {
+    background-color: var(--color-bg-alt) !important;
+  }
+
+  .bg-bg\/60 {
+    background-color: color-mix(in srgb, var(--color-bg) 60%, transparent) !important;
+  }
+
+  .bg-bg\/80 {
+    background-color: color-mix(in srgb, var(--color-bg) 80%, transparent) !important;
+  }
+
+  .bg-bg\/95 {
+    background-color: color-mix(in srgb, var(--color-bg) 95%, transparent) !important;
+  }
+
+  .bg-foreground {
+    background-color: var(--color-foreground) !important;
+  }
+
+  .text-bg {
+    color: var(--color-bg) !important;
+  }
+
+  .text-foreground {
+    color: var(--color-foreground) !important;
+  }
+
+  .text-foreground-muted {
+    color: var(--color-foreground-muted) !important;
+  }
+
+  .text-foreground-subtle {
+    color: var(--color-foreground-subtle) !important;
+  }
+
+  .text-foreground-subtle\/30 {
+    color: color-mix(in srgb, var(--color-foreground-subtle) 30%, transparent) !important;
+  }
+
+  .text-foreground-subtle\/40 {
+    color: color-mix(in srgb, var(--color-foreground-subtle) 40%, transparent) !important;
+  }
+
+  .border-border {
+    border-color: var(--color-border) !important;
+  }
+
+  .border-border\/40 {
+    border-color: color-mix(in srgb, var(--color-border) 40%, transparent) !important;
+  }
+
+  .border-border\/80 {
+    border-color: color-mix(in srgb, var(--color-border) 80%, transparent) !important;
+  }
+
+  .ring-offset-bg {
+    --tw-ring-offset-color: var(--color-bg) !important;
   }
 }
 

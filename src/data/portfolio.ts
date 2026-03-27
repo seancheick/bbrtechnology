@@ -4,6 +4,9 @@ export interface Project {
   categoryColor: string;
   description: string;
   techStack: string[];
+  featured?: boolean;
+  impact?: string;
+  stage?: string;
 }
 
 export const projects: Project[] = [
@@ -14,6 +17,31 @@ export const projects: Project[] = [
     description:
       "First-of-its-kind AI pharmacist app that scans supplements via barcode and OCR, evaluates quality on a 100-point deterministic scoring algorithm, checks drug-supplement interactions, and provides personalized safety recommendations \u2014 all with HIPAA-compliant, privacy-first architecture.",
     techStack: ["Flutter", "Python", "NLP/RAG", "DSLD Database", "HIPAA"],
+    featured: true,
+    impact: "Healthcare-grade product logic, deterministic scoring, and private AI workflows for a complex regulated use case.",
+    stage: "Product + data platform",
+  },
+  {
+    title: "FieldOps \u2014 Mobile Workflow System for Service Teams",
+    category: "Operations Software",
+    categoryColor: "#0f766e",
+    description:
+      "Mobile-first workflow software built for teams in the field \u2014 centralizing job intake, dispatch visibility, notes, and completion tracking so operators can manage work without bouncing between calls, texts, and spreadsheets.",
+    techStack: ["Flutter", "Next.js", "Automation", "Role-based workflows"],
+    featured: true,
+    impact: "Turns scattered operational communication into one clear system for execution and follow-through.",
+    stage: "Internal ops platform",
+  },
+  {
+    title: "AirbnbBBR \u2014 Private Airbnb Management Software",
+    category: "Hospitality Operations",
+    categoryColor: "#ea580c",
+    description:
+      "Private management software for short-term rental operations \u2014 designed to coordinate guest communication, cleaning turnover, property visibility, and owner-facing operations from one internal system instead of fragmented tools.",
+    techStack: ["Next.js", "Automation", "Ops dashboards", "Internal tooling"],
+    featured: true,
+    impact: "Reduces manual coordination and gives operators one control layer for a fast-moving hospitality workflow.",
+    stage: "Private internal platform",
   },
   {
     title: "Clinical EHR Integration & Workflow Systems",
@@ -56,6 +84,8 @@ export const projects: Project[] = [
     techStack: ["React", "Next.js", "WordPress", "SEO"],
   },
 ];
+
+export const featuredProjects = projects.filter((project) => project.featured);
 
 export const principles = [
   {

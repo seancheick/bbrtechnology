@@ -18,12 +18,12 @@
      ========================================== */
   function setTheme(theme) {
     html.setAttribute('data-theme', theme);
-    try { localStorage.setItem(THEME_KEY, theme); } catch(e) {}
+    try { localStorage.setItem(THEME_KEY, theme); } catch {}
   }
 
   // Initialize
   var saved = null;
-  try { saved = localStorage.getItem(THEME_KEY); } catch(e) {}
+  try { saved = localStorage.getItem(THEME_KEY); } catch {}
   if (saved) {
     setTheme(saved);
   } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {

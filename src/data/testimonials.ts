@@ -2,62 +2,62 @@ export interface Testimonial {
   text: string;
   name: string;
   role: string;
-  image: string;
+  initials: string;
 }
 
 export const testimonials: Testimonial[] = [
   {
-    text: "They completely transformed how we handle client onboarding. What used to take 2 hours per client now happens automatically.",
+    text: "They rebuilt our intake flow so our staff stopped chasing the same paperwork all day. It finally feels like the process supports the clinic instead of slowing it down.",
     name: "Sarah K.",
     role: "Clinic Owner",
-    image: "https://randomuser.me/api/portraits/women/1.jpg",
+    initials: "SK",
   },
   {
-    text: "Fast, honest, and the AI integration was a game-changer. Our customer support runs 24/7 now without extra staff.",
+    text: "Fast, honest, and practical. They helped us automate the repetitive support questions without turning the brand voice into robot mush.",
     name: "Mike R.",
     role: "eCommerce Founder",
-    image: "https://randomuser.me/api/portraits/men/2.jpg",
+    initials: "MR",
   },
   {
-    text: "Best tech investment we've made. Our site converts 3x more than the old one, and the dashboard saves us hours every week.",
+    text: "We didn’t need another agency pitch. We needed someone to fix the bottlenecks. They shipped the product, cleaned up the workflow, and gave us visibility we actually use.",
     name: "Jasmine P.",
     role: "Startup CEO",
-    image: "https://randomuser.me/api/portraits/women/3.jpg",
+    initials: "JP",
   },
   {
-    text: "Sean understood our vision immediately and delivered beyond expectations. The automated lead pipeline changed our business.",
+    text: "Sean understood the operational problem immediately. The automated lead flow removed a ton of follow-up work and made the whole pipeline feel tighter.",
     name: "Tina L.",
     role: "Marketing Director",
-    image: "https://randomuser.me/api/portraits/women/4.jpg",
+    initials: "TL",
   },
   {
-    text: "The dashboard they built saves us 10+ hours per week. We finally know where every dollar of ad spend goes.",
+    text: "The dashboard and reporting layer changed how we run the business. Instead of guessing, we can see where time and money are leaking and act fast.",
     name: "David M.",
     role: "Operations Manager",
-    image: "https://randomuser.me/api/portraits/men/5.jpg",
+    initials: "DM",
   },
   {
-    text: "Finally, a dev who talks business, not just code. They built exactly what we needed and nothing we didn't.",
+    text: "As a solopreneur, I needed leverage, not more software to babysit. They built exactly what I needed and cut the busywork that was eating my week.",
     name: "Ana V.",
-    role: "Solopreneur",
-    image: "https://randomuser.me/api/portraits/women/6.jpg",
+    role: "Solopreneur Consultant",
+    initials: "AV",
   },
   {
-    text: "The SEO results were real \u2014 we went from page 3 to the top 5 for our main keywords in under 4 months.",
+    text: "The site finally reflects the business we actually run. Cleaner structure, better lead flow, and a setup that doesn’t feel like it will break every time we grow.",
     name: "James T.",
     role: "Local Business Owner",
-    image: "https://randomuser.me/api/portraits/men/7.jpg",
+    initials: "JT",
   },
   {
-    text: "They delivered a solution that exceeded expectations, understanding our needs and enhancing our operations.",
+    text: "Our Airbnb consulting workflow used to live across notes, messages, and manual follow-ups. They turned it into one cleaner operating system.",
     name: "Sana S.",
-    role: "Sales Manager",
-    image: "https://randomuser.me/api/portraits/women/8.jpg",
+    role: "Airbnb Consultant",
+    initials: "SS",
   },
   {
-    text: "Using their systems, our online presence and conversions significantly improved. Highly recommend.",
+    text: "What stood out was how grounded the process felt. No inflated promises, just smart execution and systems that made our team faster almost immediately.",
     name: "Hassan A.",
-    role: "E-commerce Manager",
-    image: "https://randomuser.me/api/portraits/men/9.jpg",
+    role: "Small Business Operator",
+    initials: "HA",
   },
 ];

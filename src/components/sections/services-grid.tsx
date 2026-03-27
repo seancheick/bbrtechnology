@@ -5,18 +5,26 @@ import { motion, AnimatePresence } from "framer-motion";
 import { services } from "@/data/services";
 import { cn } from "@/lib/utils";
 
-// Bento grid positions: web-mobile spans 2 cols, ai-automation gets accent treatment
+const displayOrder = [
+  "ai-automation",
+  "web-mobile",
+  "data-analytics",
+  "seo-growth",
+  "it-support",
+];
+
+// Bento grid positions: automation leads, web/mobile supports the system
 const gridConfig: Record<
   string,
   { className: string; accent?: boolean; large?: boolean }
 > = {
   "web-mobile": {
-    className: "md:col-span-2 md:row-span-1",
-    large: true,
+    className: "md:col-span-1 md:row-span-1",
   },
   "ai-automation": {
-    className: "md:col-span-1 md:row-span-1",
+    className: "md:col-span-2 md:row-span-1",
     accent: true,
+    large: true,
   },
   "seo-growth": {
     className: "md:col-span-1 md:row-span-1",
@@ -31,6 +39,9 @@ const gridConfig: Record<
 
 export function ServicesGrid() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const orderedServices = displayOrder
+    .map((id) => services.find((service) => service.id === id))
+    .filter((service): service is (typeof services)[number] => !!service);
 
   const toggle = (id: string) => {
     setExpandedId((prev) => (prev === id ? null : id));
@@ -42,16 +53,23 @@ export function ServicesGrid() {
         {/* Section heading */}
         <div className="mb-12 text-center">
           <span className="text-sm font-semibold uppercase tracking-widest text-amber-600">
-            What We Build
+            Where We Create Leverage
           </span>
           <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Systems Built to Scale
+            Automation First.
+            <br />
+            Everything Else Supports It.
           </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-foreground-muted">
+            We lead with workflow automation because that is usually where the
+            fastest operational gains live. Websites, apps, analytics, and
+            support layers are built around that core.
+          </p>
         </div>
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {services.map((service) => {
+          {orderedServices.map((service) => {
             const Icon = service.icon;
             const isExpanded = expandedId === service.id;
             const config = gridConfig[service.id] ?? { className: "" };

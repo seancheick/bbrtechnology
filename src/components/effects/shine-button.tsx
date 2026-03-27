@@ -38,7 +38,7 @@ function ShineButton({ className, children, href, target, rel, asChild, ...props
         rel={rel}
         className={cn(
           "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 dark:ring-offset-navy-950",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
           "h-11 px-6",
           classes
         )}
