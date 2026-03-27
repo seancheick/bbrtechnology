@@ -4,6 +4,7 @@ import { services } from "@/data/services";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShineButton } from "@/components/effects/shine-button";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/effects/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "Services — B&Br Technology",
@@ -138,34 +139,36 @@ export default function ServicesPage() {
         />
 
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <Badge variant="accent" className="mb-6">
-            What We Do
-          </Badge>
+          <ScrollReveal>
+            <Badge variant="accent" className="mb-6">
+              What We Do
+            </Badge>
 
-          <h1 className="font-[family-name:var(--font-display)] text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            <span className="gradient-text">
-              Digital Systems That Actually Move the Needle
-            </span>
-          </h1>
+            <h1 className="font-[family-name:var(--font-display)] text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+              <span className="gradient-text">
+                Digital Systems That Actually Move the Needle
+              </span>
+            </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-navy-600">
-            We don&apos;t just build websites. We design complete digital systems
-            — from your first online presence to advanced automation — so you can
-            focus on running your business while your tech works for you.
-          </p>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-navy-600">
+              We don&apos;t just build websites. We design complete digital systems
+              — from your first online presence to advanced automation — so you can
+              focus on running your business while your tech works for you.
+            </p>
 
-          {/* Quick-nav pills */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            {navPills.map((pill) => (
-              <a
-                key={pill.id}
-                href={`#${pill.id}`}
-                className="rounded-full border border-border bg-bg px-4 py-2 text-sm font-medium text-navy-700 transition-colors hover:border-amber-600/40 hover:text-amber-600"
-              >
-                {pill.label}
-              </a>
-            ))}
-          </div>
+            {/* Quick-nav pills */}
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              {navPills.map((pill) => (
+                <a
+                  key={pill.id}
+                  href={`#${pill.id}`}
+                  className="rounded-full border border-border bg-bg px-4 py-2 text-sm font-medium text-navy-700 transition-colors hover:border-amber-600/40 hover:text-amber-600"
+                >
+                  {pill.label}
+                </a>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -253,13 +256,13 @@ export default function ServicesPage() {
               <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-start">
                 {isEven ? (
                   <>
-                    {contentBlock}
-                    {visualBlock}
+                    <ScrollReveal>{contentBlock}</ScrollReveal>
+                    <ScrollReveal delay={0.1}>{visualBlock}</ScrollReveal>
                   </>
                 ) : (
                   <>
-                    <div className="order-2 lg:order-1">{visualBlock}</div>
-                    <div className="order-1 lg:order-2">{contentBlock}</div>
+                    <ScrollReveal className="order-2 lg:order-1">{visualBlock}</ScrollReveal>
+                    <ScrollReveal delay={0.1} className="order-1 lg:order-2">{contentBlock}</ScrollReveal>
                   </>
                 )}
               </div>
@@ -271,49 +274,55 @@ export default function ServicesPage() {
       {/* ─── On-Demand Services ─── */}
       <section className="py-20">
         <div className="mx-auto max-w-5xl px-6 text-center">
-          <Badge variant="accent" className="mb-4">
-            Expand When You Need To
-          </Badge>
+          <ScrollReveal>
+            <Badge variant="accent" className="mb-4">
+              Expand When You Need To
+            </Badge>
 
-          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
-            On-Demand &amp; Partner-Led Services
-          </h2>
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
+              On-Demand &amp; Partner-Led Services
+            </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-navy-600">
-            Some needs don&apos;t fit a monthly retainer. For specialized work
-            like cloud infrastructure and cybersecurity, we bring in vetted
-            partners so you get expert-level execution without the overhead.
-          </p>
+            <p className="mx-auto mt-4 max-w-2xl text-navy-600">
+              Some needs don&apos;t fit a monthly retainer. For specialized work
+              like cloud infrastructure and cybersecurity, we bring in vetted
+              partners so you get expert-level execution without the overhead.
+            </p>
+          </ScrollReveal>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <StaggerContainer className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
             {/* Cloud Infrastructure */}
-            <div className="rounded-xl border border-border bg-bg p-8 text-left shadow-sm">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 mb-4">
-                <Cloud className="h-5 w-5 text-gold-400" />
+            <StaggerItem>
+              <div className="rounded-xl border border-border bg-bg p-8 text-left shadow-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 mb-4">
+                  <Cloud className="h-5 w-5 text-gold-400" />
+                </div>
+                <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-navy-900">
+                  Cloud Infrastructure
+                </h3>
+                <p className="mt-3 text-sm text-navy-600 leading-relaxed">
+                  Scalable architecture, cloud migration, and server planning for
+                  businesses ready to grow beyond shared hosting.
+                </p>
               </div>
-              <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-navy-900">
-                Cloud Infrastructure
-              </h3>
-              <p className="mt-3 text-sm text-navy-600 leading-relaxed">
-                Scalable architecture, cloud migration, and server planning for
-                businesses ready to grow beyond shared hosting.
-              </p>
-            </div>
+            </StaggerItem>
 
             {/* Cybersecurity */}
-            <div className="rounded-xl border border-border bg-bg p-8 text-left shadow-sm">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 mb-4">
-                <ShieldCheck className="h-5 w-5 text-gold-400" />
+            <StaggerItem>
+              <div className="rounded-xl border border-border bg-bg p-8 text-left shadow-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 mb-4">
+                  <ShieldCheck className="h-5 w-5 text-gold-400" />
+                </div>
+                <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-navy-900">
+                  Cybersecurity
+                </h3>
+                <p className="mt-3 text-sm text-navy-600 leading-relaxed">
+                  Security audits, compliance support, and advanced protection
+                  delivered through our vetted external partners.
+                </p>
               </div>
-              <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-navy-900">
-                Cybersecurity
-              </h3>
-              <p className="mt-3 text-sm text-navy-600 leading-relaxed">
-                Security audits, compliance support, and advanced protection
-                delivered through our vetted external partners.
-              </p>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -328,7 +337,7 @@ export default function ServicesPage() {
           }}
         />
 
-        <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+        <ScrollReveal className="relative z-10 mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
             <span className="bg-gradient-to-br from-white via-white/90 to-white/40 bg-clip-text text-transparent">
               Not Sure Which Service You Need?
@@ -361,7 +370,7 @@ export default function ServicesPage() {
             No sales scripts. No pressure. Just an honest conversation about
             your goals.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
     </>
   );

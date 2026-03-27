@@ -13,6 +13,7 @@ import { toolCategories } from "@/data/tools";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShineButton } from "@/components/effects/shine-button";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/effects/scroll-reveal";
 import type { LucideIcon } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -49,7 +50,7 @@ export default function AboutPage() {
           }}
         />
 
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+        <ScrollReveal className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <Badge variant="accent" className="mb-6">
             About B&amp;Br Technology
           </Badge>
@@ -65,64 +66,68 @@ export default function AboutPage() {
             real businesses. No inflated promises, no trend-chasing — just
             precise, reliable technology that earns its place in your stack.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* ─── The Story ─── */}
       <section className="py-20 bg-bg-alt">
         <div className="mx-auto max-w-3xl px-6">
-          <Badge variant="accent" className="mb-4">
-            Our Story
-          </Badge>
+          <ScrollReveal>
+            <Badge variant="accent" className="mb-4">
+              Our Story
+            </Badge>
 
-          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl mb-8">
-            Why B&amp;Br Exists
-          </h2>
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl mb-8">
+              Why B&amp;Br Exists
+            </h2>
+          </ScrollReveal>
 
-          <div className="space-y-6 text-navy-600 leading-relaxed">
-            <p>
-              B&amp;Br Technology was founded by Sean Cheick Baradji — a
-              developer, systems architect, and first-generation American with
-              roots in West Africa and a career that spans New York City, Boston,
-              and Washington, D.C. After years of watching businesses get burned
-              by the same cycle, it became clear that the industry needed a
-              different approach.
-            </p>
+          <ScrollReveal delay={0.1}>
+            <div className="space-y-6 text-navy-600 leading-relaxed">
+              <p>
+                B&amp;Br Technology was founded by Sean Cheick Baradji — a
+                developer, systems architect, and first-generation American with
+                roots in West Africa and a career that spans New York City, Boston,
+                and Washington, D.C. After years of watching businesses get burned
+                by the same cycle, it became clear that the industry needed a
+                different approach.
+              </p>
 
-            <p>
-              The problem was obvious: traditional agencies overcharged for
-              bloated deliverables, freelancers disappeared mid-project, and a
-              new wave of AI vendors was wrapping basic automations in marketing
-              jargon and charging premium rates. Businesses deserved better than
-              a choice between expensive, unreliable, and misleading.
-            </p>
+              <p>
+                The problem was obvious: traditional agencies overcharged for
+                bloated deliverables, freelancers disappeared mid-project, and a
+                new wave of AI vendors was wrapping basic automations in marketing
+                jargon and charging premium rates. Businesses deserved better than
+                a choice between expensive, unreliable, and misleading.
+              </p>
 
-            <p>
-              B&amp;Br operates differently. Every line of code has a reason.
-              Every recommendation is evidence-based. We ship on time, we
-              communicate in plain language, and nothing is hidden — not the
-              timeline, not the cost, not the limitations. If a $50/month tool
-              solves your problem, we&apos;ll tell you — even if it means a
-              smaller invoice.
-            </p>
+              <p>
+                B&amp;Br operates differently. Every line of code has a reason.
+                Every recommendation is evidence-based. We ship on time, we
+                communicate in plain language, and nothing is hidden — not the
+                timeline, not the cost, not the limitations. If a $50/month tool
+                solves your problem, we&apos;ll tell you — even if it means a
+                smaller invoice.
+              </p>
 
-            <p>
-              We love collaborating. Whether it&apos;s teaming up with another
-              agency&apos;s engineering team, consulting on an existing project,
-              or serving as that third set of eyes on a critical system, we work
-              well alongside other builders. Our interns come from Boston-area
-              colleges and work on real client projects — not made-up exercises —
-              because we believe in learning by shipping.
-            </p>
+              <p>
+                We love collaborating. Whether it&apos;s teaming up with another
+                agency&apos;s engineering team, consulting on an existing project,
+                or serving as that third set of eyes on a critical system, we work
+                well alongside other builders. Our interns come from Boston-area
+                colleges and work on real client projects — not made-up exercises —
+                because we believe in learning by shipping.
+              </p>
 
-            <p>
-              Today, B&amp;Br works with medical clinics, eCommerce brands,
-              startups, solopreneurs, and growing teams across the country. The
-              common thread isn&apos;t industry — it&apos;s ambition. If
-              you&apos;re building something real and you need technology that
-              keeps up, that&apos;s exactly what we&apos;re here for.
-            </p>
-          </div>
+              <p>
+                Today, B&amp;Br works with medical clinics, eCommerce brands,
+                startups, solopreneurs, and growing teams across the country. The
+                common thread isn&apos;t industry — it&apos;s ambition. If
+                you&apos;re building something real and you need technology that
+                keeps up, that&apos;s exactly what we&apos;re here for.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -131,7 +136,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
             {/* Founder card */}
-            <div className="lg:col-span-2">
+            <ScrollReveal className="lg:col-span-2">
               <div className="rounded-xl border border-border bg-bg shadow-sm p-8 text-center">
                 {/* Avatar */}
                 <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-amber-600 to-gold-400">
@@ -170,10 +175,10 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Bio prose */}
-            <div className="lg:col-span-3">
+            <ScrollReveal delay={0.1} className="lg:col-span-3">
               <Badge variant="accent" className="mb-4">
                 The Person Behind the Code
               </Badge>
@@ -219,7 +224,7 @@ export default function AboutPage() {
                   real consequences.
                 </p>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -227,98 +232,98 @@ export default function AboutPage() {
       {/* ─── Operating Principles ─── */}
       <section className="py-20 bg-bg-alt">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="text-center mb-12">
+          <ScrollReveal className="text-center mb-12">
             <Badge variant="accent" className="mb-4">
               How We Think
             </Badge>
             <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
               Our Operating Principles
             </h2>
-          </div>
+          </ScrollReveal>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {principles.map((principle) => {
               const Icon =
                 principleIcons[principle.title] ?? CheckCircle;
 
               return (
-                <div
-                  key={principle.title}
-                  className="rounded-xl border border-border bg-bg p-6 shadow-sm"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600/10 mb-4">
-                    <Icon className="h-5 w-5 text-amber-600" />
+                <StaggerItem key={principle.title}>
+                  <div className="rounded-xl border border-border bg-bg p-6 shadow-sm">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600/10 mb-4">
+                      <Icon className="h-5 w-5 text-amber-600" />
+                    </div>
+                    <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900">
+                      {principle.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-navy-600 leading-relaxed">
+                      {principle.description}
+                    </p>
                   </div>
-                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900">
-                    {principle.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-navy-600 leading-relaxed">
-                    {principle.description}
-                  </p>
-                </div>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* ─── Systems We've Built ─── */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="text-center mb-12">
+          <ScrollReveal className="text-center mb-12">
             <Badge variant="accent" className="mb-4">
               Track Record
             </Badge>
             <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
               Systems We&apos;ve Built
             </h2>
-          </div>
+          </ScrollReveal>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <StaggerContainer className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {projects.map((project) => (
-              <div
-                key={project.title}
-                className="rounded-xl border border-border bg-bg p-6 shadow-sm border-l-4"
-                style={{ borderLeftColor: project.categoryColor }}
-              >
-                <span
-                  className="inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold mb-3"
-                  style={{
-                    color: project.categoryColor,
-                    backgroundColor: `${project.categoryColor}15`,
-                  }}
+              <StaggerItem key={project.title}>
+                <div
+                  className="rounded-xl border border-border bg-bg p-6 shadow-sm border-l-4"
+                  style={{ borderLeftColor: project.categoryColor }}
                 >
-                  {project.category}
-                </span>
+                  <span
+                    className="inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold mb-3"
+                    style={{
+                      color: project.categoryColor,
+                      backgroundColor: `${project.categoryColor}15`,
+                    }}
+                  >
+                    {project.category}
+                  </span>
 
-                <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900">
-                  {project.title}
-                </h3>
+                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900">
+                    {project.title}
+                  </h3>
 
-                <p className="mt-2 text-sm text-navy-600 leading-relaxed">
-                  {project.description}
-                </p>
+                  <p className="mt-2 text-sm text-navy-600 leading-relaxed">
+                    {project.description}
+                  </p>
 
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {project.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-full border border-border bg-bg-alt px-2.5 py-0.5 text-xs font-medium text-navy-600"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {project.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-full border border-border bg-bg-alt px-2.5 py-0.5 text-xs font-medium text-navy-600"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* ─── Tools We Trust ─── */}
       <section className="py-20 bg-bg-alt">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="text-center mb-12">
+          <ScrollReveal className="text-center mb-12">
             <Badge variant="accent" className="mb-4">
               Our Stack
             </Badge>
@@ -329,28 +334,30 @@ export default function AboutPage() {
               We&apos;re tool-agnostic — we pick what works best for the job,
               not what&apos;s trending on Twitter.
             </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <StaggerContainer className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {toolCategories.map((category) => (
-              <div key={category.title}>
-                <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-amber-600 mb-4">
-                  {category.title}
-                </h3>
-                <ul className="space-y-2.5">
-                  {category.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-2 text-sm text-navy-600"
-                    >
-                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <StaggerItem key={category.title}>
+                <div>
+                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-amber-600 mb-4">
+                    {category.title}
+                  </h3>
+                  <ul className="space-y-2.5">
+                    {category.items.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-center gap-2 text-sm text-navy-600"
+                      >
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -365,7 +372,7 @@ export default function AboutPage() {
           }}
         />
 
-        <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+        <ScrollReveal className="relative z-10 mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
             <span className="bg-gradient-to-br from-white via-white/90 to-white/40 bg-clip-text text-transparent">
               Ready to Work With a Team That Delivers?
@@ -391,7 +398,7 @@ export default function AboutPage() {
               </a>
             </Button>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Mail, Phone, MapPin, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ContactForm } from "@/components/forms/contact-form";
+import { ScrollReveal } from "@/components/effects/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "Contact — B&Br Technology",
@@ -55,7 +56,7 @@ export default function ContactPage() {
           }}
         />
 
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+        <ScrollReveal className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <Badge variant="accent" className="mb-6">
             Get in Touch
           </Badge>
@@ -70,7 +71,7 @@ export default function ContactPage() {
             Tell us where you are and where you want to be. We&apos;ll tell you
             honestly whether we&apos;re the right fit.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* ─── Two-column layout ─── */}
@@ -78,7 +79,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
             {/* ── Left sidebar ── */}
-            <div className="lg:col-span-2 space-y-8">
+            <ScrollReveal className="lg:col-span-2 space-y-8">
               {/* What Happens Next */}
               <div className="rounded-xl border border-border bg-bg p-6 shadow-sm">
                 <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-navy-900 mb-6">
@@ -144,12 +145,12 @@ export default function ContactPage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* ── Right form ── */}
-            <div className="lg:col-span-3">
+            <ScrollReveal delay={0.1} className="lg:col-span-3">
               <ContactForm />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
