@@ -1,5 +1,3 @@
-"use client";
-
 import { ChevronRight, ArrowRight } from "lucide-react";
 import { ShineButton } from "@/components/effects/shine-button";
 import { Button } from "@/components/ui/button";
@@ -11,6 +9,7 @@ export function Hero() {
       className="relative mx-auto w-full pt-40 px-6 text-center md:px-8
       min-h-[calc(100vh-40px)] overflow-hidden
       bg-[linear-gradient(to_bottom,var(--color-bg),var(--color-bg)_50%,var(--color-border)_88%)]
+      dark:bg-[linear-gradient(to_bottom,var(--color-bg),var(--color-bg)_50%,var(--color-bg-alt)_88%)]
       rounded-b-xl"
     >
       {/* Grid BG */}
@@ -34,9 +33,10 @@ export function Hero() {
       {/* Eyebrow — Now Booking */}
       <a href="#services" className="group">
         <span
-          className="animate-[fade-in_0.6s_ease-out_0.1s_both] text-sm text-navy-600
+          className="animate-[fade-in_0.6s_ease-out_0.1s_both] text-sm text-foreground-muted
           mx-auto px-5 py-2
           bg-gradient-to-tr from-navy-400/5 via-navy-400/5 to-transparent
+          dark:from-white/5 dark:via-white/5
           border-[2px] border-border
           rounded-3xl w-fit tracking-tight uppercase flex items-center justify-center"
         >
@@ -64,7 +64,7 @@ export function Hero() {
       {/* Subtitle */}
       <p
         className="animate-[fade-in_0.8s_ease-out_0.35s_both] mb-8 -translate-y-4 text-balance
-        text-lg tracking-tight text-navy-600
+        text-lg tracking-tight text-foreground-muted
         md:text-xl max-w-xl mx-auto"
       >
         We build websites, apps, and automation systems that help founders
@@ -100,7 +100,7 @@ export function Hero() {
 
       {/* Trust signals */}
       <div className="animate-[fade-in_0.6s_ease-out_0.65s_both] mt-10 border-t border-border pt-6">
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-navy-600">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-foreground-muted">
           <span>Founder-Led &#10003;</span>
           <span className="hidden sm:inline text-navy-400/30">|</span>
           <span>System-First &#10003;</span>

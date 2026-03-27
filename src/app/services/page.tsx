@@ -176,7 +176,7 @@ export default function ServicesPage() {
                 <a
                   key={pill.id}
                   href={`#${pill.id}`}
-                  className="rounded-full border border-border bg-bg px-4 py-2 text-sm font-medium text-navy-700 transition-colors hover:border-amber-600/40 hover:text-amber-600"
+                  className="rounded-full border border-border bg-bg px-4 py-2 text-sm font-medium text-foreground-muted transition-colors hover:border-amber-600/40 hover:text-amber-600"
                 >
                   {pill.label}
                 </a>
@@ -235,7 +235,7 @@ export default function ServicesPage() {
           <div className="flex flex-col gap-4">
             {/* Icon card at the top */}
             <div className="flex items-center gap-3 mb-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-navy-900">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-navy-900 dark:bg-navy-800">
                 <Icon className="h-6 w-6 text-gold-400" />
               </div>
               <span className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground">
@@ -247,7 +247,7 @@ export default function ServicesPage() {
             {cards.map((card) => (
               <div
                 key={card.title}
-                className={`rounded-lg border border-border bg-bg p-5 border-l-4 ${accent} shadow-sm`}
+                className={`rounded-lg border border-border bg-bg dark:bg-bg-alt p-5 border-l-4 ${accent} shadow-sm`}
               >
                 <h4 className="font-[family-name:var(--font-display)] font-bold text-foreground">
                   {card.title}
@@ -307,8 +307,8 @@ export default function ServicesPage() {
           <StaggerContainer className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
             {/* Cloud Infrastructure */}
             <StaggerItem>
-              <div className="rounded-xl border border-border bg-bg p-8 text-left shadow-sm">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 mb-4">
+              <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-8 text-left shadow-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 dark:bg-navy-800 mb-4">
                   <Cloud className="h-5 w-5 text-gold-400" />
                 </div>
                 <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-foreground">
@@ -323,8 +323,8 @@ export default function ServicesPage() {
 
             {/* Cybersecurity */}
             <StaggerItem>
-              <div className="rounded-xl border border-border bg-bg p-8 text-left shadow-sm">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 mb-4">
+              <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-8 text-left shadow-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-900 dark:bg-navy-800 mb-4">
                   <ShieldCheck className="h-5 w-5 text-gold-400" />
                 </div>
                 <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-foreground">

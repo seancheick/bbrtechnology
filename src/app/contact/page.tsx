@@ -95,7 +95,7 @@ export default function ContactPage() {
             {/* ── Left sidebar ── */}
             <ScrollReveal className="lg:col-span-2 space-y-8">
               {/* What Happens Next */}
-              <div className="rounded-xl border border-border bg-bg p-6 shadow-sm">
+              <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-6 shadow-sm">
                 <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground mb-6">
                   What Happens Next
                 </h3>
@@ -103,7 +103,7 @@ export default function ContactPage() {
                 <div className="space-y-6">
                   {steps.map((step) => (
                     <div key={step.number} className="flex gap-4">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-600/10 text-sm font-bold text-amber-600">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-600/10 dark:bg-amber-600/20 text-sm font-bold text-amber-600">
                         {step.number}
                       </div>
                       <div>
@@ -120,7 +120,7 @@ export default function ContactPage() {
               </div>
 
               {/* Reach Us Directly */}
-              <div className="rounded-xl border border-border bg-bg p-6 shadow-sm">
+              <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-6 shadow-sm">
                 <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground mb-5">
                   Reach Us Directly
                 </h3>

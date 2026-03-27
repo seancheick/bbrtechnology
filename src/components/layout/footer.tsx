@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { MagneticDock } from "@/components/ui/magnetic-dock";
 
-const currentYear = new Date().getFullYear();
-
 export function Footer() {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="bg-navy-950 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">

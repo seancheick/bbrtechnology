@@ -151,7 +151,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
             {/* Founder card */}
             <ScrollReveal className="lg:col-span-2">
-              <div className="rounded-xl border border-border bg-bg shadow-sm p-8 text-center">
+              <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt shadow-sm p-8 text-center">
                 {/* Avatar */}
                 <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-amber-600 to-gold-400">
                   <span className="font-[family-name:var(--font-display)] text-2xl font-bold text-white">
@@ -262,7 +262,7 @@ export default function AboutPage() {
 
               return (
                 <StaggerItem key={principle.title}>
-                  <div className="rounded-xl border border-border bg-bg p-6 shadow-sm">
+                  <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-6 shadow-sm">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600/10 mb-4">
                       <Icon className="h-5 w-5 text-amber-600" />
                     </div>
@@ -296,7 +296,7 @@ export default function AboutPage() {
             {projects.map((project) => (
               <StaggerItem key={project.title}>
                 <div
-                  className="rounded-xl border border-border bg-bg p-6 shadow-sm border-l-4"
+                  className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-6 shadow-sm border-l-4"
                   style={{ borderLeftColor: project.categoryColor }}
                 >
                   <span
@@ -354,7 +354,7 @@ export default function AboutPage() {
             {toolCategories.map((category) => (
               <StaggerItem key={category.title}>
                 <div>
-                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-amber-600 mb-4">
+                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-gold-400 mb-4">
                     {category.title}
                   </h3>
                   <ul className="space-y-2.5">

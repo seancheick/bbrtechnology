@@ -40,7 +40,7 @@ export function FaqSection() {
               className={cn(
                 "rounded-full px-4 py-2 text-sm font-medium transition-colors",
                 activeCategory === key
-                  ? "bg-navy-900 text-gold-400"
+                  ? "bg-navy-900 text-gold-400 dark:bg-gold-400 dark:text-navy-950"
                   : "border border-border text-foreground-muted hover:bg-bg hover:text-foreground"
               )}
             >
@@ -67,8 +67,8 @@ export function FaqSection() {
                   className={cn(
                     "rounded-xl border transition-colors",
                     isOpen
-                      ? "border-border bg-bg"
-                      : "border-border bg-bg-alt"
+                      ? "border-border bg-bg dark:border-white/10"
+                      : "border-border bg-bg-alt dark:border-white/5"
                   )}
                 >
                   <button

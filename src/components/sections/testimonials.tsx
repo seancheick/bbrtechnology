@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { testimonials } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -22,7 +22,7 @@ function TestimonialCard({
   image: string;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-bg p-6">
+    <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-6">
       <p className="text-sm leading-relaxed text-foreground-muted">
         &ldquo;{text}&rdquo;
       </p>
@@ -47,13 +47,34 @@ function ScrollColumn({
   items,
   duration,
   className,
+  reducedMotion,
 }: {
   items: typeof testimonials;
   duration: number;
   className?: string;
+  reducedMotion?: boolean;
 }) {
   // Duplicate for seamless loop
   const doubled = [...items, ...items];
+
+  if (reducedMotion) {
+    return (
+      <div
+        className={cn(
+          "relative overflow-hidden",
+          "[mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)]",
+          className
+        )}
+        style={{ height: 500 }}
+      >
+        <div className="flex flex-col gap-4">
+          {items.map((t, i) => (
+            <TestimonialCard key={`${t.name}-${i}`} {...t} />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -83,6 +104,8 @@ function ScrollColumn({
 }
 
 export function Testimonials() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section className="bg-bg py-20">
       <div className="mx-auto max-w-7xl px-6">
@@ -98,16 +121,18 @@ export function Testimonials() {
 
         {/* 3-column scrolling testimonials */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <ScrollColumn items={col1} duration={15} />
+          <ScrollColumn items={col1} duration={15} reducedMotion={!!prefersReducedMotion} />
           <ScrollColumn
             items={col2}
             duration={19}
             className="hidden md:block"
+            reducedMotion={!!prefersReducedMotion}
           />
           <ScrollColumn
             items={col3}
             duration={17}
             className="hidden lg:block"
+            reducedMotion={!!prefersReducedMotion}
           />
         </div>
       </div>

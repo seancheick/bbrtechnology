@@ -1,10 +1,8 @@
-"use client";
-
 import { metrics, techStack } from "@/data/services";
 
 export function MetricsBar() {
   return (
-    <section className="border-y border-border py-12">
+    <section className="border-y border-border dark:border-white/10 py-12">
       <div className="mx-auto max-w-7xl px-6">
         {/* Metrics row */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">

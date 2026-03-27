@@ -39,7 +39,7 @@ export function OrbitalProcess() {
   );
 
   return (
-    <section className="bg-navy-950 py-20 text-white">
+    <section className="bg-navy-950/90 py-20 text-white border-t border-white/5">
       <div className="mx-auto max-w-5xl px-6">
         {/* Section heading */}
         <div className="mb-12 text-center">

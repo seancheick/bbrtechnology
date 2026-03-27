@@ -33,7 +33,7 @@ const sourceOptions = [
 ];
 
 const inputClasses =
-  "w-full rounded-lg border border-border bg-bg px-4 py-3 text-sm text-foreground placeholder:text-foreground-subtle focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-shadow";
+  "w-full rounded-lg border border-border bg-bg px-4 py-3 text-sm text-foreground placeholder:text-foreground-subtle focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-shadow dark:bg-navy-900 dark:border-white/10 dark:text-foreground";
 
 const labelClasses = "block text-sm font-medium text-foreground mb-1.5";
 
@@ -268,7 +268,7 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-navy-900 px-6 py-3.5 text-sm font-medium text-gold-400 transition-colors hover:bg-navy-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 disabled:opacity-60 disabled:pointer-events-none"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-navy-900 px-6 py-3.5 text-sm font-medium text-gold-400 transition-colors hover:bg-navy-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 dark:ring-offset-navy-950 dark:bg-navy-800 dark:border dark:border-gold-400/20 disabled:opacity-60 disabled:pointer-events-none"
           >
             {status === "submitting" ? (
               <>

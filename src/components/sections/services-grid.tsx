@@ -101,7 +101,7 @@ export function ServicesGrid() {
                     <div className="flex items-center gap-4">
                       <div
                         className={cn(
-                          "flex items-center justify-center rounded-xl bg-navy-900",
+                          "flex items-center justify-center rounded-xl bg-navy-900 dark:bg-navy-800",
                           isLarge || isAccent
                             ? "h-14 w-14"
                             : "h-11 w-11"

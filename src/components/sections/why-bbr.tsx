@@ -16,7 +16,7 @@ const fadeInUp = {
 
 export function WhyBbr() {
   return (
-    <section className="bg-navy-950 py-20 text-white">
+    <section className="bg-navy-950 py-20 text-white border-b border-white/5">
       <div className="mx-auto max-w-5xl px-6">
         {/* Section heading */}
         <motion.div className="mb-12 text-center" {...fadeInUp}>
@@ -63,8 +63,8 @@ export function WhyBbr() {
         {...fadeInUp}
         transition={{ ...fadeInUp.transition, delay: 0.4 }}
       >
-        <div className="overflow-hidden rounded-xl border border-white/[0.08]">
-          <table className="w-full text-left text-sm">
+        <div className="overflow-x-auto -mx-6 px-6 rounded-xl border border-white/[0.08]">
+          <table className="w-full text-left text-sm min-w-[600px]">
             <thead>
               <tr className="bg-white/5">
                 {comparisonTable.headers.map((header, i) => (

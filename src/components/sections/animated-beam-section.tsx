@@ -199,9 +199,9 @@ export function AnimatedBeamSection() {
                 <div
                   key={item.label}
                   ref={(el) => { leftRefs.current[i] = el; }}
-                  className="flex items-center gap-4 rounded-2xl border border-red-200/60 bg-bg px-5 py-4 shadow-sm w-full max-w-[260px] transition-all duration-300 hover:border-red-300 hover:shadow-md"
+                  className="flex items-center gap-4 rounded-2xl border border-red-200/60 bg-bg px-5 py-4 shadow-sm w-full max-w-[260px] transition-all duration-300 hover:border-red-300 hover:shadow-md dark:bg-red-950/30 dark:border-red-800/40"
                 >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-red-500">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-red-500 dark:bg-red-950 dark:border-red-800 dark:text-red-400">
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
@@ -247,9 +247,9 @@ export function AnimatedBeamSection() {
                 <div
                   key={item.label}
                   ref={(el) => { rightRefs.current[i] = el; }}
-                  className="flex items-center gap-4 rounded-2xl border border-green-200/60 bg-bg px-5 py-4 shadow-sm w-full max-w-[260px] transition-all duration-300 hover:border-green-300 hover:shadow-md"
+                  className="flex items-center gap-4 rounded-2xl border border-green-200/60 bg-bg px-5 py-4 shadow-sm w-full max-w-[260px] transition-all duration-300 hover:border-green-300 hover:shadow-md dark:bg-green-950/30 dark:border-green-800/40"
                 >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-green-200 bg-green-50 text-green-600">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-green-200 bg-green-50 text-green-600 dark:bg-green-950 dark:border-green-800 dark:text-green-400">
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
