@@ -8,25 +8,25 @@ import {
   Zap,
   TrendingUp,
   Lightbulb,
+  ArrowRight,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const painPoints = [
-  { label: "Manual Tasks", icon: ClipboardList },
-  { label: "Lost Leads", icon: UserX },
-  { label: "Bad Analytics", icon: BarChart3 },
+  { label: "Manual Tasks", sublabel: "Repetitive work eating your time", icon: ClipboardList },
+  { label: "Lost Leads", sublabel: "Prospects falling through cracks", icon: UserX },
+  { label: "Bad Analytics", sublabel: "Guessing instead of knowing", icon: BarChart3 },
 ];
 
 const solutions = [
-  { label: "Automation", icon: Zap },
-  { label: "Growth", icon: TrendingUp },
-  { label: "Insights", icon: Lightbulb },
+  { label: "Automation", sublabel: "Systems that run themselves", icon: Zap },
+  { label: "Growth", sublabel: "Consistent, measurable results", icon: TrendingUp },
+  { label: "Insights", sublabel: "Data-driven decisions", icon: Lightbulb },
 ];
 
 interface BeamPath {
   id: string;
   d: string;
-  reverse: boolean;
+  direction: "in" | "out";
 }
 
 function AnimatedBeamSVG({ paths }: { paths: BeamPath[] }) {
@@ -36,63 +36,59 @@ function AnimatedBeamSVG({ paths }: { paths: BeamPath[] }) {
       style={{ overflow: "visible" }}
     >
       <defs>
-        {/* Glow filter */}
         <filter id="beam-glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feGaussianBlur stdDeviation="4" result="blur" />
           <feMerge>
             <feMergeNode in="blur" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
-        {/* Gradient for left-to-center beams */}
-        <linearGradient id="beam-gradient-ltr" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.1" />
-          <stop offset="50%" stopColor="#fbbf24" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#fbbf24" stopOpacity="0.1" />
+        <linearGradient id="beam-in" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#fbbf24" stopOpacity="0" />
+          <stop offset="40%" stopColor="#fbbf24" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#d97706" stopOpacity="0.3" />
         </linearGradient>
-        {/* Gradient for center-to-right beams */}
-        <linearGradient id="beam-gradient-rtl" x1="100%" y1="0%" x2="0%" y2="0%">
-          <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.1" />
-          <stop offset="50%" stopColor="#fbbf24" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#fbbf24" stopOpacity="0.1" />
+        <linearGradient id="beam-out" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#d97706" stopOpacity="0.3" />
+          <stop offset="60%" stopColor="#fbbf24" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
         </linearGradient>
       </defs>
 
-      {paths.map((beam) => (
+      {paths.map((beam, i) => (
         <g key={beam.id}>
-          {/* Background trail */}
+          {/* Faint background trail */}
           <path
             d={beam.d}
             fill="none"
             stroke="#fbbf24"
             strokeWidth="1"
-            strokeOpacity="0.08"
+            strokeOpacity="0.06"
           />
-          {/* Animated beam */}
+          {/* Animated particle beam */}
           <path
             d={beam.d}
             fill="none"
-            stroke={beam.reverse ? "url(#beam-gradient-rtl)" : "url(#beam-gradient-ltr)"}
-            strokeWidth="2"
+            stroke={beam.direction === "in" ? "url(#beam-in)" : "url(#beam-out)"}
+            strokeWidth="2.5"
             strokeLinecap="round"
             filter="url(#beam-glow)"
-            className="beam-animated"
             style={{
-              strokeDasharray: "40 200",
-              animation: `beam-flow-${beam.reverse ? "reverse" : "forward"} 3s linear infinite`,
-              animationDelay: `${parseInt(beam.id.slice(-1)) * 0.4}s`,
+              strokeDasharray: "50 250",
+              animation: `beam-${beam.direction} 2.5s linear infinite`,
+              animationDelay: `${i * 0.35}s`,
             }}
           />
         </g>
       ))}
 
       <style>{`
-        @keyframes beam-flow-forward {
-          0% { stroke-dashoffset: 240; }
+        @keyframes beam-in {
+          0% { stroke-dashoffset: 300; }
           100% { stroke-dashoffset: 0; }
         }
-        @keyframes beam-flow-reverse {
-          0% { stroke-dashoffset: -240; }
+        @keyframes beam-out {
+          0% { stroke-dashoffset: -300; }
           100% { stroke-dashoffset: 0; }
         }
       `}</style>
@@ -112,45 +108,40 @@ export function AnimatedBeamSection() {
     const center = centerRef.current;
     if (!container || !center) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const centerRect = center.getBoundingClientRect();
-    const cx = centerRect.left + centerRect.width / 2 - containerRect.left;
-    const cy = centerRect.top + centerRect.height / 2 - containerRect.top;
+    const cr = container.getBoundingClientRect();
+    const cenR = center.getBoundingClientRect();
+    const cx = cenR.left + cenR.width / 2 - cr.left;
+    const cy = cenR.top + cenR.height / 2 - cr.top;
 
     const newPaths: BeamPath[] = [];
 
-    // Left nodes to center
+    // Pain points → B&Br (beams flow IN toward center)
     leftRefs.current.forEach((el, i) => {
       if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const sx = rect.right - containerRect.left;
-      const sy = rect.top + rect.height / 2 - containerRect.top;
-      // Cubic bezier curving right then into center
-      const cpx1 = sx + (cx - sx) * 0.4;
-      const cpy1 = sy;
-      const cpx2 = cx - (cx - sx) * 0.3;
-      const cpy2 = cy;
+      const r = el.getBoundingClientRect();
+      const sx = r.right - cr.left;
+      const sy = r.top + r.height / 2 - cr.top;
+      const cpx1 = sx + (cx - sx) * 0.5;
+      const cpx2 = cx - (cx - sx) * 0.2;
       newPaths.push({
-        id: `left-${i}`,
-        d: `M ${sx} ${sy} C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${cx} ${cy}`,
-        reverse: false,
+        id: `in-${i}`,
+        d: `M ${sx} ${sy} C ${cpx1} ${sy}, ${cpx2} ${cy}, ${cx} ${cy}`,
+        direction: "in",
       });
     });
 
-    // Center to right nodes
+    // B&Br → Solutions (beams flow OUT from center)
     rightRefs.current.forEach((el, i) => {
       if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const ex = rect.left - containerRect.left;
-      const ey = rect.top + rect.height / 2 - containerRect.top;
-      const cpx1 = cx + (ex - cx) * 0.3;
-      const cpy1 = cy;
-      const cpx2 = ex - (ex - cx) * 0.4;
-      const cpy2 = ey;
+      const r = el.getBoundingClientRect();
+      const ex = r.left - cr.left;
+      const ey = r.top + r.height / 2 - cr.top;
+      const cpx1 = cx + (ex - cx) * 0.2;
+      const cpx2 = ex - (ex - cx) * 0.5;
       newPaths.push({
-        id: `right-${i}`,
-        d: `M ${cx} ${cy} C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${ex} ${ey}`,
-        reverse: true,
+        id: `out-${i}`,
+        d: `M ${cx} ${cy} C ${cpx1} ${cy}, ${cpx2} ${ey}, ${ex} ${ey}`,
+        direction: "out",
       });
     });
 
@@ -158,8 +149,7 @@ export function AnimatedBeamSection() {
   }, []);
 
   useEffect(() => {
-    // Initial calculation after a brief delay for layout
-    const timeout = setTimeout(calculatePaths, 100);
+    const timeout = setTimeout(calculatePaths, 150);
     window.addEventListener("resize", calculatePaths);
     return () => {
       clearTimeout(timeout);
@@ -168,79 +158,108 @@ export function AnimatedBeamSection() {
   }, [calculatePaths]);
 
   return (
-    <section className="bg-bg-alt py-20 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="bg-bg-alt py-24 overflow-hidden">
+      <div className="mx-auto max-w-6xl px-6">
         {/* Section heading */}
-        <div className="mb-16 text-center">
+        <div className="mb-6 text-center">
           <span className="text-sm font-semibold uppercase tracking-widest text-amber-600">
             How It Works
           </span>
           <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
-            From Pain Points to Solutions
+            Everything Flows Into One System
           </h2>
+          <p className="mt-3 text-navy-600 max-w-xl mx-auto">
+            Your pain points flow in. Solutions flow out. B&Br is the engine in the middle.
+          </p>
         </div>
 
-        {/* Beam layout */}
+        {/* Flow direction labels */}
+        <div className="hidden md:flex justify-between items-center max-w-3xl mx-auto mb-4 px-8">
+          <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-red-400">
+            Problems <ArrowRight className="h-3 w-3" />
+          </span>
+          <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-green-500">
+            <ArrowRight className="h-3 w-3" /> Solutions
+          </span>
+        </div>
+
+        {/* Beam layout — generous spacing */}
         <div
           ref={containerRef}
-          className="relative grid grid-cols-1 items-center gap-8 md:grid-cols-[1fr_auto_1fr]"
+          className="relative grid grid-cols-1 items-center gap-12 md:grid-cols-[1fr_180px_1fr] md:gap-16 min-h-[320px]"
         >
           {/* SVG beam overlay */}
           <AnimatedBeamSVG paths={beamPaths} />
 
           {/* Left: Pain points */}
-          <div className="flex flex-col items-center gap-8 md:items-end relative z-10">
+          <div className="flex flex-col items-center gap-6 md:items-end relative z-10">
             {painPoints.map((item, i) => {
               const Icon = item.icon;
               return (
                 <div
                   key={item.label}
                   ref={(el) => { leftRefs.current[i] = el; }}
-                  className="flex items-center gap-3 rounded-xl border border-border bg-bg px-5 py-4 shadow-sm transition-all duration-300 hover:border-red-300 hover:shadow-md"
+                  className="flex items-center gap-4 rounded-2xl border border-red-200/60 bg-bg px-5 py-4 shadow-sm w-full max-w-[260px] transition-all duration-300 hover:border-red-300 hover:shadow-md"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-red-200 bg-red-50 text-red-500">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-red-500">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <span className="text-sm font-semibold text-navy-900">
-                    {item.label}
-                  </span>
+                  <div>
+                    <span className="text-sm font-bold text-navy-900 block">
+                      {item.label}
+                    </span>
+                    <span className="text-xs text-navy-400 block mt-0.5">
+                      {item.sublabel}
+                    </span>
+                  </div>
                 </div>
               );
             })}
           </div>
 
           {/* Center: B&Br hub */}
-          <div className="relative flex items-center justify-center py-8 z-10">
+          <div className="relative flex items-center justify-center z-10">
             <div
               ref={centerRef}
-              className="relative flex h-28 w-28 items-center justify-center rounded-full bg-navy-900 shadow-xl shadow-navy-900/40"
+              className="relative flex h-32 w-32 items-center justify-center rounded-full bg-navy-900 shadow-2xl shadow-navy-900/50"
             >
-              {/* Pulsing glow rings */}
-              <div className="absolute inset-[-8px] rounded-full border-2 border-gold-400/30 animate-[pulse-dot_2s_ease-in-out_infinite]" />
-              <div className="absolute inset-[-16px] rounded-full border border-gold-400/15 animate-[pulse-dot_2s_ease-in-out_0.5s_infinite]" />
+              {/* Outer glow rings */}
+              <div className="absolute inset-[-12px] rounded-full border-2 border-gold-400/25 animate-[pulse-dot_2.5s_ease-in-out_infinite]" />
+              <div className="absolute inset-[-24px] rounded-full border border-gold-400/10 animate-[pulse-dot_2.5s_ease-in-out_0.8s_infinite]" />
+              {/* Inner glow */}
               <div className="absolute inset-0 rounded-full bg-gold-400/10 animate-pulse" />
-              <span className="relative font-[family-name:var(--font-display)] text-2xl font-extrabold text-gold-400">
-                B&amp;Br
-              </span>
+              <div className="relative text-center">
+                <span className="font-[family-name:var(--font-display)] text-2xl font-extrabold text-gold-400 block">
+                  B&amp;Br
+                </span>
+                <span className="text-[10px] font-medium text-gold-400/60 uppercase tracking-widest">
+                  Engine
+                </span>
+              </div>
             </div>
           </div>
 
           {/* Right: Solutions */}
-          <div className="flex flex-col items-center gap-8 md:items-start relative z-10">
+          <div className="flex flex-col items-center gap-6 md:items-start relative z-10">
             {solutions.map((item, i) => {
               const Icon = item.icon;
               return (
                 <div
                   key={item.label}
                   ref={(el) => { rightRefs.current[i] = el; }}
-                  className="flex items-center gap-3 rounded-xl border border-border bg-bg px-5 py-4 shadow-sm transition-all duration-300 hover:border-green-300 hover:shadow-md"
+                  className="flex items-center gap-4 rounded-2xl border border-green-200/60 bg-bg px-5 py-4 shadow-sm w-full max-w-[260px] transition-all duration-300 hover:border-green-300 hover:shadow-md"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-green-200 bg-green-50 text-green-600">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-green-200 bg-green-50 text-green-600">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <span className="text-sm font-semibold text-navy-900">
-                    {item.label}
-                  </span>
+                  <div>
+                    <span className="text-sm font-bold text-navy-900 block">
+                      {item.label}
+                    </span>
+                    <span className="text-xs text-navy-400 block mt-0.5">
+                      {item.sublabel}
+                    </span>
+                  </div>
                 </div>
               );
             })}
