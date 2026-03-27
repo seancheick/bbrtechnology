@@ -10,6 +10,20 @@ export const metadata: Metadata = {
   title: "Services — B&Br Technology",
   description:
     "Explore B&Br Technology's full range of digital services — web development, AI automation, SEO, data analytics, and IT support.",
+  openGraph: {
+    title: "Services — B&Br Technology",
+    description:
+      "Explore B&Br Technology's full range of digital services — web development, AI automation, SEO, data analytics, and IT support.",
+    type: "website",
+    locale: "en_US",
+    url: "https://bbrtechnology.com/services",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services — B&Br Technology",
+    description:
+      "Explore B&Br Technology's full range of digital services — web development, AI automation, SEO, data analytics, and IT support.",
+  },
 };
 
 /* Accent colors per service (for visual cards' left border) */

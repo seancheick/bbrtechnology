@@ -20,6 +20,20 @@ export const metadata: Metadata = {
   title: "About — B&Br Technology",
   description:
     "Learn about B&Br Technology — a Boston-based digital studio building real systems for real businesses. Founded by Sean Cheick Baradji.",
+  openGraph: {
+    title: "About — B&Br Technology",
+    description:
+      "Learn about B&Br Technology — a Boston-based digital studio building real systems for real businesses. Founded by Sean Cheick Baradji.",
+    type: "website",
+    locale: "en_US",
+    url: "https://bbrtechnology.com/about",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About — B&Br Technology",
+    description:
+      "Learn about B&Br Technology — a Boston-based digital studio building real systems for real businesses. Founded by Sean Cheick Baradji.",
+  },
 };
 
 /* Map principle titles to icons */

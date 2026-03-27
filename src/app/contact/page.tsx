@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   title: "Contact — B&Br Technology",
   description:
     "Get in touch with B&Br Technology. Tell us about your project and we'll respond within 24 hours.",
+  openGraph: {
+    title: "Contact — B&Br Technology",
+    description:
+      "Get in touch with B&Br Technology. Tell us about your project and we'll respond within 24 hours.",
+    type: "website",
+    locale: "en_US",
+    url: "https://bbrtechnology.com/contact",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact — B&Br Technology",
+    description:
+      "Get in touch with B&Br Technology. Tell us about your project and we'll respond within 24 hours.",
+  },
 };
 
 const steps = [
