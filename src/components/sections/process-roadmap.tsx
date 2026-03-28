@@ -6,36 +6,36 @@ import { cn } from "@/lib/utils";
 
 const steps = [
   {
-    phase: "Week 1",
-    title: "Discovery",
+    phase: "Step 1",
+    title: "Discovery call",
     description:
-      "We map the bottlenecks, handoffs, and revenue-critical workflows before touching implementation.",
-    outcome: "You leave with a clearer system map and a sharper scope.",
+      "A quick alignment call to understand your operational friction and see if we're the right engineering partner.",
+    outcome: "We decide if it makes sense to dig deeper.",
     icon: Compass,
   },
   {
-    phase: "Week 2",
-    title: "Design + Blueprint",
+    phase: "Step 2",
+    title: "Workflow breakdown",
+    description:
+      "We map the bottlenecks, handoffs, and revenue-critical workflows before touching implementation.",
+    outcome: "You leave with a clearer system map and a sharper scope.",
+    icon: LineChart,
+  },
+  {
+    phase: "Step 3",
+    title: "System design",
     description:
       "We define the product shape, automation logic, and the exact system your team will operate inside.",
-    outcome: "You know what gets built, what gets automated, and why.",
+    outcome: "You know exactly what gets built, how it works, and why.",
     icon: DraftingCompass,
   },
   {
-    phase: "Weeks 3–6",
-    title: "Build + Integrate",
+    phase: "Step 4",
+    title: "Build + iteration",
     description:
-      "We ship the website, product layer, or internal tool and connect it to the workflows around it.",
-    outcome: "You get a working system, not a mockup-heavy handoff.",
+      "We ship the tool, connect it to your workflows, and tighten the weak points based on real-world use.",
+    outcome: "You get a working system, not a frozen mockup.",
     icon: Hammer,
-  },
-  {
-    phase: "Launch",
-    title: "Measure + Refine",
-    description:
-      "After go-live, we tighten the weak points, track the right signals, and expand the automation where it pays off.",
-    outcome: "The system gets sharper under real use instead of freezing at v1.",
-    icon: LineChart,
   },
 ];
 
@@ -61,8 +61,8 @@ export function ProcessRoadmap() {
               How We Work
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground-muted">
-              Clear phases, tight feedback loops, and no mystery handoffs. The
-              goal is not to impress you with process theatre. The goal is to
+              We build the system layer that sits between your tools and your operations. 
+              Clear phases, tight feedback loops, and no mystery handoffs. The goal is to 
               ship a system your business can actually run on.
             </p>
 

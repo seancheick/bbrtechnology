@@ -3,6 +3,7 @@ import { Hero } from "@/components/sections/hero";
 import { ProductsShowcase } from "@/components/sections/products-showcase";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { WhyBbr } from "@/components/sections/why-bbr";
+import { ProcessRoadmap } from "@/components/sections/process-roadmap";
 import { Testimonials } from "@/components/sections/testimonials";
 import { FaqSection } from "@/components/sections/faq-section";
 import { CtaBanner } from "@/components/sections/cta-banner";
@@ -98,6 +99,7 @@ export default function HomePage() {
       <ProductsShowcase />
       <ServicesGrid />
       <WhyBbr />
+      <ProcessRoadmap />
       <Testimonials />
       <FaqSection />
       <CtaBanner />
