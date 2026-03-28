@@ -144,11 +144,36 @@ export const techStack = [
 export const comparisonTable = {
   headers: ["Feature", "B&Br Technology", "Traditional Agency", "Freelancer"],
   rows: [
-    ["Web & Mobile", "Unified Strategy", "Expensive", "Limited Scope"],
-    ["AI & Automation", "Native Core", "Expensive Add-on", "Rare Skill"],
-    ["Support Model", "Built-in Partner", "Hourly Contracts", "Inconsistent"],
-    ["Communication", "Founder-Led", "Account Managers", "Direct"],
-    ["Flexibility", "High", "Low", "Medium"],
+    [
+      "Web & Mobile",
+      "Strategy, design, and build in one flow",
+      "More layers, slower alignment",
+      "Limited full-system depth",
+    ],
+    [
+      "AI & Automation",
+      "Built in from the start",
+      "Usually added later",
+      "Best for lighter automations",
+    ],
+    [
+      "Support Model",
+      "Launch, refine, improve",
+      "Often tied to bigger retainers",
+      "Depends on availability",
+    ],
+    [
+      "Communication",
+      "Direct, dedicated collaboration",
+      "Managed through multiple roles",
+      "Direct, but bandwidth is limited",
+    ],
+    [
+      "Flexibility",
+      "Custom enough to fit, structured enough to scale",
+      "Less agile once process is set",
+      "Flexible, but can hit capacity limits",
+    ],
   ],
 };
 

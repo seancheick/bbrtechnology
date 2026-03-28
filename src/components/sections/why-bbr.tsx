@@ -109,6 +109,9 @@ export function WhyBbr() {
               <h3 className="mt-3 font-[family-name:var(--font-display)] text-2xl font-bold tracking-tight text-foreground">
                 Why operators pick B&Br
               </h3>
+              <p className="mt-3 text-sm leading-relaxed text-foreground-muted lg:max-w-xs">
+                Built for teams that need strategy, execution, and automation in one partner.
+              </p>
             </div>
 
             <div className="grid gap-3">
