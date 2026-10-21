@@ -13,7 +13,11 @@ import { toolCategories } from "@/data/tools";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShineButton } from "@/components/effects/shine-button";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/effects/scroll-reveal";
+import {
+  ScrollReveal,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/effects/scroll-reveal";
 import type { LucideIcon } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -104,18 +108,19 @@ export default function AboutPage() {
               <p>
                 B&amp;Br Technology was founded by Sean Cheick Baradji — a
                 developer, systems architect, and first-generation American with
-                roots in West Africa and a career that spans New York City, Boston,
-                and Washington, D.C. After years of watching businesses get burned
-                by the same cycle, it became clear that the industry needed a
-                different approach.
+                roots in West Africa and a career that spans New York City,
+                Boston, and Washington, D.C. After years of watching businesses
+                get burned by the same cycle, it became clear that the industry
+                needed a different approach.
               </p>
 
               <p>
                 The problem was obvious: traditional agencies overcharged for
                 bloated deliverables, freelancers disappeared mid-project, and a
-                new wave of AI vendors was wrapping basic automations in marketing
-                jargon and charging premium rates. Businesses deserved better than
-                a choice between expensive, unreliable, and misleading.
+                new wave of AI vendors was wrapping basic automations in
+                marketing jargon and charging premium rates. Businesses deserved
+                better than a choice between expensive, unreliable, and
+                misleading.
               </p>
 
               <p>
@@ -129,17 +134,17 @@ export default function AboutPage() {
 
               <p>
                 We love collaborating. Whether it&apos;s teaming up with another
-                agency&apos;s engineering team, consulting on an existing project,
-                or serving as that third set of eyes on a critical system, we work
-                well alongside other builders. Our interns come from Boston-area
-                colleges and work on real client projects — not made-up exercises —
-                because we believe in learning by shipping.
+                agency&apos;s engineering team, consulting on an existing
+                project, or serving as that third set of eyes on a critical
+                system, we work well alongside other builders. Our interns come
+                from Boston-area colleges and work on real client projects — not
+                made-up exercises — because we believe in learning by shipping.
               </p>
 
               <p>
                 Today, B&amp;Br works with medical clinics, eCommerce brands,
-                startups, solopreneurs, and growing teams across the country. The
-                common thread isn&apos;t industry — it&apos;s ambition. If
+                startups, solopreneurs, and growing teams across the country.
+                The common thread isn&apos;t industry — it&apos;s ambition. If
                 you&apos;re building something real and you need technology that
                 keeps up, that&apos;s exactly what we&apos;re here for.
               </p>
@@ -202,43 +207,45 @@ export default function AboutPage() {
 
               <div className="space-y-5 text-foreground-muted leading-relaxed">
                 <p>
-                  Before B&amp;Br, Sean built PharmaGuide AI — a first-of-its-kind
-                  AI pharmacist app that scans supplements via barcode and OCR,
-                  evaluates quality on a 100-point deterministic scoring
-                  algorithm, checks drug-supplement interactions, and provides
-                  personalized safety recommendations. The system handles
-                  100,000+ products across a multi-phase data pipeline, all built
-                  with HIPAA-compliant, privacy-first architecture.
+                  Before B&amp;Br, Sean built PharmaGuide AI — a
+                  first-of-its-kind AI pharmacist app that scans supplements via
+                  barcode and OCR, evaluates quality on a 100-point
+                  deterministic scoring algorithm, checks drug-supplement
+                  interactions, and provides personalized safety
+                  recommendations. The system handles 100,000+ products across a
+                  multi-phase data pipeline, all built with HIPAA-compliant,
+                  privacy-first architecture.
                 </p>
 
                 <p>
                   PharmaGuide wasn&apos;t a weekend project — it was a deep
-                  engineering effort that required building custom NLP pipelines,
-                  multi-modal scanning (barcode + OCR + manual search), and an AI
-                  pharmacist that can process complex medical interactions in real
-                  time. The scoring algorithm alone processes dozens of quality
-                  signals per product — certifications, ingredient identity,
-                  dosage accuracy, contaminant testing — with every score fully
-                  deterministic and explainable.
+                  engineering effort that required building custom NLP
+                  pipelines, multi-modal scanning (barcode + OCR + manual
+                  search), and an AI pharmacist that can process complex medical
+                  interactions in real time. The scoring algorithm alone
+                  processes dozens of quality signals per product —
+                  certifications, ingredient identity, dosage accuracy,
+                  contaminant testing — with every score fully deterministic and
+                  explainable.
                 </p>
 
                 <p>
                   That same rigor — the obsession with accuracy, the refusal to
                   cut corners, the belief that technology should work for the
                   human on the other end — is what Sean brings to every B&amp;Br
-                  engagement. Whether it&apos;s a business website, an automation
-                  pipeline, or a data dashboard, the standard is the same: does it
-                  work correctly, is it built to last, and does it solve the
-                  actual problem?
+                  engagement. Whether it&apos;s a business website, an
+                  automation pipeline, or a data dashboard, the standard is the
+                  same: does it work correctly, is it built to last, and does it
+                  solve the actual problem?
                 </p>
 
                 <p>
-                  Sean&apos;s background spans full-stack web development, mobile
-                  engineering with Flutter, data architecture, and applied AI/ML.
-                  He&apos;s worked in healthcare technology, eCommerce, and
-                  government-adjacent systems — always drawn to projects where
-                  accuracy matters more than speed and where getting it wrong has
-                  real consequences.
+                  Sean&apos;s background spans full-stack web development,
+                  mobile engineering with Flutter, data architecture, and
+                  applied AI/ML. He&apos;s worked in healthcare technology,
+                  eCommerce, and government-adjacent systems — always drawn to
+                  projects where accuracy matters more than speed and where
+                  getting it wrong has real consequences.
                 </p>
               </div>
             </ScrollReveal>
@@ -260,8 +267,7 @@ export default function AboutPage() {
 
           <StaggerContainer className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {principles.map((principle) => {
-              const Icon =
-                principleIcons[principle.title] ?? CheckCircle;
+              const Icon = principleIcons[principle.title] ?? CheckCircle;
 
               return (
                 <StaggerItem key={principle.title}>
@@ -391,7 +397,8 @@ export default function AboutPage() {
 
         <ScrollReveal className="relative z-10 mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-            Ready to Work With a Team That <span className="text-amber-600">Delivers</span>?
+            Ready to Work With a Team That{" "}
+            <span className="text-amber-600">Delivers</span>?
           </h2>
 
           <p className="mx-auto mt-4 max-w-lg text-foreground-muted">
