@@ -15,7 +15,7 @@ function canWebGL() {
   }
 }
 
-// Phones, reduced motion and no-WebGL get the static poster. Desktop gets the 3D scene,
+// Touch screens, reduced motion and no-WebGL get the static poster. Mouse users get the 3D scene,
 // loaded on the visitor's first move, scroll or key (or after 6s), so the engine never
 // competes with the page's own load.
 export function HeroVisual({ className }: { className?: string }) {
@@ -23,7 +23,7 @@ export function HeroVisual({ className }: { className?: string }) {
   const [ready, setReady] = React.useState(false);
 
   React.useEffect(() => {
-    const wide = window.matchMedia("(min-width: 1024px)").matches;
+    const wide = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!wide || calm || !canWebGL()) return;
     const events = ["pointermove", "scroll", "keydown", "touchstart"] as const;
@@ -58,6 +58,11 @@ export function HeroVisual({ className }: { className?: string }) {
         <React.Suspense fallback={null}>
           <HeroScene onReady={() => window.setTimeout(() => setReady(true), 150)} />
         </React.Suspense>
+      )}
+      {ready && (
+        <p className="eyebrow pointer-events-none absolute inset-x-0 -bottom-6 text-center text-foreground-subtle">
+          Hover a layer · click to run it
+        </p>
       )}
     </div>
   );

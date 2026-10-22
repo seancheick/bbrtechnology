@@ -230,7 +230,7 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
         </div>
 
         {/* Output */}
-        <div className="relative bg-bg-alt/60 p-5 sm:p-6 lg:min-h-[420px]" aria-live="polite">
+        <div className="relative bg-bg-alt/60 p-5 sm:p-6 lg:min-h-[420px]" aria-live="polite" data-ph-mask>
           <StatusLine run={run} />
           <AnimatePresence mode="wait">
             {run.status === "done" ? (

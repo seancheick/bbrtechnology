@@ -29,7 +29,7 @@ const sections = [
   },
   {
     title: "Analytics",
-    body: "We use PostHog in a cookieless mode: no cookies or local storage, no session recordings, and no personal profiles. Events record which page or button was used (for example, that a booking was completed), never what you typed into a form or the demo.",
+    body: "We use PostHog in a cookieless mode: no cookies or local storage, and no personal profiles. Session replays may be recorded to help diagnose website issues. Events record which page or button was used (for example, that a booking was completed), never what you typed into a form or the demo.",
   },
   {
     title: "Booking and Forms",

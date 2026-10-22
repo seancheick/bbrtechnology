@@ -60,7 +60,7 @@ export function Hero() {
               ))}
             </ul>
           </div>
-          <HeroVisual className="mx-auto max-w-[300px] lg:max-w-none" />
+          <HeroVisual className="mx-auto max-w-[300px] md:max-w-[460px] lg:max-w-none" />
         </div>
 
         <div className="mt-14 border-t border-border py-6 sm:mt-20">
