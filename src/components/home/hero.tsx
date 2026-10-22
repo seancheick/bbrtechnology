@@ -13,7 +13,11 @@ const promises = [
 ];
 
 // Tools we connect through their own APIs. A capability list, not a partner claim.
-const tools = ["Google Workspace", "Microsoft 365", "Shopify", "Stripe", "HubSpot", "QuickBooks", "Slack", "Twilio", "Hostex", "Calendly"];
+const tools = [
+  "Google Workspace", "Microsoft 365", "Slack", "Shopify", "Stripe", "QuickBooks", "HubSpot", "Salesforce",
+  "ClickUp", "Notion", "Airtable", "Calendly", "Twilio", "Zapier", "Make", "n8n", "Supabase", "PostHog",
+  "OpenAI", "Claude", "Gemini", "Hostex",
+];
 
 export function Hero() {
   return (
@@ -65,13 +69,20 @@ export function Hero() {
 
         <div className="mt-14 border-t border-border py-6 sm:mt-20">
           <p className="eyebrow text-foreground-subtle">We connect the tools you already pay for</p>
-          <ul className="-mx-4 mt-4 flex gap-6 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:gap-x-8 sm:gap-y-3 sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden">
-            {tools.map((t) => (
-              <li key={t} className="font-display shrink-0 text-lg font-extrabold text-foreground/55">
-                {t}
-              </li>
-            ))}
-          </ul>
+          {/* a slow rolling strip; it pauses on hover and stands still for reduced motion */}
+          <div className="group relative -mx-4 mt-4 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] sm:mx-0">
+            <ul className="flex w-max animate-[marquee_45s_linear_infinite] gap-10 pr-10 group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+              {[...tools, ...tools].map((t, i) => (
+                <li
+                  key={`${t}-${i}`}
+                  aria-hidden={i >= tools.length ? true : undefined}
+                  className="font-display shrink-0 text-lg font-extrabold text-foreground/55 transition-colors hover:text-foreground"
+                >
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight, Bot, Globe, LayoutDashboard, Smartphone } from "lucide-react";
 import { categories, categoryFrom, formatUsd, getOffer } from "@/data/services";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { TiltCard } from "@/components/motion/tilt-card";
 
 const icons = { "ai-automation": Bot, websites: Globe, "custom-software": LayoutDashboard, mobile: Smartphone } as const;
 
@@ -28,10 +29,10 @@ export function ServicesOverview() {
           {categories.map((c) => {
             const Icon = icons[c.id];
             return (
+              <TiltCard key={c.id} className="h-full rounded-3xl">
               <Link
-                key={c.id}
                 href={`/services#${c.id}`}
-                className="group flex flex-col rounded-3xl border border-border bg-bg-elevated p-4 transition-colors hover:border-foreground/25 sm:p-6"
+                className="group flex h-full flex-col rounded-3xl border border-border bg-bg-elevated p-4 shadow-[0_1px_0_rgba(10,15,26,0.04)] transition-[border-color,box-shadow] hover:border-foreground/25 hover:shadow-[0_24px_60px_-30px_rgba(10,15,26,0.45)] sm:p-6"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy-900 text-gold-400 dark:bg-white/10">
                   <Icon className="h-5 w-5" />
@@ -45,6 +46,7 @@ export function ServicesOverview() {
                   <ArrowUpRight className="h-4 w-4 text-foreground-subtle transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </div>
               </Link>
+              </TiltCard>
             );
           })}
         </div>

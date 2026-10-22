@@ -185,8 +185,8 @@ export const caseStudies: CaseStudy[] = [
     card: {
       type: "Data & AI platform",
       industry: "Health tech",
-      outcome: "A data pipeline that cleans and scores raw label data, a mobile app on top, and an AI assistant that answers risky questions with reviewed rules first, so users and clinicians can trust the answer.",
-      metric: { value: "39", label: "medical reference databases merged into one scoring engine" },
+      outcome: "A pipeline turns raw label data into a scored catalog behind an API. A retrieval (RAG) assistant answers with checked PubMed citations, and 41 reviewed safety rules respond before any AI model is allowed to guess.",
+      metric: { value: "39 → 1", label: "medical databases merged into one scoring engine and API" },
     },
     caveat:
       "Quality scores describe the product, not whether it is right for a specific person. PharmaGuide does not replace advice from a pharmacist or prescriber.",
