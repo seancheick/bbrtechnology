@@ -4,7 +4,11 @@ import * as React from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   BellRing,
+  BookOpen,
   ClipboardCheck,
+  FileText,
+  Handshake,
+  Terminal,
   Inbox,
   Loader2,
   Mail,
@@ -128,7 +132,7 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
     <div className="overflow-hidden rounded-3xl border border-border bg-bg-elevated shadow-[0_40px_120px_-60px_rgba(10,15,26,0.5)]">
       {/* Industry switcher */}
       <div className="flex flex-col gap-3 border-b border-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <div role="tablist" aria-label="Choose a business" className="flex flex-wrap gap-1.5">
+        <div role="tablist" aria-label="Choose a business" className="-mx-5 flex gap-1.5 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden">
           {industries.map((id) => (
             <button
               key={id}
@@ -137,7 +141,7 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
               aria-selected={industry === id}
               onClick={() => chooseIndustry(id)}
               className={cn(
-                "rounded-full px-3.5 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600",
+                "shrink-0 rounded-full px-3.5 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600",
                 industry === id
                   ? "bg-navy-900 text-white dark:bg-white dark:text-navy-950"
                   : "text-foreground-muted hover:bg-bg-alt hover:text-foreground"
@@ -156,7 +160,7 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
         {/* Input */}
         <div className="flex flex-col gap-4 border-b border-border p-5 sm:p-6 lg:border-b-0 lg:border-r">
           <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
-            <Inbox className="h-4 w-4 text-amber-600" /> Incoming customer message
+            <Inbox className="h-4 w-4 text-amber-600" /> Incoming message
           </div>
           <div className="flex flex-wrap gap-2" aria-label="Example messages">
             {scenarios.map((s) => (
@@ -244,7 +248,7 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
                 <Stage icon={Tags} title="Classified">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="rounded-md bg-navy-900 px-2 py-1 text-xs font-semibold capitalize text-white dark:bg-white dark:text-navy-950">
-                      {run.result.category}
+                      {run.result.category.replace("_", " ")}
                     </span>
                     <span className={cn("rounded-md px-2 py-1 text-xs font-semibold capitalize ring-1", urgencyStyle[run.result.urgency])}>
                       {run.result.urgency}
@@ -255,6 +259,31 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
                   </div>
                   <p className="mt-2 text-sm text-foreground-muted">{run.result.summary}</p>
                 </Stage>
+                {run.result.extracted.length > 0 && (
+                  <Stage icon={FileText} title="Fields read from the document">
+                    <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm">
+                      {run.result.extracted.map((f) => (
+                        <div key={f.field} className="min-w-0">
+                          <dt className="text-xs text-foreground-subtle">{f.field}</dt>
+                          <dd className="truncate font-medium text-foreground">{f.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <p className="mt-2 text-xs text-foreground-subtle">Front desk verifies before anything reaches the chart.</p>
+                  </Stage>
+                )}
+                {run.result.sources.length > 0 && (
+                  <Stage icon={BookOpen} title="Checked against records">
+                    <ul className="space-y-2">
+                      {run.result.sources.map((src) => (
+                        <li key={src.title} className="rounded-xl bg-bg-elevated p-3 text-sm ring-1 ring-border">
+                          <p className="text-xs font-semibold text-amber-600 dark:text-gold-400">{src.title}</p>
+                          <p className="mt-1 text-foreground-muted">&ldquo;{src.quote}&rdquo;</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </Stage>
+                )}
                 <Stage icon={ClipboardCheck} title={run.result.task.needed ? "Task created" : "No task needed"}>
                   {run.result.task.needed ? (
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -267,6 +296,30 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
                     <p className="text-sm text-foreground-muted">Nothing for the team to do yet.</p>
                   )}
                 </Stage>
+                {run.result.handoff.needed && (
+                  <Stage icon={Handshake} title={`Handed off · ${run.result.handoff.partner}`}>
+                    <p className="text-sm font-medium text-foreground">{run.result.handoff.service}</p>
+                    <p className="mt-1 text-sm text-foreground-muted">{run.result.handoff.detail}</p>
+                    {/homecierge/i.test(run.result.handoff.partner) && (
+                      <a
+                        href="https://www.homeciergeapp.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block text-xs font-semibold text-amber-600 underline-offset-4 hover:underline dark:text-gold-400"
+                      >
+                        Homecierge, our home-services partner ↗
+                      </a>
+                    )}
+                  </Stage>
+                )}
+                {run.result.tool_call.needed && (
+                  <Stage icon={Terminal} title={`Tool call proposed · ${run.result.tool_call.system}`}>
+                    <code className="block overflow-x-auto whitespace-pre-wrap break-words rounded-xl bg-navy-950 p-3 font-[family-name:var(--font-mono)] text-xs text-gold-400">
+                      {run.result.tool_call.action}
+                    </code>
+                    <p className="mt-2 text-xs text-foreground-subtle">{run.result.tool_call.summary} Nothing runs until a person approves.</p>
+                  </Stage>
+                )}
                 <Stage icon={BellRing} title="Alert routed">
                   <AlertLine alert={run.result.alert} />
                 </Stage>

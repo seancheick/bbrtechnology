@@ -8,8 +8,8 @@ export function DemoSection() {
         <SectionHeading
           index="01"
           eyebrow="See it work"
-          title="A customer message in. A finished workflow out."
-          lede="Pick a business and send a message. Watch it get sorted, assigned and answered, with a person approving every reply. This is the kind of automation we build for clients."
+          title="A message in. A finished workflow out."
+          lede="Pick a business: home and property, a clinic, a contractor, an online store, or an enterprise team. Send a message and watch it get sorted, checked against records, handed off and answered, with a person approving every step that matters."
         />
         <div className="mt-10">
           <InquiryPipeline />

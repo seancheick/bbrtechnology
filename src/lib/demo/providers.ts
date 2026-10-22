@@ -20,8 +20,11 @@ class ProviderError extends Error {
   }
 }
 
-function groqModel() {
-  return process.env.GROQ_MODEL || "openai/gpt-oss-120b";
+// Groq rate limits are per model, so a second model gives a fresh allowance when the
+// first one is busy. GROQ_MODELS overrides the order; GROQ_MODEL is the older single value.
+function groqModels() {
+  const raw = process.env.GROQ_MODELS || process.env.GROQ_MODEL || "openai/gpt-oss-120b,openai/gpt-oss-20b";
+  return raw.split(",").map((m) => m.trim()).filter(Boolean);
 }
 
 function geminiModel() {
@@ -43,10 +46,21 @@ function parseJson(text: string | undefined): unknown {
   }
 }
 
-async function callGroq({ system, message, timeoutMs }: ProviderCall): Promise<ProviderResult> {
+async function callGroq(call: ProviderCall): Promise<ProviderResult> {
+  let last: unknown = new ProviderError("groq", "no_model");
+  for (const model of groqModels()) {
+    try {
+      return await callGroqModel(call, model);
+    } catch (err) {
+      last = err;
+    }
+  }
+  throw last;
+}
+
+async function callGroqModel({ system, message, timeoutMs }: ProviderCall, model: string): Promise<ProviderResult> {
   const key = process.env.GROQ_API_KEY;
   if (!key) throw new ProviderError("groq", "not_configured");
-  const model = groqModel();
   const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
@@ -54,7 +68,7 @@ async function callGroq({ system, message, timeoutMs }: ProviderCall): Promise<P
     body: JSON.stringify({
       model,
       temperature: 0.2,
-      max_completion_tokens: 700,
+      max_completion_tokens: 1100,
       reasoning_effort: "low",
       include_reasoning: false,
       messages: [
@@ -102,7 +116,7 @@ async function callGemini({ system, message, timeoutMs }: ProviderCall): Promise
         contents: [{ role: "user", parts: [{ text: `Customer message:\n"""\n${message}\n"""` }] }],
         generationConfig: {
           temperature: 0.2,
-          maxOutputTokens: 900,
+          maxOutputTokens: 1200,
           responseMimeType: "application/json",
           responseSchema: toGeminiSchema(resultJsonSchema),
         },
@@ -141,11 +155,15 @@ export async function runProviders(
   message: string,
   log: (entry: Record<string, unknown>) => void
 ): Promise<ProviderResult | null> {
-  const timeoutMs = Number(process.env.DEMO_PROVIDER_TIMEOUT_MS) || 8000;
+  // Groq answers in about a second; the Gemini free tier can take 10s+ when busy.
+  const timeouts: Record<ProviderName, number> = {
+    groq: Number(process.env.DEMO_PROVIDER_TIMEOUT_MS) || 8000,
+    gemini: Number(process.env.GEMINI_TIMEOUT_MS) || 20000,
+  };
   for (const name of configuredProviders()) {
     const started = Date.now();
     try {
-      const out = await registry[name].call({ system, message, timeoutMs });
+      const out = await registry[name].call({ system, message, timeoutMs: timeouts[name] });
       log({ provider: name, outcome: "ok", ms: Date.now() - started });
       return out;
     } catch (err) {

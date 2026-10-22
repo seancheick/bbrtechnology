@@ -1,9 +1,11 @@
 // Contract shared by /api/demo and the demo UI.
 
-export const industries = ["home-services", "ecommerce", "property"] as const;
+export const industries = ["home-property", "clinic", "contractor", "ecommerce", "enterprise"] as const;
 export type Industry = (typeof industries)[number];
 
-export const categories = ["maintenance", "cleaning", "booking", "billing", "question", "complaint", "other"] as const;
+export const categories = [
+  "maintenance", "cleaning", "booking", "billing", "question", "complaint", "clinical", "document", "dispute", "request", "change_order", "knowledge", "system_action", "security", "other",
+] as const;
 export const urgencies = ["low", "normal", "high", "urgent"] as const;
 export const channels = ["sms", "email", "slack"] as const;
 
@@ -16,6 +18,11 @@ export interface DemoResult {
   draft_reply: string;
   escalate: boolean;
   escalation_reason: string;
+  // optional extras; "needed: false" or an empty list when they don't apply
+  handoff: { needed: boolean; partner: string; service: string; detail: string };
+  sources: { title: string; quote: string }[];
+  tool_call: { needed: boolean; system: string; action: string; summary: string };
+  extracted: { field: string; value: string }[];
   confidence: number;
 }
 
@@ -27,13 +34,16 @@ export type DemoResponse =
 
 export const MAX_MESSAGE = 500;
 
-const LIMITS = { summary: 160, title: 90, role: 40, due: 40, alert: 200, reply: 600, reason: 160 };
+const LIMITS = { summary: 160, title: 90, role: 40, due: 40, alert: 200, reply: 600, reason: 160, short: 60, detail: 200, quote: 220 };
 
 // JSON Schema for Groq strict mode: every field required, no extra properties.
 export const resultJsonSchema = {
   type: "object",
   additionalProperties: false,
-  required: ["category", "urgency", "summary", "task", "alert", "draft_reply", "escalate", "escalation_reason", "confidence"],
+  required: [
+    "category", "urgency", "summary", "task", "alert", "draft_reply", "escalate", "escalation_reason",
+    "handoff", "sources", "tool_call", "extracted", "confidence",
+  ],
   properties: {
     category: { type: "string", enum: [...categories] },
     urgency: { type: "string", enum: [...urgencies] },
@@ -62,6 +72,36 @@ export const resultJsonSchema = {
     draft_reply: { type: "string" },
     escalate: { type: "boolean" },
     escalation_reason: { type: "string" },
+    handoff: {
+      type: "object",
+      additionalProperties: false,
+      required: ["needed", "partner", "service", "detail"],
+      properties: { needed: { type: "boolean" }, partner: { type: "string" }, service: { type: "string" }, detail: { type: "string" } },
+    },
+    sources: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["title", "quote"],
+        properties: { title: { type: "string" }, quote: { type: "string" } },
+      },
+    },
+    tool_call: {
+      type: "object",
+      additionalProperties: false,
+      required: ["needed", "system", "action", "summary"],
+      properties: { needed: { type: "boolean" }, system: { type: "string" }, action: { type: "string" }, summary: { type: "string" } },
+    },
+    extracted: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["field", "value"],
+        properties: { field: { type: "string" }, value: { type: "string" } },
+      },
+    },
     confidence: { type: "number" },
   },
 } as const;
@@ -74,8 +114,37 @@ const oneOf = <T extends readonly string[]>(v: unknown, list: T): T[number] | nu
 
 // Returns a clean DemoResult or null. Wrong types or enum values reject the whole result;
 // over-long strings are clipped.
+function optionalBlock<K extends string>(v: unknown, keys: K[], max: number[]) {
+  if (!isObj(v) || typeof v.needed !== "boolean") return null;
+  const out: Record<string, string> = {};
+  for (let i = 0; i < keys.length; i++) {
+    const s = str(v[keys[i]], max[i]);
+    if (s === null) return null;
+    out[keys[i]] = s;
+  }
+  return { needed: v.needed, ...(out as Record<K, string>) };
+}
+
+function pairs(v: unknown, a: string, b: string, maxA: number, maxB: number, cap: number) {
+  if (!Array.isArray(v)) return null;
+  const out: Record<string, string>[] = [];
+  for (const item of v.slice(0, cap)) {
+    if (!isObj(item)) return null;
+    const x = str(item[a], maxA);
+    const y = str(item[b], maxB);
+    if (x === null || y === null) return null;
+    if (x && y) out.push({ [a]: x, [b]: y });
+  }
+  return out;
+}
+
 export function validateResult(raw: unknown): DemoResult | null {
   if (!isObj(raw) || !isObj(raw.task) || !isObj(raw.alert)) return null;
+  const handoff = optionalBlock(raw.handoff, ["partner", "service", "detail"], [LIMITS.short, LIMITS.short, LIMITS.detail]);
+  const toolCall = optionalBlock(raw.tool_call, ["system", "action", "summary"], [LIMITS.short, LIMITS.short, LIMITS.detail]);
+  const sources = pairs(raw.sources, "title", "quote", LIMITS.short, LIMITS.quote, 3);
+  const extracted = pairs(raw.extracted, "field", "value", LIMITS.short, LIMITS.short, 8);
+  if (!handoff || !toolCall || !sources || !extracted) return null;
   const category = oneOf(raw.category, categories);
   const urgency = oneOf(raw.urgency, urgencies);
   const channel = oneOf(raw.alert.channel, channels);
@@ -104,6 +173,10 @@ export function validateResult(raw: unknown): DemoResult | null {
     draft_reply: reply,
     escalate: raw.escalate,
     escalation_reason: reason,
+    handoff,
+    sources: sources as DemoResult["sources"],
+    tool_call: toolCall,
+    extracted: extracted as DemoResult["extracted"],
     confidence: Math.min(1, Math.max(0, conf > 1 ? conf / 100 : conf)),
   };
 }
