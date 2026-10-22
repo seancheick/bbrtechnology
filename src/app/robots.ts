@@ -1,13 +1,10 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      { userAgent: "*", allow: "/" },
-      { userAgent: "GPTBot", allow: "/" },
-      { userAgent: "OAI-SearchBot", allow: "/" },
-    ],
-    host: "https://bbrtechnology.com",
-    sitemap: "https://bbrtechnology.com/sitemap.xml",
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/api/"] }],
+    host: siteUrl,
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

@@ -1,103 +1,99 @@
 import Link from "next/link";
-import { MagneticDock } from "@/components/ui/magnetic-dock";
+import { ArrowUpRight } from "lucide-react";
+import { nav, site } from "@/lib/site";
+import { categories } from "@/data/services";
+import { caseStudies } from "@/data/case-studies";
+import { Logo } from "@/components/layout/header";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
   return (
-    <footer className="bg-navy-950 text-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        {/* Top section: logo + tagline + columns */}
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-          {/* Logo + tagline + social dock */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-0.5 font-[family-name:var(--font-display)] text-xl font-extrabold text-white">
-              B&amp;Br
-              <span className="ml-0.5 inline-block h-1.5 w-1.5 rounded-full bg-amber-600" />
-            </div>
-            <p className="mt-3 text-sm text-navy-400 leading-relaxed">
-              AI-Powered Tech Studio · Boston, MA
+    <footer className="relative overflow-hidden bg-navy-950 text-white">
+      <div className="grid-backdrop pointer-events-none absolute inset-0 text-white" aria-hidden />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-10 border-b border-white/10 py-16 lg:flex-row lg:items-end lg:justify-between lg:py-20">
+          <div className="max-w-2xl">
+            <p className="eyebrow text-gold-400">Have a workflow that&apos;s costing you hours?</p>
+            <p className="font-display mt-5 text-4xl font-extrabold leading-[1.02] sm:text-6xl">
+              Let&apos;s build the system behind it.
             </p>
-            <div className="mt-4">
-              <MagneticDock />
-            </div>
+            <p className="mt-5 text-navy-400">
+              {site.replyPromise} {site.quotePromise}
+            </p>
           </div>
-
-          {/* Pages */}
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white mb-4">
-              Pages
-            </h3>
-            <ul className="flex flex-col gap-3">
-              {[
-                { href: "/services", label: "Services" },
-                { href: "/about", label: "About" },
-                { href: "/contact", label: "Contact" },
-              ].map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-navy-400 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Direct */}
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white mb-4">
-              Direct
-            </h3>
-            <ul className="flex flex-col gap-3">
-              <li>
-                <a
-                  href="mailto:hello@bbrtechnology.com"
-                  className="text-sm text-navy-400 hover:text-white transition-colors"
-                >
-                  hello@bbrtechnology.com
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:+16467268345"
-                  className="text-sm text-navy-400 hover:text-white transition-colors"
-                >
-                  (646) 726-8345
-                </a>
-              </li>
-            </ul>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <TrackedLink
+              cta="footer_book"
+              href="/contact#book"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-gold-400 px-6 text-sm font-semibold text-navy-950 transition-colors hover:bg-gold-400/90"
+            >
+              Book a free call <ArrowUpRight className="h-4 w-4" />
+            </TrackedLink>
+            <a
+              href={`mailto:${site.email}`}
+              className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/5"
+            >
+              {site.email}
+            </a>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="mt-12 border-t border-white/10" />
+        <div className="grid grid-cols-2 gap-10 py-14 md:grid-cols-4">
+          <div className="col-span-2 md:col-span-1">
+            <Logo className="text-white" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-navy-400">
+              Founder-led software studio. Websites, apps, AI and automation. {site.city}.
+            </p>
+          </div>
+          <FooterColumn title="Studio" links={nav.map((n) => ({ href: n.href, label: n.label }))} />
+          <FooterColumn
+            title="Services"
+            links={categories.map((c) => ({ href: `/services#${c.id}`, label: c.name }))}
+          />
+          <FooterColumn
+            title="Work"
+            links={caseStudies.slice(0, 5).map((c) => ({ href: `/work/${c.slug}`, label: c.name }))}
+          />
+        </div>
 
-        {/* Bottom bar */}
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-navy-400">
-            &copy; {currentYear} B&amp;Br Technology LLC. All rights reserved.
+        <div className="flex flex-col gap-4 border-t border-white/10 py-6 text-xs text-navy-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            &copy; {year} {site.legalName}. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/privacy"
-              className="text-xs text-navy-400 hover:text-white transition-colors"
-            >
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a href={`tel:${site.phone}`} className="hover:text-white">
+              {site.phoneDisplay}
+            </a>
+            <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+              GitHub
+            </a>
+            <Link href="/privacy" className="hover:text-white">
               Privacy
             </Link>
-            <Link
-              href="/terms"
-              className="text-xs text-navy-400 hover:text-white transition-colors"
-            >
+            <Link href="/terms" className="hover:text-white">
               Terms
             </Link>
-            <span className="text-xs text-navy-400/50 border border-white/10 rounded px-2 py-0.5">
-              Built with Next.js
-            </span>
           </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({ title, links }: { title: string; links: { href: string; label: string }[] }) {
+  return (
+    <div>
+      <h2 className="eyebrow text-white/50">{title}</h2>
+      <ul className="mt-4 flex flex-col gap-2.5">
+        {links.map((l) => (
+          <li key={l.href}>
+            <Link href={l.href} className="text-sm text-navy-400 transition-colors hover:text-white">
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

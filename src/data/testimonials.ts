@@ -61,3 +61,9 @@ export const testimonials: Testimonial[] = [
     initials: "HA",
   },
 ];
+
+// The six shown on the site. Initials only, by request of the clients.
+const featuredNames = ["Sarah K.", "Mike R.", "Jasmine P.", "Tina L.", "David M.", "Sana S."];
+export const featuredTestimonials = featuredNames
+  .map((name) => testimonials.find((t) => t.name === name))
+  .filter((t): t is Testimonial => Boolean(t));

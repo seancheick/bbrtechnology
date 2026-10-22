@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Use — B&Br Technology",
+  title: "Terms of Use",
   description:
     "Website terms for using the B&Br Technology site and contacting the studio about services.",
   robots: {
@@ -26,6 +26,10 @@ const sections = [
   {
     title: "External Services and Links",
     body: "Some site actions may rely on third-party tools, such as scheduling, form handling, hosting, or analytics. We are not responsible for the separate policies or uptime of those external services.",
+  },
+  {
+    title: "Prices, Estimates and Demos",
+    body: "Starting prices and estimator ranges on this site are indicative, not quotes. A project's price is set only by a written, fixed quote. Demos and interactive previews use fictional or sample data, are not connected to any production system, and AI-generated demo output may be inaccurate.",
   },
   {
     title: "Accuracy and Availability",
@@ -53,7 +57,7 @@ export default function TermsPage() {
             are not a substitute for a client services agreement.
           </p>
           <p className="mt-4 text-sm text-foreground-subtle">
-            Effective date: March 27, 2026
+            Effective date: October 21, 2026
           </p>
         </div>
 

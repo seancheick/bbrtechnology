@@ -1,88 +1,55 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/sections/hero";
-import { ProductsShowcase } from "@/components/sections/products-showcase";
-import { ServicesGrid } from "@/components/sections/services-grid";
-import { WhyBbr } from "@/components/sections/why-bbr";
-import { ProcessRoadmap } from "@/components/sections/process-roadmap";
-import { Testimonials } from "@/components/sections/testimonials";
-import { FaqSection } from "@/components/sections/faq-section";
-import { CtaBanner } from "@/components/sections/cta-banner";
-import { flatFaqItems } from "@/data/faq";
-
-const siteUrl = "https://bbrtechnology.com";
+import { Hero } from "@/components/home/hero";
+import { DemoSection } from "@/components/home/demo-section";
+import { ServicesOverview } from "@/components/home/services-overview";
+import { FeaturedWork } from "@/components/home/featured-work";
+import { EstimatorSection } from "@/components/home/estimator-section";
+import { ProcessSection } from "@/components/home/process-section";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
+import { FaqSection } from "@/components/home/faq-section";
+import { faqItems } from "@/data/faq";
+import { offers } from "@/data/services";
+import { site, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Custom Software & Automation for Service Teams | B&Br Technology",
-  description:
-    "Engineering team building custom web apps, mobile apps, and workflow automation systems for service businesses and operator-led teams.",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: "Custom Software & Automation for Service Teams | B&Br Technology",
-    description:
-      "Engineering team building custom web apps, mobile apps, and workflow automation systems for service businesses and operator-led teams.",
-    type: "website",
-    locale: "en_US",
-    url: siteUrl,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Custom Software & Automation for Service Teams | B&Br Technology",
-    description:
-      "Engineering team building custom web apps, mobile apps, and workflow automation systems for service businesses and operator-led teams.",
-  },
+  alternates: { canonical: "/" },
 };
 
-const homeJsonLd = {
+const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": `${siteUrl}/#webpage`,
-      url: siteUrl,
-      name: "B&Br Technology",
-      description:
-        "Engineering studio building custom web apps, internal tools, and workflow automation.",
-      isPartOf: {
-        "@id": `${siteUrl}/#website`,
-      },
-      about: {
-        "@id": `${siteUrl}/#organization`,
-      },
-    },
     {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
-      name: "B&Br Technology",
+      name: site.name,
+      publisher: { "@id": `${siteUrl}/#organization` },
     },
     {
-      "@type": "Service",
+      "@type": "ProfessionalService",
       "@id": `${siteUrl}/#service`,
-      serviceType: [
-        "AI automation",
-        "workflow automation",
-        "internal tools",
-        "website development",
-        "technical SEO",
-      ],
-      provider: {
-        "@id": `${siteUrl}/#organization`,
-      },
+      name: site.name,
+      url: siteUrl,
+      description: site.description,
       areaServed: "US",
-      audience: "Service businesses, growing agencies, operator-led teams, and clinics",
+      provider: { "@id": `${siteUrl}/#organization` },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Services",
+        itemListElement: offers.map((o) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: o.name, description: o.summary },
+          priceSpecification: { "@type": "PriceSpecification", minPrice: o.from, priceCurrency: "USD" },
+        })),
+      },
     },
     {
       "@type": "FAQPage",
       "@id": `${siteUrl}/#faq`,
-      mainEntity: flatFaqItems.map((item) => ({
+      mainEntity: faqItems.map((f) => ({
         "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
+        name: f.question,
+        acceptedAnswer: { "@type": "Answer", text: f.answer },
       })),
     },
   ],
@@ -91,18 +58,15 @@ const homeJsonLd = {
 export default function HomePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Hero />
-      <ProductsShowcase />
-      <ServicesGrid />
-      <WhyBbr />
-      <ProcessRoadmap />
-      <Testimonials />
+      <DemoSection />
+      <ServicesOverview />
+      <FeaturedWork />
+      <EstimatorSection />
+      <ProcessSection />
+      <TestimonialsSection />
       <FaqSection />
-      <CtaBanner />
     </>
   );
 }

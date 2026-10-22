@@ -1,13 +1,21 @@
 import type { MetadataRoute } from "next";
+import { caseStudies } from "@/data/case-studies";
+import { siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://bbrtechnology.com";
+  const now = new Date();
+  const pages: [string, MetadataRoute.Sitemap[number]["changeFrequency"], number][] = [
+    ["", "weekly", 1],
+    ["/services", "monthly", 0.9],
+    ["/work", "monthly", 0.9],
+    ["/demos", "monthly", 0.7],
+    ["/about", "monthly", 0.7],
+    ["/contact", "monthly", 0.8],
+    ["/privacy", "yearly", 0.2],
+    ["/terms", "yearly", 0.2],
+  ];
   return [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-    { url: `${baseUrl}/services`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
-    { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
+    ...pages.map(([path, changeFrequency, priority]) => ({ url: `${siteUrl}${path}`, lastModified: now, changeFrequency, priority })),
+    ...caseStudies.map((c) => ({ url: `${siteUrl}/work/${c.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 })),
   ];
 }

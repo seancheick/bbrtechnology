@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — B&Br Technology",
+  title: "Privacy Policy",
   description:
     "How B&Br Technology collects, uses, and protects information shared through this website.",
   robots: {
@@ -22,6 +22,18 @@ const sections = [
   {
     title: "How Information Is Shared",
     body: "Information is shared only when needed to operate the business and website, such as secure form handling, email delivery, hosting, analytics, or legal compliance. Service providers are expected to handle data appropriately and only for the services they provide to us.",
+  },
+  {
+    title: "Live AI Demo",
+    body: "Messages typed into the demo on this site are sent to third-party AI providers (Groq, and Google Gemini as a fallback) to generate the example workflow. Google's free API tier may use inputs to improve its products. The demo uses a fictional business; please don't enter personal or confidential information. We don't store demo messages, and our logs record only timing and outcome, never the text. Rate limiting uses a one-way hash of your IP address, kept for at most a day.",
+  },
+  {
+    title: "Analytics",
+    body: "We use PostHog in a cookieless mode: no cookies or local storage, no session recordings, and no personal profiles. Events record which page or button was used (for example, that a booking was completed), never what you typed into a form or the demo.",
+  },
+  {
+    title: "Booking and Forms",
+    body: "Call bookings are handled by Cal.com and the contact form by Formspree, each under its own privacy policy. Information you enter there is shared with us so we can reply and prepare for the call.",
   },
   {
     title: "Data Retention",
@@ -54,7 +66,7 @@ export default function PrivacyPage() {
             padded with legal filler.
           </p>
           <p className="mt-4 text-sm text-foreground-subtle">
-            Effective date: March 27, 2026
+            Effective date: October 21, 2026
           </p>
         </div>
 

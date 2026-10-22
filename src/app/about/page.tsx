@@ -1,426 +1,164 @@
 import type { Metadata } from "next";
-import {
-  ArrowRight,
-  CheckCircle,
-  Code,
-  BookOpen,
-  Shield,
-  Smile,
-  LayoutGrid,
-} from "lucide-react";
-import { projects, principles } from "@/data/portfolio";
-import { toolCategories } from "@/data/tools";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ShineButton } from "@/components/effects/shine-button";
-import {
-  ScrollReveal,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/effects/scroll-reveal";
-import type { LucideIcon } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { site } from "@/lib/site";
+import { caseStudies } from "@/data/case-studies";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { StatusDot } from "@/components/ui/spec-badge";
 
 export const metadata: Metadata = {
-  title: "About B&Br Technology | Founder-Led Automation & Product Studio",
+  title: "About",
   description:
-    "Meet B&Br Technology, the founder-led Boston studio building automation systems, internal tools, and websites for real businesses.",
-  alternates: {
-    canonical: "/about",
-  },
-  openGraph: {
-    title: "About B&Br Technology | Founder-Led Automation & Product Studio",
-    description:
-      "Meet B&Br Technology, the founder-led Boston studio building automation systems, internal tools, and websites for real businesses.",
-    type: "website",
-    locale: "en_US",
-    url: "https://bbrtechnology.com/about",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About B&Br Technology | Founder-Led Automation & Product Studio",
-    description:
-      "Meet B&Br Technology, the founder-led Boston studio building automation systems, internal tools, and websites for real businesses.",
-  },
+    "B&Br Technology is a founder-led software studio in Boston. We design, build and run our own products, and bring that operator discipline to client work.",
+  alternates: { canonical: "/about" },
 };
 
-/* Map principle titles to icons */
-const principleIcons: Record<string, LucideIcon> = {
-  "Accuracy Over Hype": CheckCircle,
-  "Performance First": Code,
-  "Continuous Learning": BookOpen,
-  Authenticity: Shield,
-  "Human-Centered": Smile,
-  "Ship, Then Iterate": LayoutGrid,
-};
+const principles = [
+  {
+    title: "Accuracy over hype",
+    body: "We recommend tools because they solve the problem, not because they're trending. If a $20/month tool fixes it, we'll tell you.",
+  },
+  {
+    title: "Scope in writing",
+    body: "Every project has a written scope, exclusions and test cases before work starts. Done means the tests pass, not that the deadline arrived.",
+  },
+  {
+    title: "Ship, then iterate",
+    body: "You see working software every week. Real feedback beats long specifications.",
+  },
+  {
+    title: "Built to hand over",
+    body: "Your accounts, your repositories, your documentation. You should be able to run what we build without us.",
+  },
+];
+
+const toolbox = [
+  { title: "Product & front end", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Flutter"] },
+  { title: "Back end & data", items: ["Node.js", "Python", "PostgreSQL", "Supabase", "REST & webhooks"] },
+  { title: "AI & automation", items: ["LLM APIs", "Structured outputs", "MCP servers", "n8n · Make · Zapier", "Evals & guardrails"] },
+  { title: "Ship & run", items: ["Vercel", "GitHub Actions", "Sentry", "PostHog", "Stripe"] },
+];
 
 export default function AboutPage() {
   return (
     <>
-      {/* ─── Hero ─── */}
-      <section className="relative overflow-hidden py-28 lg:py-36">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-            backgroundSize: "6rem 5rem",
-            maskImage:
-              "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
-          }}
-        />
-
-        <ScrollReveal className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <Badge variant="accent" className="mb-6">
-            About B&amp;Br Technology
-          </Badge>
-
-          <h1 className="font-[family-name:var(--font-display)] text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Built by Builders.
-            <br />
-            <span className="gradient-text">Not by Hype.</span>
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground-muted">
-            We&apos;re a Boston-based digital studio that ships real systems for
-            real businesses. No inflated promises, no trend-chasing — just
-            precise, reliable technology that earns its place in your stack.
-          </p>
-        </ScrollReveal>
-      </section>
-
-      {/* ─── The Story ─── */}
-      <section className="py-20 bg-bg-alt">
-        <div className="mx-auto max-w-3xl px-6">
-          <ScrollReveal>
-            <Badge variant="accent" className="mb-4">
-              Our Story
-            </Badge>
-
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl mb-8">
-              Why B&amp;Br Exists
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.1}>
-            <div className="space-y-6 text-foreground-muted leading-relaxed">
-              <p>
-                B&amp;Br Technology was founded by Sean Cheick Baradji — a
-                developer, systems architect, and first-generation American with
-                roots in West Africa and a career that spans New York City,
-                Boston, and Washington, D.C. After years of watching businesses
-                get burned by the same cycle, it became clear that the industry
-                needed a different approach.
-              </p>
-
-              <p>
-                The problem was obvious: traditional agencies overcharged for
-                bloated deliverables, freelancers disappeared mid-project, and a
-                new wave of AI vendors was wrapping basic automations in
-                marketing jargon and charging premium rates. Businesses deserved
-                better than a choice between expensive, unreliable, and
-                misleading.
-              </p>
-
-              <p>
-                B&amp;Br operates differently. Every line of code has a reason.
-                Every recommendation is evidence-based. We ship on time, we
-                communicate in plain language, and nothing is hidden — not the
-                timeline, not the cost, not the limitations. If a $50/month tool
-                solves your problem, we&apos;ll tell you — even if it means a
-                smaller invoice.
-              </p>
-
-              <p>
-                We love collaborating. Whether it&apos;s teaming up with another
-                agency&apos;s engineering team, consulting on an existing
-                project, or serving as that third set of eyes on a critical
-                system, we work well alongside other builders. Our interns come
-                from Boston-area colleges and work on real client projects — not
-                made-up exercises — because we believe in learning by shipping.
-              </p>
-
-              <p>
-                Today, B&amp;Br works with medical clinics, eCommerce brands,
-                startups, solopreneurs, and growing teams across the country.
-                The common thread isn&apos;t industry — it&apos;s ambition. If
-                you&apos;re building something real and you need technology that
-                keeps up, that&apos;s exactly what we&apos;re here for.
-              </p>
-            </div>
-          </ScrollReveal>
+      <section className="relative overflow-hidden pb-20 pt-32 sm:pt-40">
+        <div className="grid-backdrop pointer-events-none absolute inset-0 text-navy-900 dark:text-white" aria-hidden />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            as="h1"
+            eyebrow="About the studio"
+            title={
+              <>
+                A small studio <span className="text-amber-600 dark:text-gold-400">with a high bar.</span>
+              </>
+            }
+            lede={`${site.name} is a founder-led software studio in Boston. Sean Cheick Baradji leads every project and works with a small team of engineers and designers when the scope calls for it.`}
+          />
         </div>
       </section>
 
-      {/* ─── Founder Section ─── */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
-            {/* Founder card */}
-            <ScrollReveal className="lg:col-span-2">
-              <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt shadow-sm p-8 text-center">
-                {/* Avatar */}
-                <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-amber-600 to-gold-400">
-                  <span className="font-[family-name:var(--font-display)] text-2xl font-bold text-white">
-                    SC
-                  </span>
+      <section className="border-y border-border bg-bg-alt py-24">
+        <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+          <div>
+            <p className="eyebrow text-amber-600">The founder</p>
+            <h2 className="font-display mt-4 text-4xl font-extrabold text-foreground sm:text-5xl">
+              Built by someone who runs what he builds.
+            </h2>
+            <dl className="mt-10 grid grid-cols-2 gap-6 text-sm">
+              {[
+                ["Based in", site.city],
+                ["Focus", "Full-stack, mobile & applied AI"],
+                ["Sectors", "Health tech, hospitality, field ops, commerce"],
+                ["On every project", "Yes, from first call to launch"],
+              ].map(([k, v]) => (
+                <div key={k} className="border-t border-border pt-3">
+                  <dt className="eyebrow text-foreground-subtle">{k}</dt>
+                  <dd className="mt-1.5 font-medium text-foreground">{v}</dd>
                 </div>
-
-                <h3 className="mt-5 font-[family-name:var(--font-display)] text-xl font-bold text-foreground">
-                  Sean Cheick Baradji
-                </h3>
-                <p className="text-sm text-amber-600 font-medium">
-                  Founder &amp; Lead Developer
-                </p>
-
-                <div className="mt-6 space-y-3 text-left">
-                  <div className="flex items-center gap-3 text-sm text-foreground-muted">
-                    <span className="text-foreground-subtle">Location</span>
-                    <span className="ml-auto font-medium text-foreground">
-                      Boston, MA
-                    </span>
-                  </div>
-                  <div className="border-t border-border" />
-                  <div className="flex items-center gap-3 text-sm text-foreground-muted">
-                    <span className="text-foreground-subtle">Focus</span>
-                    <span className="ml-auto font-medium text-foreground">
-                      Full-Stack &amp; AI Systems
-                    </span>
-                  </div>
-                  <div className="border-t border-border" />
-                  <div className="flex items-center gap-3 text-sm text-foreground-muted">
-                    <span className="text-foreground-subtle">Industries</span>
-                    <span className="ml-auto font-medium text-foreground">
-                      Healthcare / eCommerce / AI-ML
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Bio prose */}
-            <ScrollReveal delay={0.1} className="lg:col-span-3">
-              <Badge variant="accent" className="mb-4">
-                The Person Behind the Code
-              </Badge>
-
-              <div className="space-y-5 text-foreground-muted leading-relaxed">
-                <p>
-                  Before B&amp;Br, Sean built PharmaGuide AI — a
-                  first-of-its-kind AI pharmacist app that scans supplements via
-                  barcode and OCR, evaluates quality on a 100-point
-                  deterministic scoring algorithm, checks drug-supplement
-                  interactions, and provides personalized safety
-                  recommendations. The system handles 100,000+ products across a
-                  multi-phase data pipeline, all built with HIPAA-compliant,
-                  privacy-first architecture.
-                </p>
-
-                <p>
-                  PharmaGuide wasn&apos;t a weekend project — it was a deep
-                  engineering effort that required building custom NLP
-                  pipelines, multi-modal scanning (barcode + OCR + manual
-                  search), and an AI pharmacist that can process complex medical
-                  interactions in real time. The scoring algorithm alone
-                  processes dozens of quality signals per product —
-                  certifications, ingredient identity, dosage accuracy,
-                  contaminant testing — with every score fully deterministic and
-                  explainable.
-                </p>
-
-                <p>
-                  That same rigor — the obsession with accuracy, the refusal to
-                  cut corners, the belief that technology should work for the
-                  human on the other end — is what Sean brings to every B&amp;Br
-                  engagement. Whether it&apos;s a business website, an
-                  automation pipeline, or a data dashboard, the standard is the
-                  same: does it work correctly, is it built to last, and does it
-                  solve the actual problem?
-                </p>
-
-                <p>
-                  Sean&apos;s background spans full-stack web development,
-                  mobile engineering with Flutter, data architecture, and
-                  applied AI/ML. He&apos;s worked in healthcare technology,
-                  eCommerce, and government-adjacent systems — always drawn to
-                  projects where accuracy matters more than speed and where
-                  getting it wrong has real consequences.
-                </p>
-              </div>
-            </ScrollReveal>
+              ))}
+            </dl>
+          </div>
+          <div className="space-y-5 text-lg leading-relaxed text-foreground-muted">
+            <p>
+              Before taking on client work at scale, Sean built PharmaGuide: a supplement intelligence platform with a
+              Flutter app, a staged data pipeline that scores products on a six-pillar, 100-point model, and an
+              assistant where known high-risk interactions are answered by deterministic rules instead of a model.
+            </p>
+            <p>
+              Then came the operating problems closer to home. TurnFlow started as the system for a real short-term
+              rental portfolio, turning bookings into cleaning jobs, demanding photo proof, reconciling cleaner pay and
+              catching calendar problems before they cost a booking. It runs that portfolio today.
+            </p>
+            <p>
+              That&apos;s the difference we bring to client work. We&apos;ve been the operator with the broken
+              spreadsheet and the late-night guest message. We know which automations save hours and which ones just create
+              a new thing to babysit.
+            </p>
+            <p className="text-foreground">
+              Whether it&apos;s a website, an automation or a full platform, the standard is the same: does it work
+              correctly, will it last, and does it solve the actual problem?
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ─── Operating Principles ─── */}
-      <section className="py-20 bg-bg-alt">
-        <div className="mx-auto max-w-7xl px-6">
-          <ScrollReveal className="text-center mb-12">
-            <Badge variant="accent" className="mb-4">
-              How We Think
-            </Badge>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
-              Our Operating Principles
-            </h2>
-          </ScrollReveal>
-
-          <StaggerContainer className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {principles.map((principle) => {
-              const Icon = principleIcons[principle.title] ?? CheckCircle;
-
-              return (
-                <StaggerItem key={principle.title}>
-                  <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-6 shadow-sm">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600/10 mb-4">
-                      <Icon className="h-5 w-5 text-amber-600" />
-                    </div>
-                    <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground">
-                      {principle.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-foreground-muted leading-relaxed">
-                      {principle.description}
-                    </p>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* ─── Systems We've Built ─── */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <ScrollReveal className="text-center mb-12">
-            <Badge variant="accent" className="mb-4">
-              Track Record
-            </Badge>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
-              Systems We&apos;ve Built
-            </h2>
-          </ScrollReveal>
-
-          <StaggerContainer className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {projects.map((project) => (
-              <StaggerItem key={project.title}>
-                <div
-                  className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-6 shadow-sm border-l-4"
-                  style={{ borderLeftColor: project.categoryColor }}
+      <section className="py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading eyebrow="We run our own products" title="Proof that isn't a slide deck." />
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {caseStudies.map((c) => (
+              <li key={c.slug}>
+                <Link
+                  href={`/work/${c.slug}`}
+                  className="group flex h-full flex-col rounded-3xl border border-border bg-bg-elevated p-6 transition-colors hover:border-foreground/25"
                 >
-                  <span
-                    className="inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold mb-3"
-                    style={{
-                      color: project.categoryColor,
-                      backgroundColor: `${project.categoryColor}15`,
-                    }}
-                  >
-                    {project.category}
+                  <span className="eyebrow text-foreground-subtle">{c.kicker}</span>
+                  <span className="font-display mt-3 text-2xl font-extrabold text-foreground">{c.name}</span>
+                  <span className="mt-2 text-sm text-foreground-muted">{c.headline}</span>
+                  <span className="mt-auto flex items-center justify-between pt-6">
+                    <StatusDot status={c.status} className="text-foreground-muted" />
+                    <ArrowUpRight className="h-4 w-4 text-foreground-subtle transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </span>
-
-                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground">
-                    {project.title}
-                  </h3>
-
-                  <p className="mt-2 text-sm text-foreground-muted leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full border border-border bg-bg-alt px-2.5 py-0.5 text-xs font-medium text-foreground-muted"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </StaggerItem>
+                </Link>
+              </li>
             ))}
-          </StaggerContainer>
+          </ul>
         </div>
       </section>
 
-      {/* ─── Tools We Trust ─── */}
-      <section className="py-20 bg-bg-alt">
-        <div className="mx-auto max-w-7xl px-6">
-          <ScrollReveal className="text-center mb-12">
-            <Badge variant="accent" className="mb-4">
-              Our Stack
-            </Badge>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
-              Tools We Trust
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-foreground-muted">
-              We&apos;re tool-agnostic — we pick what works best for the job,
-              not what&apos;s trending on Twitter.
-            </p>
-          </ScrollReveal>
-
-          <StaggerContainer className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {toolCategories.map((category) => (
-              <StaggerItem key={category.title}>
-                <div>
-                  <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-gold-400 mb-4">
-                    {category.title}
-                  </h3>
-                  <ul className="space-y-2.5">
-                    {category.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-center gap-2 text-sm text-foreground-muted"
-                      >
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />
-                        {item}
-                      </li>
+      <section className="border-t border-border bg-bg-alt py-24">
+        <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div>
+            <SectionHeading eyebrow="How we think" title="Four rules we don't bend." />
+            <ul className="mt-10 space-y-6">
+              {principles.map((p, i) => (
+                <li key={p.title} className="flex gap-5 border-t border-border pt-6">
+                  <span aria-hidden className="font-display text-2xl font-extrabold tabular text-amber-600 dark:text-gold-400">0{i + 1}</span>
+                  <div>
+                    <h3 className="font-display text-xl font-extrabold text-foreground">{p.title}</h3>
+                    <p className="mt-2 text-foreground-muted">{p.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <SectionHeading eyebrow="Toolbox" title="What we build with." />
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {toolbox.map((g) => (
+                <div key={g.title} className="rounded-3xl border border-border bg-bg-elevated p-6">
+                  <h3 className="eyebrow text-foreground-subtle">{g.title}</h3>
+                  <ul className="mt-4 space-y-2 text-sm text-foreground">
+                    {g.items.map((t) => (
+                      <li key={t}>{t}</li>
                     ))}
                   </ul>
                 </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* ─── Bottom CTA ─── */}
-      <section className="relative overflow-hidden border-t border-border bg-[linear-gradient(to_bottom_right,color-mix(in_srgb,var(--color-bg-alt)_88%,var(--color-navy-950)_12%),var(--color-bg))] py-20">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-            backgroundSize: "6rem 5rem",
-          }}
-        />
-
-        <ScrollReveal className="relative z-10 mx-auto max-w-3xl px-6 text-center">
-          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-            Ready to Work With a Team That{" "}
-            <span className="text-amber-600">Delivers</span>?
-          </h2>
-
-          <p className="mx-auto mt-4 max-w-lg text-foreground-muted">
-            No pitch decks. No jargon. Just a conversation about what you need
-            built and whether we&apos;re the right fit.
-          </p>
-
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <ShineButton href="/contact">
-              Get Started
-              <ArrowRight className="ml-1 h-4 w-4" />
-            </ShineButton>
-            <Button variant="outline" asChild>
-              <a
-                href="/services"
-                className="border-border text-foreground hover:bg-bg-alt"
-              >
-                Explore Services
-              </a>
-            </Button>
+              ))}
+            </div>
           </div>
-        </ScrollReveal>
+        </div>
       </section>
     </>
   );

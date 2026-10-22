@@ -2,18 +2,30 @@ import { readFileSync } from "node:fs";
 
 const checks = [
   {
+    // proof before explanation: live demo first, then services, then real work
     file: "src/app/page.tsx",
-    required: ['ProductsShowcase', 'ProcessRoadmap'],
-    forbidden: ['MetricsBar', 'OrbitalProcess'],
+    required: ["<Hero", "<DemoSection", "<ServicesOverview", "<FeaturedWork", "<EstimatorSection", "<TestimonialsSection", "<FaqSection"],
+    forbidden: ["MetricsBar", "OrbitalProcess", "ProductsShowcase"],
   },
   {
-    file: "src/data/portfolio.ts",
-    required: ['PharmaGuide', 'FieldOps', 'AirbnbBBR'],
+    file: "src/data/case-studies.ts",
+    required: ["TurnFlow", "PharmaGuide", "FieldOps AI", "Keniya", "attribution"],
+    forbidden: ["career-ops"],
+  },
+  {
+    file: "src/data/services.ts",
+    required: ["automation-audit", "automation-sprint", "mobile-app", "carePlans"],
+    forbidden: ["Up to 40%", "20+ Hrs"],
   },
   {
     file: "src/data/testimonials.ts",
-    forbidden: ['randomuser.me'],
-    required: ['Clinic Owner', 'Airbnb', 'Solopreneur'],
+    forbidden: ["randomuser.me"],
+    required: ["Clinic Owner", "Airbnb", "featuredTestimonials"],
+  },
+  {
+    // the demo never presents canned output as live AI
+    file: "src/components/demos/inquiry-pipeline.tsx",
+    required: ['source: "simulated"', "Simulated"],
   },
 ];
 

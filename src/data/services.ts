@@ -1,228 +1,404 @@
-import { Globe, Bot, TrendingUp, BarChart3, Wrench } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+// Canonical pricing and service scope. Every price on the site (cards, services page,
+// estimator, JSON-LD, FAQ) reads from here. Prices are proposed launch floors in USD.
 
-export interface Service {
-  id: string;
-  icon: LucideIcon;
-  label: string;
-  title: string;
-  tagline: string;
-  description: string;
-  deliverables: string[];
-  audience: string;
+export type CategoryId = "ai-automation" | "websites" | "custom-software" | "mobile";
+export type OfferId =
+  | "automation-audit"
+  | "automation-sprint"
+  | "ai-assistant"
+  | "website"
+  | "internal-tool"
+  | "web-app"
+  | "mobile-app";
+export type Tier = "focused" | "standard" | "advanced";
+type Range = readonly [number, number];
+
+export interface Category {
+  id: CategoryId;
+  name: string;
+  short: string;
+  pitch: string;
+  offers: OfferId[];
+  proof: string; // case-study slug that best proves this category
 }
 
-export const services: Service[] = [
-  {
-    id: "web-mobile",
-    icon: Globe,
-    label: "Core Service",
-    title: "Web & Mobile Development",
-    tagline: "The foundation of your brand. Fast, SEO-ready, and built to last.",
-    description:
-      "Your website is more than a brochure — it's the engine of your business. We build fast, responsive, SEO-ready sites and mobile apps that look great, load quickly, and convert visitors into customers. Every project is architected for growth, so you're never stuck rebuilding from scratch when your business scales.",
-    deliverables: [
-      "Custom business websites built with React, Next.js, or WordPress",
-      "Shopify and WooCommerce eCommerce stores",
-      "iOS and Android mobile applications",
-      "Landing pages optimized for lead generation and conversions",
-      "Portfolio and personal brand sites",
-      "UX/UI design with performance and accessibility baked in",
-    ],
-    audience:
-      "Founders launching their first site, established businesses needing a redesign, creators building a personal brand, and startups that need an MVP shipped fast without cutting corners.",
-  },
+export interface Offer {
+  id: OfferId;
+  category: CategoryId;
+  name: string;
+  from: number;
+  typical: Range;
+  timeline: string;
+  summary: string;
+  bestFor: string;
+  includes: string[];
+  excludes: string[];
+  popular?: boolean;
+  tiers: Record<Tier, { range: Range; weeks: string; example: string }>;
+}
+
+export interface CarePlan {
+  id: "care-basic" | "care-growth";
+  name: string;
+  monthly: number;
+  summary: string;
+  includes: string[];
+  limits: string;
+}
+
+export const categories: Category[] = [
   {
     id: "ai-automation",
-    icon: Bot,
-    label: "Key Differentiator",
-    title: "AI & Automation Solutions",
-    tagline: "Our key differentiator. We turn manual tasks into automated assets.",
-    description:
-      "This is what sets us apart. While other agencies treat AI as a buzzword, we implement it as practical infrastructure. We identify the repetitive tasks eating your time, then build automation systems that handle them — accurately, consistently, and at scale.",
-    deliverables: [
-      "AI chatbots for customer support, lead capture, and FAQ automation",
-      "Custom GPT-powered internal assistants",
-      "Zapier and Make workflow automation",
-      "CRM automation and pipeline management",
-      "Smart forms with conditional logic and AI processing",
-      "Internal tools that replace manual spreadsheet work",
-      "AI-powered onboarding and client intake flows",
-    ],
-    audience:
-      "Solopreneurs drowning in admin work, service businesses with repetitive client intake, growing teams that need structure without hiring more people, and anyone spending hours on tasks a machine could do better.",
+    name: "AI & Automation",
+    short: "Automation",
+    pitch:
+      "Connect the tools you already pay for, remove the copy-paste work, and add AI where it saves real hours.",
+    offers: ["automation-audit", "automation-sprint", "ai-assistant"],
+    proof: "turnflow",
   },
   {
-    id: "seo-growth",
-    icon: TrendingUp,
-    label: "Long-Term Value",
-    title: "SEO & Growth Marketing",
-    tagline: "Long-term value engines that ensure you're found by the right people.",
-    description:
-      "Getting found online isn't optional — it's survival. We implement technical SEO foundations, content strategies, and local search optimization that compound over time. No black-hat tricks, no empty promises — just methodical work that builds real organic traffic and turns searchers into paying customers.",
-    deliverables: [
-      "Technical SEO audits and fixes (speed, structure, indexing)",
-      "On-page optimization for target keywords",
-      "Local SEO for service-based businesses (Google Business, citations)",
-      "Content strategy and ranking roadmaps",
-      "Conversion rate optimization (CRO)",
-      "Personal and business brand positioning",
-    ],
-    audience:
-      "Local businesses that depend on \"near me\" searches, eCommerce stores competing for product keywords, consultants building authority in their niche, and any business with a website that isn't generating leads.",
+    id: "websites",
+    name: "Websites",
+    short: "Websites",
+    pitch:
+      "Fast, search-ready sites that explain what you do in five seconds and turn visitors into booked calls.",
+    offers: ["website"],
+    proof: "pharmaguide",
   },
   {
-    id: "data-analytics",
-    icon: BarChart3,
-    label: "Insight Engine",
-    title: "Data Analysis & Visualization",
-    tagline: "Clear, visual insights for founders. Stop guessing, start knowing.",
-    description:
-      "You can't improve what you don't measure. We set up proper analytics, build custom dashboards, and deliver clear reporting that helps you make smarter decisions faster. No more guessing whether your marketing is working or where your revenue is coming from.",
-    deliverables: [
-      "Google Analytics 4 setup with custom events and goals",
-      "Looker Studio, Tableau, and Power BI dashboards",
-      "Traffic, sales, and performance reporting",
-      "Funnel analysis and conversion tracking",
-      "Decision-focused data storytelling for teams and investors",
-    ],
-    audience:
-      "Startups that need investor-ready metrics, eCommerce brands tracking multi-channel performance, marketing teams that want clarity on ROI, and founders who are tired of flying blind.",
+    id: "custom-software",
+    name: "Custom Software",
+    short: "Software",
+    pitch:
+      "Dashboards, internal tools and web apps that fit how your team actually works, not the other way around.",
+    offers: ["internal-tool", "web-app"],
+    proof: "turnflow",
   },
   {
-    id: "it-support",
-    icon: Wrench,
-    label: "Trust & Retention",
-    title: "IT Support & Maintenance",
-    tagline: "We don't just build and leave. We keep your systems healthy and secure.",
-    description:
-      "We don't build and disappear. Your website, apps, and systems need ongoing care — security updates, performance tuning, bug fixes, and someone to call when something breaks. We act as your on-call technical team so you never have to scramble for help or worry about downtime.",
-    deliverables: [
-      "Website and application maintenance",
-      "Proactive system monitoring and health checks",
-      "Security patches and software updates",
-      "Office IT setup (networks, devices, software provisioning)",
-      "Troubleshooting and ongoing technical support",
-      "Preventive maintenance and performance optimization",
-    ],
-    audience:
-      "Any business that depends on its website being up and fast, teams without a dedicated IT person, growing companies that need reliable infrastructure, and anyone who's been burned by a developer who disappeared after launch.",
+    id: "mobile",
+    name: "Mobile Apps",
+    short: "Mobile",
+    pitch:
+      "Flutter apps for iOS and Android, built offline-first for people who work away from a desk.",
+    offers: ["mobile-app"],
+    proof: "fieldops-ai",
   },
 ];
 
-export const metrics = [
+export const offers: Offer[] = [
   {
-    value: "7\u201321 Days",
-    label: "Typical Launch Window",
-    sub: "From concept to live site or MVP \u2014 depending on scope.",
+    id: "automation-audit",
+    category: "ai-automation",
+    name: "Automation Audit & Fix",
+    from: 250,
+    typical: [250, 450],
+    timeline: "1–2 business days",
+    summary:
+      "We inspect one automation that is failing or slowing you down, tell you exactly why, and fix it on the spot when the fix is small.",
+    bestFor: "A Zapier, Make or n8n flow that breaks, double-sends, or nobody trusts anymore.",
+    includes: [
+      "Review of one existing automation or integration",
+      "Written diagnosis in plain language",
+      "Small fixes (up to one hour) applied during the audit",
+      "Fixed quote for anything larger",
+    ],
+    excludes: ["Rebuilding the whole workflow", "New integrations", "Ongoing monitoring"],
+    tiers: {
+      focused: { range: [250, 250], weeks: "1–2 days", example: "One flow, one tool" },
+      standard: { range: [250, 350], weeks: "2 days", example: "One flow across two or three tools" },
+      advanced: { range: [350, 450], weeks: "2–3 days", example: "A tangled flow with custom code" },
+    },
   },
   {
-    value: "Up to 40%",
-    label: "SEO Traffic Growth",
-    sub: "Targeted organic growth within the first 120 days.",
+    id: "automation-sprint",
+    category: "ai-automation",
+    name: "Automation Sprint",
+    from: 750,
+    typical: [750, 1500],
+    timeline: "3–5 business days after access",
+    summary:
+      "One business workflow, built end to end with validation, logging and a handover you can actually follow.",
+    bestFor: "Lead intake, booking follow-up, invoice reminders, job dispatch, report generation.",
+    includes: [
+      "One workflow across your existing tools",
+      "Error handling, logging and failure alerts",
+      "Test cases run against real scenarios",
+      "Handover guide and a short screen recording",
+      "14 days of fixes after launch",
+    ],
+    excludes: ["Custom CRM development", "Unlimited revisions", "Third-party subscription fees"],
+    popular: true,
+    tiers: {
+      focused: { range: [750, 950], weeks: "3–4 days", example: "Form → spreadsheet → email alert" },
+      standard: { range: [950, 1200], weeks: "4–5 days", example: "Inquiry → CRM → task → SMS alert" },
+      advanced: { range: [1200, 1500], weeks: "1–2 weeks", example: "Multi-step flow with AI classification" },
+    },
   },
   {
-    value: "20+ Hrs/Mo",
-    label: "Time Savings Potential",
-    sub: "Through workflow automation tailored to your operations.",
+    id: "ai-assistant",
+    category: "ai-automation",
+    name: "AI Assistant & Lead Response",
+    from: 1500,
+    typical: [1500, 4000],
+    timeline: "1–3 weeks",
+    summary:
+      "An assistant that answers from your approved knowledge, captures and routes leads, and hands off to a person whenever it is unsure.",
+    bestFor: "Repeated customer questions, after-hours inquiries, lead qualification, internal how-do-I questions.",
+    includes: [
+      "Assistant grounded in your approved FAQs and documents",
+      "Lead capture to your CRM or Google Sheets",
+      "Human handoff with the full conversation attached",
+      "Guardrails and a written test suite",
+      "Admin guide for updating answers",
+    ],
+    excludes: [
+      "Messaging inside platforms without an approved API",
+      "Unlimited AI usage (billed at provider cost)",
+      "Medical, legal or financial advice use cases",
+    ],
+    tiers: {
+      focused: { range: [1500, 2000], weeks: "1 week", example: "Website FAQ assistant with handoff" },
+      standard: { range: [2000, 3000], weeks: "2 weeks", example: "Assistant + lead capture + CRM routing" },
+      advanced: { range: [3000, 4000], weeks: "3 weeks", example: "Multi-channel assistant with escalation rules" },
+    },
+  },
+  {
+    id: "website",
+    category: "websites",
+    name: "Business Website",
+    from: 2500,
+    typical: [2500, 8000],
+    timeline: "2–5 weeks",
+    summary:
+      "A custom Next.js site with real copy structure, technical SEO and lead capture that goes straight to your inbox or CRM.",
+    bestFor: "New businesses, rebrands, and sites that look dated or don't produce inquiries.",
+    includes: [
+      "Custom design in light and dark",
+      "Up to 6 pages on the focused tier (larger sites from $3,500)",
+      "Technical SEO, structured data and analytics",
+      "Lead forms and booking wired to your tools",
+      "Editable content where you need it",
+    ],
+    excludes: ["Copywriting from scratch (available)", "Paid ads management", "Stock photo licensing"],
+    tiers: {
+      focused: { range: [2500, 3500], weeks: "2–3 weeks", example: "Up to 6 pages, one lead form" },
+      standard: { range: [3500, 5500], weeks: "3–4 weeks", example: "10–15 pages, CMS, booking" },
+      advanced: { range: [5500, 8000], weeks: "4–5 weeks", example: "Content hub, integrations, interactive features" },
+    },
+  },
+  {
+    id: "internal-tool",
+    category: "custom-software",
+    name: "Internal Tool & Dashboard",
+    from: 5000,
+    typical: [5000, 20000],
+    timeline: "3–8 weeks",
+    summary:
+      "Replace the spreadsheet-and-group-chat workflow with one tool: roles, approvals, live status and reports.",
+    bestFor: "Operations teams, dispatch, approvals, client portals, owner reporting.",
+    includes: [
+      "Role-based access with database-level security",
+      "Integrations with the tools you already use",
+      "Dashboards and exportable reports",
+      "Audit trail on important actions",
+      "Deployment, monitoring and handover",
+    ],
+    excludes: ["Data migration from unsupported systems (quoted)", "24/7 on-call support"],
+    tiers: {
+      focused: { range: [5000, 8000], weeks: "3–4 weeks", example: "One workflow, two roles, a dashboard" },
+      standard: { range: [8000, 14000], weeks: "5–6 weeks", example: "Several workflows, integrations, reports" },
+      advanced: { range: [14000, 20000], weeks: "7–8 weeks", example: "Multi-team tool with approvals and an API" },
+    },
+  },
+  {
+    id: "web-app",
+    category: "custom-software",
+    name: "Web App / SaaS MVP",
+    from: 10000,
+    typical: [10000, 40000],
+    timeline: "6–12 weeks",
+    summary:
+      "A production-ready first version of your product: accounts, payments, the core workflow and an admin view.",
+    bestFor: "Founders validating a product, businesses turning a service into software.",
+    includes: [
+      "Product scoping workshop and clickable flow",
+      "Auth, database, payments and admin",
+      "Automated tests on the critical paths",
+      "Analytics and error monitoring",
+      "Launch support and a 30-day fix window",
+    ],
+    excludes: ["Marketing and user acquisition", "Ongoing feature development (retainer available)"],
+    tiers: {
+      focused: { range: [10000, 16000], weeks: "6–8 weeks", example: "One core workflow, payments, admin" },
+      standard: { range: [16000, 28000], weeks: "8–10 weeks", example: "Multiple roles, integrations, billing plans" },
+      advanced: { range: [28000, 40000], weeks: "10–12 weeks", example: "Multi-tenant SaaS with an API and AI features" },
+    },
+  },
+  {
+    id: "mobile-app",
+    category: "mobile",
+    name: "Mobile App MVP",
+    from: 15000,
+    typical: [15000, 45000],
+    timeline: "8–14 weeks",
+    summary:
+      "A Flutter app for iOS and Android with offline support, push notifications and store submission handled.",
+    bestFor: "Field teams, consumer products, companion apps to an existing platform.",
+    includes: [
+      "One codebase for iOS and Android",
+      "Offline-first data where it matters",
+      "Push notifications and deep links",
+      "Backend, auth and admin dashboard",
+      "App Store and Google Play submission",
+    ],
+    excludes: ["Apple and Google developer fees", "Hardware integrations (quoted)"],
+    tiers: {
+      focused: { range: [15000, 22000], weeks: "8–10 weeks", example: "Core flow, auth, push" },
+      standard: { range: [22000, 34000], weeks: "10–12 weeks", example: "Offline sync, media, admin web app" },
+      advanced: { range: [34000, 45000], weeks: "12–14 weeks", example: "Multi-role app, payments, integrations" },
+    },
   },
 ];
 
-export const techStack = [
-  "React",
-  "Next.js",
-  "Flutter",
-  "Shopify",
-  "Zapier",
-  "Make",
-  "Google Analytics 4",
-  "Tableau",
-  "Python",
-  "OpenAI",
-];
-
-export const comparisonTable = {
-  headers: ["Feature", "B&Br Technology", "Traditional Agency", "Freelancer"],
-  rows: [
-    [
-      "Web & Mobile",
-      "Strategy, design, and build in one flow",
-      "More layers, slower alignment",
-      "Limited full-system depth",
-    ],
-    [
-      "AI & Automation",
-      "Built in from the start",
-      "Usually added later",
-      "Best for lighter automations",
-    ],
-    [
-      "Support Model",
-      "Launch, refine, improve",
-      "Often tied to bigger retainers",
-      "Depends on availability",
-    ],
-    [
-      "Communication",
-      "Direct, dedicated collaboration",
-      "Managed through multiple roles",
-      "Direct, but bandwidth is limited",
-    ],
-    [
-      "Flexibility",
-      "Custom enough to fit, structured enough to scale",
-      "Less agile once process is set",
-      "Flexible, but can hit capacity limits",
-    ],
-  ],
-};
-
-export const differentiators = [
+export const carePlans: CarePlan[] = [
   {
-    title: "Founder-Led",
-    description:
-      "You talk directly to the person building your product. No layers, no hand-offs.",
+    id: "care-basic",
+    name: "Care",
+    monthly: 99,
+    summary: "Keep a finished site or automation healthy.",
+    includes: [
+      "Uptime and error monitoring",
+      "Monthly dependency and security updates",
+      "1 hour of small changes per month",
+      "Email support, reply within 2 business days",
+    ],
+    limits: "Unused hours don't roll over. New features are quoted separately.",
   },
   {
-    title: "AI-Native",
-    description:
-      "AI is baked into every solution \u2014 not bolted on as an afterthought.",
-  },
-  {
-    title: "System-First",
-    description:
-      "We build scalable systems, not fragile one-offs that break when you grow.",
-  },
-  {
-    title: "No BS",
-    description:
-      "Honest timelines. Transparent pricing. Real results you can measure.",
+    id: "care-growth",
+    name: "Care Plus",
+    monthly: 300,
+    summary: "For systems your business runs on every day.",
+    includes: [
+      "Everything in Care",
+      "Automation run checks and failure alerts",
+      "4 hours of changes or improvements per month",
+      "Priority support, reply within 1 business day",
+      "Monthly health report",
+    ],
+    limits: "Hours reset monthly. Larger work moves to a fixed quote.",
   },
 ];
+
+export interface AddOn {
+  id: string;
+  label: string;
+  price: number;
+  appliesTo: OfferId[];
+}
+
+export const addOns: AddOn[] = [
+  { id: "ai", label: "AI feature (assistant, classification, summaries)", price: 2000, appliesTo: ["website", "internal-tool", "web-app", "mobile-app"] },
+  { id: "payments", label: "Payments or subscriptions (Stripe)", price: 1500, appliesTo: ["website", "web-app", "mobile-app"] },
+  { id: "integration", label: "Extra integration with an existing tool", price: 1000, appliesTo: ["automation-sprint", "ai-assistant", "internal-tool", "web-app", "mobile-app"] },
+  { id: "admin", label: "Admin dashboard", price: 2500, appliesTo: ["website", "mobile-app"] },
+  { id: "copy", label: "Copywriting and page structure", price: 800, appliesTo: ["website"] },
+];
+
+export const estimatorOffers: OfferId[] = [
+  "automation-sprint",
+  "ai-assistant",
+  "website",
+  "internal-tool",
+  "web-app",
+  "mobile-app",
+];
+
+export function getOffer(id: OfferId): Offer {
+  const offer = offers.find((o) => o.id === id);
+  if (!offer) throw new Error(`Unknown offer ${id}`);
+  return offer;
+}
+
+export function offersIn(category: CategoryId): Offer[] {
+  return offers.filter((o) => o.category === category);
+}
+
+export function categoryFrom(category: CategoryId): number {
+  return Math.min(...offersIn(category).map((o) => o.from));
+}
+
+export function formatUsd(n: number): string {
+  return `$${n.toLocaleString("en-US")}`;
+}
+
+export function estimate(offerId: OfferId, tier: Tier, addOnIds: string[]) {
+  const offer = getOffer(offerId);
+  const t = offer.tiers[tier];
+  const extras = addOns.filter((a) => addOnIds.includes(a.id) && a.appliesTo.includes(offerId));
+  const extra = extras.reduce((sum, a) => sum + a.price, 0);
+  return {
+    offer,
+    low: t.range[0] + extra,
+    high: t.range[1] + extra,
+    weeks: t.weeks,
+    example: t.example,
+    extras,
+  };
+}
+
+// Estimator briefs travel as plain query params: ?offer=web-app&tier=standard&addons=ai,payments
+const tiers: Tier[] = ["focused", "standard", "advanced"];
+
+export function encodeBrief(offer: OfferId, tier: Tier, extras: string[]) {
+  const p = new URLSearchParams({ offer, tier });
+  if (extras.length) p.set("addons", extras.join(","));
+  return p.toString();
+}
+
+export function decodeBrief(params: Record<string, string | string[] | undefined>) {
+  const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
+  const offerId = one(params.offer);
+  const offer = offers.find((o) => o.id === offerId);
+  if (!offer) return null;
+  const tierParam = one(params.tier);
+  const tier = tiers.includes(tierParam as Tier) ? (tierParam as Tier) : null;
+  const extras = (one(params.addons) ?? "").split(",").filter((id) => addOns.some((a) => a.id === id));
+  return { offer, tier, extras };
+}
+
+export function describeBrief(brief: NonNullable<ReturnType<typeof decodeBrief>>): string {
+  const { offer, tier, extras } = brief;
+  if (!tier) return `Interested in: ${offer.name} (from ${formatUsd(offer.from)}).`;
+  const e = estimate(offer.id, tier, extras);
+  const range = e.low === e.high ? formatUsd(e.low) : `${formatUsd(e.low)}–${formatUsd(e.high)}`;
+  const addOnText = e.extras.length ? ` + ${e.extras.map((x) => x.label).join(", ")}` : "";
+  return `Estimator brief: ${offer.name}, ${tier} (${e.example})${addOnText}. Indicative ${range}, ${e.weeks}.`;
+}
 
 export const processSteps = [
   {
-    id: 1,
-    title: "Audit & Strategy",
-    description:
-      "Clarity before code. We analyze your setup and define clear goals.",
+    step: "01",
+    title: "Discover",
+    duration: "30-minute call",
+    body: "We learn the workflow, the tools you already pay for, and what a good outcome is worth. You leave with a clear recommendation, even if it isn't us.",
   },
   {
-    id: 2,
-    title: "Blueprint & Architecture",
-    description:
-      "We design your system logic and visual identity before building.",
+    step: "02",
+    title: "Scope",
+    duration: "Within 2 business days",
+    body: "A fixed quote with what's included, what isn't, the timeline and the test cases we'll use to call it done.",
   },
   {
-    id: 3,
-    title: "Build & Deploy",
-    description:
-      "Performance-first execution using modern, scalable tech stacks.",
+    step: "03",
+    title: "Build",
+    duration: "Weekly demos",
+    body: "You see working software every week on a private preview link. Feedback goes in while it's still cheap to change.",
   },
   {
-    id: 4,
-    title: "Optimize & Scale",
-    description:
-      "Continuous improvements, data insights, and automation expansion.",
+    step: "04",
+    title: "Launch & care",
+    duration: "Handover + support",
+    body: "We test against real scenarios, hand over documentation and access, and stay on for fixes. Care plans keep it healthy after.",
   },
-];
+] as const;

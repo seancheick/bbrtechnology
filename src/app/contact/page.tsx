@@ -1,173 +1,100 @@
 import type { Metadata } from "next";
-import { Mail, Phone, MapPin, Check } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Clock, FileCheck2, Mail, Phone } from "lucide-react";
+import { decodeBrief, describeBrief, encodeBrief } from "@/data/services";
+import { site } from "@/lib/site";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { ContactForm } from "@/components/forms/contact-form";
-import { ScrollReveal } from "@/components/effects/scroll-reveal";
+import { CalBooking } from "@/components/forms/cal-booking";
 
 export const metadata: Metadata = {
-  title: "Contact B&Br Technology | Book a Discovery Call",
+  title: "Contact",
   description:
-    "Talk to B&Br Technology about automation, websites, internal tools, or SEO. Share your project and get a response within 24 hours.",
-  alternates: {
-    canonical: "/contact",
-  },
-  openGraph: {
-    title: "Contact B&Br Technology | Book a Discovery Call",
-    description:
-      "Talk to B&Br Technology about automation, websites, internal tools, or SEO. Share your project and get a response within 24 hours.",
-    type: "website",
-    locale: "en_US",
-    url: "https://bbrtechnology.com/contact",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact B&Br Technology | Book a Discovery Call",
-    description:
-      "Talk to B&Br Technology about automation, websites, internal tools, or SEO. Share your project and get a response within 24 hours.",
-  },
+    "Book a free 30-minute call or send a project brief. Reply within one business day, fixed quote within two business days of receiving your project details.",
+  alternates: { canonical: "/contact" },
 };
 
-const steps = [
-  {
-    number: "1",
-    title: "We Read Every Detail",
-    description:
-      "Your inquiry goes directly to our team — no bots, no ticket queues.",
-  },
-  {
-    number: "2",
-    title: "We Respond Within 24 Hours",
-    description:
-      "With honest feedback on scope, timeline, and whether we're the right match.",
-  },
-  {
-    number: "3",
-    title: "Free Discovery Call",
-    description:
-      "A 30-minute conversation to dig into your goals — zero obligation, zero pressure.",
-  },
-];
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const brief = decodeBrief(await searchParams);
+  const notes = brief ? describeBrief(brief) : undefined;
+  const estimate = brief?.tier ? encodeBrief(brief.offer.id, brief.tier, brief.extras) : undefined;
 
-const trustSignals = [
-  "No contracts required to start",
-  "Free 30-minute discovery call",
-  "Honest about what we can and can't do",
-  "Your data stays private — always",
-];
-
-export default function ContactPage() {
   return (
     <>
-      {/* ─── Hero ─── */}
-      <section className="relative overflow-hidden py-28 lg:py-36">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-            backgroundSize: "6rem 5rem",
-            maskImage:
-              "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%)",
-          }}
-        />
-
-        <ScrollReveal className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <Badge variant="accent" className="mb-6">
-            Get in Touch
-          </Badge>
-
-          <h1 className="font-[family-name:var(--font-display)] text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Let&apos;s Build Something
-            <br />
-            <span className="gradient-text">That Actually Works</span>
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground-muted">
-            Tell us where you are and where you want to be. We&apos;ll tell you
-            honestly whether we&apos;re the right fit.
-          </p>
-        </ScrollReveal>
+      <section className="relative overflow-hidden pb-14 pt-32 sm:pt-40">
+        <div className="grid-backdrop pointer-events-none absolute inset-0 text-navy-900 dark:text-white" aria-hidden />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            as="h1"
+            eyebrow="Contact"
+            title={
+              <>
+                Tell us what&apos;s <span className="text-amber-600 dark:text-gold-400">slowing you down.</span>
+              </>
+            }
+            lede="Book a call if you'd like to talk it through, or send a short brief. Either way, you talk to the person who'll build it."
+          />
+          <ul className="mt-10 grid gap-3 sm:grid-cols-3">
+            {[
+              { icon: Clock, title: "Reply within one business day", body: "Every inquiry is read by a person." },
+              { icon: FileCheck2, title: "Fixed quote in two business days", body: "Once we have your project details." },
+              { icon: Mail, title: site.email, body: site.phoneDisplay, href: `mailto:${site.email}` },
+            ].map(({ icon: Icon, title, body, href }) => (
+              <li key={title} className="flex gap-3 rounded-2xl border border-border bg-bg-elevated p-4">
+                <Icon className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+                <div className="min-w-0">
+                  {href ? (
+                    <a href={href} className="block truncate text-sm font-semibold text-foreground hover:underline">
+                      {title}
+                    </a>
+                  ) : (
+                    <p className="text-sm font-semibold text-foreground">{title}</p>
+                  )}
+                  <p className="text-sm text-foreground-muted">{body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          {notes && (
+            <p className="mt-6 rounded-2xl border border-amber-600/30 bg-amber-600/5 px-5 py-4 text-sm text-foreground">
+              <span className="font-semibold">Your brief is attached.</span> {notes}
+            </p>
+          )}
+        </div>
       </section>
 
-      {/* ─── Two-column layout ─── */}
-      <section className="py-16 lg:py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
-            {/* ── Left sidebar ── */}
-            <ScrollReveal className="lg:col-span-2 space-y-8">
-              {/* What Happens Next */}
-              <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-6 shadow-sm">
-                <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground mb-6">
-                  What Happens Next
-                </h3>
-
-                <div className="space-y-6">
-                  {steps.map((step) => (
-                    <div key={step.number} className="flex gap-4">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-600/10 dark:bg-amber-600/20 text-sm font-bold text-amber-600">
-                        {step.number}
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-foreground text-sm">
-                          {step.title}
-                        </h4>
-                        <p className="mt-1 text-sm text-foreground-muted">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Reach Us Directly */}
-              <div className="rounded-xl border border-border bg-bg dark:bg-bg-alt p-6 shadow-sm">
-                <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-foreground mb-5">
-                  Reach Us Directly
-                </h3>
-
-                <div className="space-y-4">
-                  <a
-                    href="mailto:hello@bbrtechnology.com"
-                    className="flex items-center gap-3 text-sm text-foreground-muted hover:text-amber-600 transition-colors group"
-                  >
-                    <Mail className="h-4 w-4 text-foreground-subtle group-hover:text-amber-600 transition-colors" />
-                    hello@bbrtechnology.com
-                  </a>
-                  <a
-                    href="tel:+16467268345"
-                    className="flex items-center gap-3 text-sm text-foreground-muted hover:text-amber-600 transition-colors group"
-                  >
-                    <Phone className="h-4 w-4 text-foreground-subtle group-hover:text-amber-600 transition-colors" />
-                    (646) 726-8345
-                  </a>
-                  <div className="flex items-center gap-3 text-sm text-foreground-muted">
-                    <MapPin className="h-4 w-4 text-foreground-subtle" />
-                    Boston, MA
-                  </div>
-                </div>
-              </div>
-
-              {/* Trust signals */}
-              <div className="space-y-3 px-1">
-                {trustSignals.map((signal) => (
-                  <div
-                    key={signal}
-                    className="flex items-center gap-2.5 text-sm text-foreground-muted"
-                  >
-                    <Check className="h-4 w-4 shrink-0 text-success" />
-                    {signal}
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
-
-            {/* ── Right form ── */}
-            <ScrollReveal delay={0.1} className="lg:col-span-3">
-              <ContactForm />
-            </ScrollReveal>
+      <section className="pb-24">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div id="book" className="scroll-mt-24">
+            <h2 className="font-display text-2xl font-extrabold text-foreground">Book a free 30-minute call</h2>
+            <p className="mt-2 text-sm text-foreground-muted">
+              Pick a time that suits you. {brief ? "Your brief is prefilled in the booking notes." : ""}
+            </p>
+            <div className="mt-5">
+              <CalBooking notes={notes} estimate={estimate} />
+            </div>
+          </div>
+          <div id="message" className="scroll-mt-24">
+            <h2 className="font-display text-2xl font-extrabold text-foreground">Or send a message</h2>
+            <p className="mt-2 text-sm text-foreground-muted">
+              Prefer to write it down? Share the workflow and we&apos;ll come back with questions or a quote.
+            </p>
+            <div className="mt-5">
+              <ContactForm
+                defaultOffer={brief?.offer.id}
+                defaultMessage={notes ? `${notes}\n\n` : undefined}
+                brief={estimate}
+              />
+            </div>
+            <p className="mt-5 flex items-center gap-2 text-sm text-foreground-muted">
+              <Phone className="h-4 w-4" /> Prefer the phone?{" "}
+              <a href={`tel:${site.phone}`} className="font-medium text-foreground hover:underline">
+                {site.phoneDisplay}
+              </a>
+            </p>
           </div>
         </div>
       </section>

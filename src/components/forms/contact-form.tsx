@@ -1,67 +1,47 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { ArrowRight, CheckCircle, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { offers } from "@/data/services";
+import { site } from "@/lib/site";
+import { track } from "@/lib/analytics";
 
-const serviceOptions = [
-  "Website or App Development",
-  "AI & Automation",
-  "SEO & Growth Marketing",
-  "Data & Analytics",
-  "IT Support & Maintenance",
-  "Consulting",
-  "Multiple Services",
-  "Not Sure Yet — Let's Talk",
-];
+const FORMSPREE = "https://formspree.io/f/mzdaenay";
 
-const budgetOptions = [
-  "Under $2,000",
-  "$2,000–$5,000",
-  "$5,000–$10,000",
-  "$10,000–$25,000",
-  "$25,000+",
-  "Monthly Retainer",
-  "Not Sure Yet",
-];
+const budgets = ["Under $1,000", "$1,000–$3,000", "$3,000–$10,000", "$10,000–$25,000", "$25,000+", "Not sure yet"];
+const timelines = ["As soon as possible", "Within a month", "In 1–3 months", "Just exploring"];
+const sources = ["Upwork", "Referral", "Direct outreach from B&Br", "Google search", "LinkedIn", "Business card / in person", "Other"];
 
-const sourceOptions = [
-  "Google Search",
-  "Social Media",
-  "Referral",
-  "LinkedIn",
-  "Other",
-];
+const input =
+  "w-full rounded-xl border border-border bg-bg px-4 py-3 text-base text-foreground placeholder:text-foreground-subtle transition-colors focus:border-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-600/20";
+const label = "mb-1.5 block text-sm font-medium text-foreground";
 
-const inputClasses =
-  "w-full rounded-lg border border-border bg-bg-alt px-4 py-3 text-sm text-foreground placeholder:text-foreground-subtle transition-[color,background-color,border-color,box-shadow] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-600";
+export function ContactForm({
+  defaultOffer,
+  defaultMessage,
+  brief,
+}: {
+  defaultOffer?: string;
+  defaultMessage?: string;
+  brief?: string;
+}) {
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-const labelClasses = "block text-sm font-medium text-foreground mb-1.5";
-
-export function ContactForm() {
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
-
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("submitting");
-
     const form = e.currentTarget;
     const data = new FormData(form);
-
+    setStatus("submitting");
     try {
-      const res = await fetch("https://formspree.io/f/mzdaenay", {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
+      const res = await fetch(FORMSPREE, { method: "POST", body: data, headers: { Accept: "application/json" } });
+      if (!res.ok) throw new Error(String(res.status));
+      track("inquiry_submitted", {
+        offer: String(data.get("service") ?? ""),
+        budget: String(data.get("budget") ?? ""),
+        source: String(data.get("source") ?? ""),
       });
-
-      if (res.ok) {
-        setStatus("success");
-        form.reset();
-      } else {
-        setStatus("error");
-      }
+      setStatus("success");
+      form.reset();
     } catch {
       setStatus("error");
     }
@@ -69,238 +49,146 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-border bg-bg shadow-sm overflow-hidden">
-        <div className="h-1 bg-gradient-to-r from-amber-600 to-gold-400" />
-        <div className="p-8 sm:p-10 flex flex-col items-center justify-center text-center min-h-[400px]">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-success/10 mb-6">
-            <CheckCircle className="h-8 w-8 text-success" />
-          </div>
-          <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-foreground">
-            Message Sent!
-          </h3>
-          <p className="mt-3 max-w-sm text-foreground-muted">
-            Thank you for reaching out. We&apos;ll review your inquiry and get
-            back to you within 24 hours.
-          </p>
-          <button
-            type="button"
-            onClick={() => setStatus("idle")}
-            className="mt-6 text-sm font-medium text-amber-600 hover:text-amber-600/80 transition-colors"
-          >
-            Send another message
-          </button>
-        </div>
+      <div role="status" className="flex flex-col items-start gap-4 rounded-3xl border border-border bg-bg-elevated p-8">
+        <CheckCircle2 className="h-10 w-10 text-success" />
+        <h3 className="font-display text-2xl font-extrabold text-foreground">Got it. We&apos;ll be in touch.</h3>
+        <p className="text-foreground-muted">
+          {site.replyPromise} If it&apos;s urgent, email{" "}
+          <a className="font-medium text-foreground underline underline-offset-4" href={`mailto:${site.email}`}>
+            {site.email}
+          </a>
+          .
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-border bg-bg shadow-sm overflow-hidden">
-      {/* Decorative gradient line */}
-      <div className="h-1 bg-gradient-to-r from-amber-600 to-gold-400" />
+    // method/action make a submit before hydration post straight to Formspree, never a GET with form data in the URL
+    <form onSubmit={onSubmit} method="post" action={FORMSPREE} className="space-y-5 rounded-3xl border border-border bg-bg-elevated p-6 sm:p-8">
+      <input type="hidden" name="_subject" value="New project inquiry · bbr website" />
+      {brief && <input type="hidden" name="estimate" value={brief} />}
+      {/* Formspree honeypot */}
+      <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
-      <div className="p-8 sm:p-10">
-        <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-foreground">
-          Start a Conversation
-        </h3>
-        <p className="mt-2 text-sm text-foreground-muted">
-          Fill out the form below and we&apos;ll get back to you within 24
-          hours.
-        </p>
-
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          {/* Honeypot */}
-          <div className="absolute left-[-9999px]" aria-hidden="true">
-            <label htmlFor="_gotcha">
-              Do not fill this out
-              <input
-                type="text"
-                name="_gotcha"
-                id="_gotcha"
-                tabIndex={-1}
-                autoComplete="off"
-              />
-            </label>
-          </div>
-
-          {/* Row: First Name + Last Name */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="firstName" className={labelClasses}>
-                First Name <span className="text-amber-600">*</span>
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                required
-                placeholder="John"
-                className={inputClasses}
-              />
-            </div>
-            <div>
-              <label htmlFor="lastName" className={labelClasses}>
-                Last Name
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                placeholder="Doe"
-                className={inputClasses}
-              />
-            </div>
-          </div>
-
-          {/* Row: Email + Phone */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="email" className={labelClasses}>
-                Email <span className="text-amber-600">*</span>
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                required
-                placeholder="john@company.com"
-                className={inputClasses}
-              />
-            </div>
-            <div>
-              <label htmlFor="phone" className={labelClasses}>
-                Phone
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                id="phone"
-                placeholder="(555) 123-4567"
-                className={inputClasses}
-              />
-            </div>
-          </div>
-
-          {/* Row: Service + Budget */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="service" className={labelClasses}>
-                Service Needed <span className="text-amber-600">*</span>
-              </label>
-              <select
-                name="service"
-                id="service"
-                required
-                className={inputClasses}
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Select a service
-                </option>
-                {serviceOptions.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="budget" className={labelClasses}>
-                Budget Range
-              </label>
-              <select
-                name="budget"
-                id="budget"
-                className={inputClasses}
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Select a range
-                </option>
-                {budgetOptions.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* How did you find us */}
-          <div>
-            <label htmlFor="source" className={labelClasses}>
-              How did you find us?
-            </label>
-            <select
-              name="source"
-              id="source"
-              className={inputClasses}
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Select an option
-              </option>
-              {sourceOptions.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Project description */}
-          <div>
-            <label htmlFor="message" className={labelClasses}>
-              Project Description <span className="text-amber-600">*</span>
-            </label>
-            <textarea
-              name="message"
-              id="message"
-              required
-              rows={5}
-              placeholder="What are you building? What problems are you facing? What does success look like for you?"
-              className={inputClasses + " resize-y"}
-            />
-          </div>
-
-          {/* Submit */}
-          <button
-            type="submit"
-            disabled={status === "submitting"}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gold-400/20 bg-navy-900 px-6 py-3.5 text-sm font-medium text-gold-400 transition-colors hover:bg-navy-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-60 dark:bg-navy-800"
-          >
-            {status === "submitting" ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Sending...
-              </>
-            ) : (
-              <>
-                Send Project Inquiry
-                <ArrowRight className="h-4 w-4" />
-              </>
-            )}
-          </button>
-
-          {status === "error" && (
-            <p className="text-center text-sm text-red-600 dark:text-red-400">
-              Something went wrong. Please try again or email us directly at{" "}
-              <a
-                href="mailto:hello@bbrtechnology.com"
-                className="underline underline-offset-2"
-              >
-                hello@bbrtechnology.com
-              </a>
-              .
-            </p>
-          )}
-
-          <p className="text-xs text-foreground-subtle text-center">
-            We respect your privacy. No spam, no sales pressure, no data sharing
-            — ever.
-          </p>
-        </form>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="name" className={label}>
+            Name <span className="text-amber-600">*</span>
+          </label>
+          <input id="name" name="name" required autoComplete="name" className={input} />
+        </div>
+        <div>
+          <label htmlFor="email" className={label}>
+            Email <span className="text-amber-600">*</span>
+          </label>
+          <input id="email" name="email" type="email" required autoComplete="email" className={input} />
+        </div>
       </div>
-    </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="company" className={label}>
+            Company <span className="text-foreground-subtle">(optional)</span>
+          </label>
+          <input id="company" name="company" autoComplete="organization" className={input} />
+        </div>
+        <div>
+          <label htmlFor="service" className={label}>
+            What do you need?
+          </label>
+          <select id="service" name="service" defaultValue={defaultOffer ?? ""} className={input}>
+            <option value="">Not sure yet</option>
+            {offers.map((o) => (
+              <option key={o.id} value={o.id}>
+                {o.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-3">
+        <div>
+          <label htmlFor="budget" className={label}>
+            Budget
+          </label>
+          <select id="budget" name="budget" defaultValue="" className={input}>
+            <option value="" disabled>
+              Choose…
+            </option>
+            {budgets.map((b) => (
+              <option key={b}>{b}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="timeline" className={label}>
+            Timeline
+          </label>
+          <select id="timeline" name="timeline" defaultValue="" className={input}>
+            <option value="" disabled>
+              Choose…
+            </option>
+            {timelines.map((t) => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="source" className={label}>
+            How did you find us? <span className="text-amber-600">*</span>
+          </label>
+          <select id="source" name="source" required defaultValue="" className={input}>
+            <option value="" disabled>
+              Choose…
+            </option>
+            {sources.map((s) => (
+              <option key={s}>{s}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="message" className={label}>
+          What&apos;s slowing you down? <span className="text-amber-600">*</span>
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows={6}
+          defaultValue={defaultMessage}
+          placeholder="The workflow, the tools involved, and what a good outcome looks like."
+          className={`${input} resize-y`}
+        />
+      </div>
+
+      {status === "error" && (
+        <p role="alert" className="rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+          That didn&apos;t send. Please try again, or email {site.email} directly.
+        </p>
+      )}
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs text-foreground-subtle">{site.replyPromise} We never share your details.</p>
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-navy-900 px-7 text-sm font-semibold text-gold-400 transition-colors hover:bg-navy-800 disabled:opacity-60 dark:bg-gold-400 dark:text-navy-950"
+        >
+          {status === "submitting" ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" /> Sending…
+            </>
+          ) : (
+            <>
+              Send inquiry <ArrowRight className="h-4 w-4" />
+            </>
+          )}
+        </button>
+      </div>
+    </form>
   );
 }

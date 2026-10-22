@@ -1,97 +1,75 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Providers } from "@/components/providers";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { site, siteUrl } from "@/lib/site";
 import "@/styles/globals.css";
 
-const siteUrl = "https://bbrtechnology.com";
-const siteTitle =
-  "B&Br Technology — Custom Software & Automation for Service Teams";
-const siteDescription =
-  "Engineering team building custom web apps, mobile apps, and workflow automation systems for service businesses and operator-led teams.";
+const defaultTitle = `${site.name} | Software, AI & Automation Studio`;
 
 export const metadata: Metadata = {
-  title: siteTitle,
-  description: siteDescription,
-  alternates: {
-    canonical: "/",
-  },
+  metadataBase: new URL(siteUrl),
+  title: { default: defaultTitle, template: `%s | ${site.name}` },
+  description: site.description,
+  applicationName: site.name,
+  alternates: { canonical: "/" },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
-    },
+    googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 },
   },
   openGraph: {
-    title: siteTitle,
-    description: siteDescription,
+    title: defaultTitle,
+    description: site.description,
     type: "website",
     locale: "en_US",
-    url: siteUrl,
-    siteName: "B&Br Technology",
+    url: "/",
+    siteName: site.name,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
-  },
-  metadataBase: new URL(siteUrl),
+  twitter: { card: "summary_large_image", title: defaultTitle, description: site.description },
 };
 
-const jsonLd = {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfaf7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0f1a" },
+  ],
+};
+
+const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${siteUrl}/#organization`,
-  name: "B&Br Technology",
+  name: site.name,
+  legalName: site.legalName,
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
-  description: siteDescription,
+  description: site.description,
   areaServed: "US",
   knowsAbout: [
-    "AI automation",
-    "workflow automation",
-    "internal tools",
-    "website development",
-    "technical SEO",
-    "lead capture systems",
+    "Workflow automation",
+    "AI assistants",
+    "Website development",
+    "Web application development",
+    "Flutter mobile apps",
+    "Internal tools and dashboards",
   ],
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Boston",
-    addressRegion: "MA",
-    addressCountry: "US",
-  },
-  telephone: "+16467268345",
-  email: "hello@bbrtechnology.com",
+  address: { "@type": "PostalAddress", addressLocality: "Boston", addressRegion: "MA", addressCountry: "US" },
+  email: site.email,
+  telephone: site.phone,
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "sales",
-    email: "hello@bbrtechnology.com",
-    telephone: "+16467268345",
+    email: site.email,
+    telephone: site.phone,
     areaServed: "US",
     availableLanguage: ["en"],
   },
-  founder: {
-    "@type": "Person",
-    name: "Sean Cheick Baradji",
-  },
-  sameAs: [
-    "https://linkedin.com/company/bbrtechnology",
-    "https://twitter.com/bbrtechnology",
-    "https://github.com/bbrtechnology",
-  ],
+  founder: { "@type": "Person", name: site.founder },
+  sameAs: [site.github],
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -102,14 +80,14 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
-      <body className="antialiased bg-bg text-foreground" suppressHydrationWarning>
+      <body className="bg-bg text-foreground antialiased" suppressHydrationWarning>
         <Providers>
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-navy-900 focus:text-gold-400 focus:px-4 focus:py-2 focus:rounded-lg"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-navy-900 focus:px-4 focus:py-2 focus:text-gold-400"
           >
             Skip to content
           </a>

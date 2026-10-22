@@ -1,46 +1,42 @@
+import { caseStudies } from "@/data/case-studies";
+import { carePlans, formatUsd, offers } from "@/data/services";
+import { site, siteUrl } from "@/lib/site";
+
 export const dynamic = "force-static";
 
-const llmsText = `# B&Br Technology
+const body = `# ${site.name}
 
-> Founder-led studio building automation systems, internal tools, websites, and technical SEO for founders, operators, consultants, clinics, and growing small businesses.
+> ${site.description}
 
-This file is a compact guide for AI assistants and retrieval systems. Canonical HTML pages remain the source of truth.
+This file is a compact guide for AI assistants and retrieval systems. The HTML pages are the source of truth.
 
 ## Key pages
-- Homepage: https://bbrtechnology.com/
-- Services: https://bbrtechnology.com/services
-- About: https://bbrtechnology.com/about
-- Contact: https://bbrtechnology.com/contact
-- Privacy: https://bbrtechnology.com/privacy
-- Terms: https://bbrtechnology.com/terms
+- Home: ${siteUrl}/
+- Services and pricing: ${siteUrl}/services
+- Work (case studies): ${siteUrl}/work
+- Live demos: ${siteUrl}/demos
+- About: ${siteUrl}/about
+- Contact and booking: ${siteUrl}/contact
 
-## Core services
-- AI automation: workflow automation, lead capture, follow-up, appointment booking, chatbots, and internal assistants.
-- Websites and internal tools: conversion-focused websites, portals, dashboards, and operator-facing systems.
-- Technical SEO: crawlability, metadata, structured data, internal linking, performance, and launch hygiene.
-- Support and iteration: post-launch refinement, maintenance, analytics, and ongoing improvements.
+## Services (starting prices, USD)
+${offers.map((o) => `- ${o.name}: from ${formatUsd(o.from)}, ${o.timeline}. ${o.summary}`).join("\n")}
+${carePlans.map((p) => `- ${p.name} care plan: ${formatUsd(p.monthly)}/month. ${p.summary}`).join("\n")}
 
-## Product proof
-- PharmaGuide AI: healthcare-focused product with barcode scanning, OCR, interaction checking, and deterministic supplement scoring.
-- FieldOps: mobile workflow software for service teams.
-- AirbnbBBR: private short-term rental operations software.
+## Case studies
+${caseStudies.map((c) => `- ${c.name} (${c.attribution}, ${c.status}): ${c.headline} ${siteUrl}/work/${c.slug}`).join("\n")}
 
-## Ideal clients
-- Founders who need leverage without hiring too early.
-- Small business operators with manual workflows slowing down revenue.
-- Consultants and lean teams needing internal systems, cleaner follow-up, and clearer operational control.
+## Working with us
+- Founder-led studio with a small team, based in ${site.city}.
+- ${site.replyPromise} ${site.quotePromise}
 
 ## Contact
-- Email: hello@bbrtechnology.com
-- Phone: +1 646 726 8345
-- Discovery call: https://cal.com/bbrtechnology
+- Email: ${site.email}
+- Phone: ${site.phoneDisplay}
+- Book a call: ${site.calUrl}/30min
 `;
 
 export async function GET() {
-  return new Response(llmsText, {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
-    },
+  return new Response(body, {
+    headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" },
   });
 }
