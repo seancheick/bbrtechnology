@@ -179,6 +179,11 @@
   to { transform: translateX(-50%); }
 }
 
+@keyframes showcase-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 .gradient-text {
   background: linear-gradient(to bottom right, var(--color-foreground) 30%, color-mix(in srgb, var(--color-foreground) 40%, transparent));
   -webkit-background-clip: text;
