@@ -8,6 +8,7 @@ export type OfferId =
   | "ai-assistant"
   | "website"
   | "internal-tool"
+  | "api-mcp"
   | "web-app"
   | "mobile-app";
 export type Tier = "focused" | "standard" | "advanced";
@@ -70,8 +71,8 @@ export const categories: Category[] = [
     name: "Custom Software",
     short: "Software",
     pitch:
-      "Dashboards, internal tools and web apps that fit how your team actually works, not the other way around.",
-    offers: ["internal-tool", "web-app"],
+      "Dashboards, internal tools, APIs and web apps that fit how your team actually works, not the other way around.",
+    offers: ["internal-tool", "api-mcp", "web-app"],
     proof: "turnflow",
   },
   {
@@ -211,6 +212,30 @@ export const offers: Offer[] = [
     },
   },
   {
+    id: "api-mcp",
+    category: "custom-software",
+    name: "API & MCP Integration",
+    from: 3000,
+    typical: [3000, 12000],
+    timeline: "2–6 weeks",
+    summary:
+      "Connect your systems to each other and to AI agents: REST APIs, two-way syncs, and MCP servers that let assistants like Claude or ChatGPT use your tools safely.",
+    bestFor: "Systems that don't talk to each other, and teams that want AI agents working inside their own software.",
+    includes: [
+      "API design with authentication and rate limits",
+      "MCP server with read tools, plus write tools behind approval",
+      "Audit log of every write an agent makes",
+      "OpenAPI documentation and test suite",
+      "Monitoring and failure alerts",
+    ],
+    excludes: ["Vendor API fees", "Unlimited third-party connectors", "Agents acting without approval"],
+    tiers: {
+      focused: { range: [3000, 5000], weeks: "2–3 weeks", example: "One system connected, or an MCP server with read tools" },
+      standard: { range: [5000, 8000], weeks: "3–4 weeks", example: "Two-way sync, or MCP read and approved write tools" },
+      advanced: { range: [8000, 12000], weeks: "5–6 weeks", example: "Several systems, scoped tokens, audit log, OpenAPI" },
+    },
+  },
+  {
     id: "web-app",
     category: "custom-software",
     name: "Web App / SaaS MVP",
@@ -300,7 +325,7 @@ export interface AddOn {
 export const addOns: AddOn[] = [
   { id: "ai", label: "AI feature (assistant, classification, summaries)", price: 2000, appliesTo: ["website", "internal-tool", "web-app", "mobile-app"] },
   { id: "payments", label: "Payments or subscriptions (Stripe)", price: 1500, appliesTo: ["website", "web-app", "mobile-app"] },
-  { id: "integration", label: "Extra integration with an existing tool", price: 1000, appliesTo: ["automation-sprint", "ai-assistant", "internal-tool", "web-app", "mobile-app"] },
+  { id: "integration", label: "Extra integration with an existing tool", price: 1000, appliesTo: ["automation-sprint", "ai-assistant", "internal-tool", "api-mcp", "web-app", "mobile-app"] },
   { id: "admin", label: "Admin dashboard", price: 2500, appliesTo: ["website", "mobile-app"] },
   { id: "copy", label: "Copywriting and page structure", price: 800, appliesTo: ["website"] },
 ];
@@ -310,6 +335,7 @@ export const estimatorOffers: OfferId[] = [
   "ai-assistant",
   "website",
   "internal-tool",
+  "api-mcp",
   "web-app",
   "mobile-app",
 ];

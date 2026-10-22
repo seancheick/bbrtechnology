@@ -111,7 +111,7 @@ export const caseStudies: CaseStudy[] = [
       { name: "People & agents", items: ["Owner dashboard", "Supervisor review", "Cleaner PWA", "AI agents"] },
     ],
     stack: ["Next.js 16", "React 19", "TypeScript", "Supabase Postgres", "Tailwind v4", "Zod", "Vercel Cron", "Hostex API", "MCP", "Vitest"],
-    proves: ["internal-tool", "automation-sprint", "web-app"],
+    proves: ["internal-tool", "api-mcp", "automation-sprint"],
     preview: "turnflow",
     card: {
       type: "Operations platform",

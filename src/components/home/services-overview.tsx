@@ -8,7 +8,7 @@ const icons = { "ai-automation": Bot, websites: Globe, "custom-software": Layout
 const outcomes: Record<(typeof categories)[number]["id"], string> = {
   "ai-automation": "Leads, bookings, invoices and follow-ups that run on their own, instead of being copied between tools by hand.",
   websites: "A fast site that explains what you do in five seconds and turns visits into booked calls.",
-  "custom-software": "Dashboards, client portals and internal tools that replace the spreadsheet everyone is afraid to touch.",
+  "custom-software": "Dashboards, client portals, APIs and MCP servers that connect your systems, and let AI agents use them safely.",
   mobile: "iOS and Android apps for your customers, or for crews working away from a desk.",
 };
 
