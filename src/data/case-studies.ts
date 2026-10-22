@@ -56,7 +56,6 @@ export const caseStudies: CaseStudy[] = [
     accent: "#16423c",
     links: [
       { label: "Live app", href: "https://str-management-blond.vercel.app" },
-      { label: "Repository", href: "https://github.com/seancheick/STR-Management" },
     ],
     problem:
       "Turnovers were spread across Airbnb, Booking.com, VRBO, a channel manager, a cleaner group chat and a spreadsheet. A missed checkout meant a dirty unit at check-in. A calendar that quietly stopped syncing meant nights nobody could book, and nobody noticed until revenue was gone.",
@@ -131,11 +130,9 @@ export const caseStudies: CaseStudy[] = [
     attribution: "Studio product",
     status: "Website live · mobile app in TestFlight",
     role: "Product, data engineering, mobile, web and AI safety architecture",
-    accent: "#2563eb",
+    accent: "#183b3f",
     links: [
       { label: "pharmaguide.io", href: "https://pharmaguide.io" },
-      { label: "Scoring pipeline", href: "https://github.com/seancheick/PharmaGuide_Pipeline" },
-      { label: "Assistant API", href: "https://github.com/seancheick/pharmaguide-chatbot-api" },
     ],
     problem:
       "Supplement labels don't say whether a form is bioavailable, whether an ingredient was recalled, or whether the evidence holds up. And a general-purpose chatbot is the wrong tool when someone asks about warfarin and ginkgo.",
@@ -202,10 +199,9 @@ export const caseStudies: CaseStudy[] = [
     attribution: "Studio product",
     status: "Live in production",
     role: "Product, Flutter mobile app, supervisor web app, backend",
-    accent: "#0f766e",
+    accent: "#f38b2a",
     links: [
       { label: "Live site", href: "https://field-ops-ai.vercel.app" },
-      { label: "Repository", href: "https://github.com/seancheick/FieldOpsAi" },
     ],
     problem:
       "Field companies lose money on disputes they can't settle: unpaid invoices, payroll errors, “nobody told me.” The cause is always the same. There is no proof of what happened on site.",
@@ -281,10 +277,9 @@ export const caseStudies: CaseStudy[] = [
     attribution: "Launching",
     status: "First boxes ship November 11, 2026",
     role: "Brand, commerce platform, screening rules, admin",
-    accent: "#b45309",
+    accent: "#ff796c",
     links: [
-      { label: "Live site", href: "https://kaniya-lake.vercel.app" },
-      { label: "Repository", href: "https://github.com/seancheick/Keniya" },
+      { label: "Live site", href: "https://keniyahealth.com" },
     ],
     problem:
       "People managing pregnancy, blood sugar or heart health spend their time reading labels and second-guessing snacks. The people buying gifts for them don't know the rules at all.",
@@ -343,7 +338,6 @@ export const caseStudies: CaseStudy[] = [
     accent: "#136147",
     links: [
       { label: "Live app", href: "https://perksledger.vercel.app" },
-      { label: "Repository", href: "https://github.com/seancheick/perksledger" },
     ],
     problem:
       "People pay $700+ in annual card fees and redeem barely half of what the cards promise. Credits reset monthly, quarterly and semiannually, quietly, and memberships bundle perks nobody remembers.",

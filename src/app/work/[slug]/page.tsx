@@ -208,16 +208,30 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               );
             })}
           </div>
-          <Link
-            href={`/work/${next.slug}`}
-            className="group mt-16 flex flex-col gap-2 border-t border-border pt-10 sm:flex-row sm:items-end sm:justify-between"
-          >
-            <span>
-              <span className="eyebrow text-foreground-subtle">Next project</span>
-              <span className="font-display mt-2 block text-4xl font-extrabold text-foreground sm:text-6xl">{next.name}</span>
-            </span>
-            <ArrowUpRight className="h-10 w-10 text-foreground-subtle transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-          </Link>
+          {/* the whole card is the link (stretched ::after); the thumbnail is a sibling, so the
+              preview's own buttons never end up inside an <a> */}
+          <div className="group relative mt-16 grid overflow-hidden rounded-3xl border border-border bg-bg-elevated transition-[border-color,box-shadow] hover:border-foreground/25 hover:shadow-[0_30px_80px_-40px_rgba(10,15,26,0.45)] md:grid-cols-[1fr_minmax(0,420px)]">
+            <div className="flex flex-col justify-between gap-6 p-6 sm:p-8">
+              <div>
+                <p className="eyebrow text-foreground-subtle">Next project</p>
+                <p className="font-display mt-2 text-4xl font-extrabold text-foreground sm:text-5xl">{next.name}</p>
+                <p className="mt-2 text-sm font-semibold text-amber-600 dark:text-gold-400">{next.card.type}</p>
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground-muted">{next.headline}</p>
+              </div>
+              <Link
+                href={`/work/${next.slug}`}
+                className="inline-flex w-fit items-center gap-2 rounded-full bg-navy-900 px-5 py-3 text-sm font-semibold text-gold-400 transition-colors after:absolute after:inset-0 after:content-[''] group-hover:bg-navy-800 dark:bg-gold-400 dark:text-navy-950"
+              >
+                View the {next.name} case study <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+            {/* a live, non-interactive thumbnail of the next product's screen */}
+            <div aria-hidden inert className="relative h-[230px] overflow-hidden md:h-full md:min-h-[280px]" style={{ background: `${next.accent}1f` }}>
+              <div className="pointer-events-none absolute left-6 top-6 w-[760px] origin-top-left scale-[0.45] transition-transform duration-500 group-hover:-translate-y-1 md:left-8 md:top-8 md:scale-[0.55]">
+                <ProductPreview preview={next.preview} />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </article>
