@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/home/hero";
 import { DemoSection } from "@/components/home/demo-section";
 import { ServicesOverview } from "@/components/home/services-overview";
-import { FeaturedWork } from "@/components/home/featured-work";
+import { ProjectsSection } from "@/components/home/projects-section";
+import { WorkingSection } from "@/components/home/working-section";
 import { EstimatorSection } from "@/components/home/estimator-section";
-import { ProcessSection } from "@/components/home/process-section";
-import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { FaqSection } from "@/components/home/faq-section";
 import { faqItems } from "@/data/faq";
 import { offers } from "@/data/services";
@@ -46,7 +45,7 @@ const jsonLd = {
     {
       "@type": "FAQPage",
       "@id": `${siteUrl}/#faq`,
-      mainEntity: faqItems.map((f) => ({
+      mainEntity: faqItems.slice(0, 6).map((f) => ({
         "@type": "Question",
         name: f.question,
         acceptedAnswer: { "@type": "Answer", text: f.answer },
@@ -62,11 +61,10 @@ export default function HomePage() {
       <Hero />
       <DemoSection />
       <ServicesOverview />
-      <FeaturedWork />
-      <EstimatorSection />
-      <ProcessSection />
-      <TestimonialsSection />
-      <FaqSection />
+      <ProjectsSection />
+      <WorkingSection />
+      <EstimatorSection index="05" />
+      <FaqSection index="06" items={faqItems.slice(0, 6)} />
     </>
   );
 }

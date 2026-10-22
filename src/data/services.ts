@@ -34,7 +34,7 @@ export interface Offer {
   includes: string[];
   excludes: string[];
   popular?: boolean;
-  tiers: Record<Tier, { range: Range; weeks: string; example: string }>;
+  tiers: Record<Tier, { range: Range; weeks: string; example: string; name?: string }>;
 }
 
 export interface CarePlan {
@@ -174,16 +174,16 @@ export const offers: Offer[] = [
     bestFor: "New businesses, rebrands, and sites that look dated or don't produce inquiries.",
     includes: [
       "Custom design in light and dark",
-      "Up to 6 pages on the focused tier (larger sites from $3,500)",
+      "Page count and features set by the size you choose",
       "Technical SEO, structured data and analytics",
       "Lead forms and booking wired to your tools",
       "Editable content where you need it",
     ],
     excludes: ["Copywriting from scratch (available)", "Paid ads management", "Stock photo licensing"],
     tiers: {
-      focused: { range: [2500, 3500], weeks: "2–3 weeks", example: "Up to 6 pages, one lead form" },
-      standard: { range: [3500, 5500], weeks: "3–4 weeks", example: "10–15 pages, CMS, booking" },
-      advanced: { range: [5500, 8000], weeks: "4–5 weeks", example: "Content hub, integrations, interactive features" },
+      focused: { name: "Launch site", range: [2500, 3500], weeks: "2–3 weeks", example: "Up to 6 pages, one lead form" },
+      standard: { name: "Growth site", range: [3500, 5500], weeks: "3–4 weeks", example: "10–15 pages, CMS, booking" },
+      advanced: { name: "Platform site", range: [5500, 8000], weeks: "4–5 weeks", example: "Content hub, integrations, interactive features" },
     },
   },
   {
@@ -253,9 +253,9 @@ export const offers: Offer[] = [
     ],
     excludes: ["Apple and Google developer fees", "Hardware integrations (quoted)"],
     tiers: {
-      focused: { range: [15000, 22000], weeks: "8–10 weeks", example: "Core flow, auth, push" },
-      standard: { range: [22000, 34000], weeks: "10–12 weeks", example: "Offline sync, media, admin web app" },
-      advanced: { range: [34000, 45000], weeks: "12–14 weeks", example: "Multi-role app, payments, integrations" },
+      focused: { name: "Core app", range: [15000, 22000], weeks: "8–10 weeks", example: "Core flow, auth, push" },
+      standard: { name: "Connected app", range: [22000, 34000], weeks: "10–12 weeks", example: "Offline sync, media, admin web app" },
+      advanced: { name: "Full platform", range: [34000, 45000], weeks: "12–14 weeks", example: "Multi-role app, payments, integrations" },
     },
   },
 ];

@@ -1,6 +1,6 @@
 // Contract shared by /api/demo and the demo UI.
 
-export const industries = ["property", "home-services", "ecommerce"] as const;
+export const industries = ["home-services", "ecommerce", "property"] as const;
 export type Industry = (typeof industries)[number];
 
 export const categories = ["maintenance", "cleaning", "booking", "billing", "question", "complaint", "other"] as const;

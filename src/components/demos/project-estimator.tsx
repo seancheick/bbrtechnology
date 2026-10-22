@@ -39,10 +39,10 @@ export function ProjectEstimator() {
 
   return (
     <div className="grid overflow-hidden rounded-3xl border border-border bg-bg-elevated lg:grid-cols-[1.25fr_0.75fr]">
-      <div className="space-y-8 p-6 sm:p-8">
+      <div className="space-y-6 p-5 sm:space-y-8 sm:p-8">
         <fieldset>
           <legend className="eyebrow text-foreground-subtle">1 · What are you building?</legend>
-          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-3 grid grid-cols-2 gap-2 lg:grid-cols-3">
             {estimatorOffers.map((id) => {
               const o = getOffer(id);
               const active = id === offerId;
@@ -56,7 +56,7 @@ export function ProjectEstimator() {
                     setOfferId(id);
                   }}
                   className={cn(
-                    "rounded-2xl border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600",
+                    "rounded-2xl border p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 sm:p-4",
                     active ? "border-amber-600 bg-amber-600/5" : "border-border hover:border-foreground/25"
                   )}
                 >
@@ -70,7 +70,7 @@ export function ProjectEstimator() {
 
         <fieldset>
           <legend className="eyebrow text-foreground-subtle">2 · How big is it?</legend>
-          <div className="mt-3 grid gap-2 sm:grid-cols-3">
+          <div className="mt-3 grid grid-cols-3 gap-2">
             {(Object.keys(tierLabels) as Tier[]).map((t) => (
               <button
                 key={t}
@@ -81,12 +81,12 @@ export function ProjectEstimator() {
                   setTier(t);
                 }}
                 className={cn(
-                  "rounded-2xl border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600",
+                  "rounded-2xl border p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600 sm:p-4",
                   t === tier ? "border-amber-600 bg-amber-600/5" : "border-border hover:border-foreground/25"
                 )}
               >
                 <span className="block text-sm font-semibold text-foreground">{tierLabels[t]}</span>
-                <span className="mt-1 block text-xs leading-snug text-foreground-subtle">{offer.tiers[t].example}</span>
+                <span className="mt-1 hidden text-xs leading-snug text-foreground-subtle sm:block">{offer.tiers[t].example}</span>
               </button>
             ))}
           </div>
@@ -95,14 +95,14 @@ export function ProjectEstimator() {
         {available.length > 0 && (
           <fieldset>
             <legend className="eyebrow text-foreground-subtle">3 · Anything extra?</legend>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden">
               {available.map((a) => {
                 const on = activeExtras.includes(a.id);
                 return (
                   <label
                     key={a.id}
                     className={cn(
-                      "flex cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-amber-600",
+                      "flex shrink-0 cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-amber-600",
                       on ? "border-amber-600 bg-amber-600/5 text-foreground" : "border-border text-foreground-muted"
                     )}
                   >
@@ -124,7 +124,7 @@ export function ProjectEstimator() {
         )}
       </div>
 
-      <div className="flex flex-col bg-navy-950 p-6 text-white sm:p-8" aria-live="polite">
+      <div className="flex flex-col bg-navy-950 p-5 text-white sm:p-8" aria-live="polite">
         <p className="eyebrow text-gold-400">Indicative budget</p>
         <p className="font-display mt-4 text-4xl font-extrabold tabular sm:text-5xl">
           {est.low === est.high ? formatUsd(est.low) : `${formatUsd(est.low)}–${formatUsd(est.high)}`}

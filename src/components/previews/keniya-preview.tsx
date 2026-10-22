@@ -4,8 +4,8 @@ import * as React from "react";
 import { Bell, Check, Gift } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Rebuild of Keniya's box picker and sale gate, from PRODUCT.md: six boxes, 14 selections at
-// $47, and a box opens for orders only when its lineup is clinician-approved.
+// Rebuild of Keniya's box picker and sale gate, from PRODUCT.md: six boxes of 14 selections,
+// and a box opens for orders only when its lineup is clinician-approved.
 
 const boxes = [
   { id: "pregnancy", name: "Pregnancy Comfort", rule: "Keniya Pregnancy Screening on every snack." },
@@ -54,7 +54,7 @@ export function KeniyaPreview() {
             <p className="font-display text-xl font-extrabold">{box.name}</p>
             <p className="mt-1 text-xs text-[#7a5a3a]">14 snack selections · free US shipping</p>
           </div>
-          <p className="font-display text-2xl font-extrabold tabular">$47</p>
+          <p className="rounded-full bg-[#fbf6ee] px-2.5 py-1 text-[11px] font-semibold">One-time or monthly</p>
         </div>
         <p className="mt-4 flex gap-2 rounded-xl bg-[#fbf6ee] p-3 text-xs">
           <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#b45309]" /> {box.rule}

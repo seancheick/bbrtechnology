@@ -2,10 +2,10 @@ import { readFileSync } from "node:fs";
 
 const checks = [
   {
-    // proof before explanation: live demo first, then services, then real work
+    // buyer-first: outcome hero, live demo, services, delivered projects, working with us, estimator, FAQ
     file: "src/app/page.tsx",
-    required: ["<Hero", "<DemoSection", "<ServicesOverview", "<FeaturedWork", "<EstimatorSection", "<TestimonialsSection", "<FaqSection"],
-    forbidden: ["MetricsBar", "OrbitalProcess", "ProductsShowcase"],
+    required: ["<Hero", "<DemoSection", "<ServicesOverview", "<ProjectsSection", "<WorkingSection", "<EstimatorSection", "<FaqSection"],
+    forbidden: ["MetricsBar", "OrbitalProcess", "ProductsShowcase", "FeaturedWork", "HeroVisual"],
   },
   {
     file: "src/data/case-studies.ts",
@@ -21,6 +21,12 @@ const checks = [
     file: "src/data/testimonials.ts",
     forbidden: ["randomuser.me"],
     required: ["Clinic Owner", "Airbnb", "featuredTestimonials"],
+  },
+  {
+    // projects read as delivered work, not "our products"
+    file: "src/components/home/projects-section.tsx",
+    required: ["Projects we've delivered", "card.outcome"],
+    forbidden: ["attribution", "Proof you can click"],
   },
   {
     // the demo never presents canned output as live AI

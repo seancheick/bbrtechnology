@@ -12,10 +12,10 @@ export function Footer() {
     <footer className="relative overflow-hidden bg-navy-950 text-white">
       <div className="grid-backdrop pointer-events-none absolute inset-0 text-white" aria-hidden />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-10 border-b border-white/10 py-16 lg:flex-row lg:items-end lg:justify-between lg:py-20">
+        <div className="flex flex-col gap-8 border-b border-white/10 py-12 lg:flex-row lg:items-end lg:justify-between lg:py-20">
           <div className="max-w-2xl">
             <p className="eyebrow text-gold-400">Have a workflow that&apos;s costing you hours?</p>
-            <p className="font-display mt-5 text-4xl font-extrabold leading-[1.02] sm:text-6xl">
+            <p className="font-display mt-4 text-3xl font-extrabold leading-[1.02] sm:text-6xl">
               Let&apos;s build the system behind it.
             </p>
             <p className="mt-5 text-navy-400">
@@ -39,7 +39,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 py-14 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 py-10 md:grid-cols-4 md:gap-10 md:py-14">
           <div className="col-span-2 md:col-span-1">
             <Logo className="text-white" />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-navy-400">
@@ -52,8 +52,9 @@ export function Footer() {
             links={categories.map((c) => ({ href: `/services#${c.id}`, label: c.name }))}
           />
           <FooterColumn
-            title="Work"
-            links={caseStudies.slice(0, 5).map((c) => ({ href: `/work/${c.slug}`, label: c.name }))}
+            title="Projects"
+            className="hidden md:block"
+            links={caseStudies.slice(0, 5).map((c) => ({ href: `/work/${c.slug}`, label: c.card.type }))}
           />
         </div>
 
@@ -81,9 +82,9 @@ export function Footer() {
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: { href: string; label: string }[] }) {
+function FooterColumn({ title, links, className }: { title: string; links: { href: string; label: string }[]; className?: string }) {
   return (
-    <div>
+    <div className={className}>
       <h2 className="eyebrow text-white/50">{title}</h2>
       <ul className="mt-4 flex flex-col gap-2.5">
         {links.map((l) => (

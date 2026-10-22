@@ -22,8 +22,8 @@ This file is a compact guide for AI assistants and retrieval systems. The HTML p
 ${offers.map((o) => `- ${o.name}: from ${formatUsd(o.from)}, ${o.timeline}. ${o.summary}`).join("\n")}
 ${carePlans.map((p) => `- ${p.name} care plan: ${formatUsd(p.monthly)}/month. ${p.summary}`).join("\n")}
 
-## Case studies
-${caseStudies.map((c) => `- ${c.name} (${c.attribution}, ${c.status}): ${c.headline} ${siteUrl}/work/${c.slug}`).join("\n")}
+## Projects delivered
+${caseStudies.map((c) => `- ${c.name}, ${c.card.type} (${c.card.industry}): ${c.card.outcome} ${siteUrl}/work/${c.slug}`).join("\n")}
 
 ## Working with us
 - Founder-led studio with a small team, based in ${site.city}.

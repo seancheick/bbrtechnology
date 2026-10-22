@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, Clock, Minus } from "lucide-react";
-import { carePlans, categories, formatUsd, offersIn, type Offer } from "@/data/services";
+import { carePlans, categories, formatUsd, offersIn, type Offer, type Tier } from "@/data/services";
 import { getCaseStudy } from "@/data/case-studies";
 import { faqItems } from "@/data/faq";
 import { site } from "@/lib/site";
@@ -71,15 +71,19 @@ export default function ServicesPage() {
                     href={`/work/${proof.slug}`}
                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-amber-600"
                   >
-                    See it in practice: {proof.name} <ArrowUpRight className="h-4 w-4" />
+                    Example project: {proof.card.type} <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 )}
               </div>
-              <div className="mt-10 grid gap-5 lg:grid-cols-3">
-                {offersIn(c.id).map((o) => (
-                  <OfferCard key={o.id} offer={o} />
-                ))}
-              </div>
+              {offersIn(c.id).length === 1 ? (
+                <TierCards offer={offersIn(c.id)[0]} />
+              ) : (
+                <div className={`mt-10 grid gap-5 ${offersIn(c.id).length === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3"}`}>
+                  {offersIn(c.id).map((o) => (
+                    <OfferCard key={o.id} offer={o} />
+                  ))}
+                </div>
+              )}
             </div>
           </section>
         );
@@ -146,6 +150,72 @@ export default function ServicesPage() {
   );
 }
 
+// A category with a single offer shows that offer's three sizes side by side, then
+// what every size includes, so each category reads with the same weight.
+function TierCards({ offer: o }: { offer: Offer }) {
+  const tiers = Object.entries(o.tiers) as [Tier, Offer["tiers"][Tier]][];
+  return (
+    <>
+      <div className="mt-10 grid gap-5 lg:grid-cols-3">
+        {tiers.map(([key, t], i) => (
+          <article key={key} className="relative flex flex-col rounded-3xl border border-border bg-bg-elevated p-7">
+            {i === 0 && (
+              <span className="absolute -top-3 left-7 rounded-full bg-amber-600 px-3 py-1 text-[11px] font-semibold text-white">
+                Most common start
+              </span>
+            )}
+            <h3 className="font-display text-2xl font-extrabold text-foreground">{t.name ?? o.name}</h3>
+            <p className="mt-4 flex items-baseline gap-2">
+              <span className="text-sm text-foreground-subtle">From</span>
+              <span className="font-display text-4xl font-extrabold tabular text-foreground">{formatUsd(t.range[0])}</span>
+            </p>
+            <p className="mt-1 text-xs text-foreground-subtle">
+              Typical {formatUsd(t.range[0])}–{formatUsd(t.range[1])}
+            </p>
+            <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-foreground-muted">
+              <Clock className="h-4 w-4" /> {t.weeks}
+            </p>
+            <p className="mt-5 text-foreground">{t.example}</p>
+            <div className="mt-auto pt-8">
+              <Link
+                href={`/contact?offer=${o.id}&tier=${key}#message`}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-border text-sm font-semibold text-foreground transition-colors hover:bg-navy-900 hover:text-gold-400 dark:hover:bg-gold-400 dark:hover:text-navy-950"
+              >
+                Get a fixed quote <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="mt-6 grid gap-6 rounded-3xl border border-border bg-bg-elevated p-7 md:grid-cols-[1.2fr_1fr]">
+        <div>
+          <p className="eyebrow text-foreground-subtle">Every {o.name.toLowerCase()} includes</p>
+          <ul className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
+            {o.includes.map((x) => (
+              <li key={x} className="flex gap-2.5 text-foreground">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" /> {x}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="hidden md:block">
+          <p className="eyebrow text-foreground-subtle">Not included</p>
+          <ul className="mt-4 space-y-2 text-sm">
+            {o.excludes.map((x) => (
+              <li key={x} className="flex gap-2.5 text-foreground-subtle">
+                <Minus className="mt-0.5 h-4 w-4 shrink-0" /> {x}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-foreground-muted">
+            <span className="font-semibold text-foreground">Best for:</span> {o.bestFor}
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function OfferCard({ offer: o }: { offer: Offer }) {
   return (
     <article className="relative flex flex-col rounded-3xl border border-border bg-bg-elevated p-7">
@@ -166,7 +236,7 @@ function OfferCard({ offer: o }: { offer: Offer }) {
         <Clock className="h-4 w-4" /> {o.timeline}
       </p>
       <p className="mt-5 text-foreground-muted">{o.summary}</p>
-      <p className="mt-4 text-sm text-foreground">
+      <p className="mt-4 hidden text-sm text-foreground sm:block">
         <span className="font-semibold">Best for:</span> <span className="text-foreground-muted">{o.bestFor}</span>
       </p>
       <ul className="mt-6 space-y-2 border-t border-border pt-5 text-sm">
@@ -176,7 +246,7 @@ function OfferCard({ offer: o }: { offer: Offer }) {
           </li>
         ))}
       </ul>
-      <ul className="mt-4 space-y-2 text-sm">
+      <ul className="mt-4 hidden space-y-2 text-sm sm:block">
         {o.excludes.map((x) => (
           <li key={x} className="flex gap-2.5 text-foreground-subtle">
             <Minus className="mt-0.5 h-4 w-4 shrink-0" /> {x}

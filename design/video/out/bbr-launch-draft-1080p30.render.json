@@ -1,0 +1,34 @@
+{
+ "comp": "/Users/seancheick/Downloads/bbr-website/design/video/launch/comp.html",
+ "fps": 30,
+ "scale": 1,
+ "size": [
+  1920,
+  1080
+ ],
+ "shutter": 180.0,
+ "samples": "adaptive",
+ "gap_px": 14.0,
+ "samples_per_moving_frame": {
+  "4": 475,
+  "5": 8,
+  "6": 7,
+  "7": 3,
+  "8": 5,
+  "9": 3,
+  "10": 1,
+  "11": 1,
+  "15": 1,
+  "16": 2,
+  "18": 1,
+  "22": 1,
+  "26": 1
+ },
+ "workers": 8,
+ "frames": 600,
+ "still_frames": 91,
+ "cut_frames": 87,
+ "captures": 2386,
+ "seconds": 140.9,
+ "final": false
+}

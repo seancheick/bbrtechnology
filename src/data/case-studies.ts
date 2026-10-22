@@ -38,6 +38,8 @@ export interface CaseStudy {
   preview: PreviewKey;
   caveat?: string;
   featured?: boolean;
+  // how the project reads on cards: as a type of job we deliver, in plain words
+  card: { type: string; industry: string; outcome: string; metric: Fact };
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -49,7 +51,7 @@ export const caseStudies: CaseStudy[] = [
     summary:
       "Bookings become cleaning jobs. Jobs can't close without photo proof. Cleaners are paid from a ledger that reconciles itself, and a guardian watches every channel calendar for nights guests can't book.",
     attribution: "Internal product",
-    status: "Live on a working rental portfolio",
+    status: "Live in production",
     role: "Product, design, full-stack engineering, AI agent interface",
     accent: "#16423c",
     links: [
@@ -111,6 +113,12 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Next.js 16", "React 19", "TypeScript", "Supabase Postgres", "Tailwind v4", "Zod", "Vercel Cron", "Hostex API", "MCP", "Vitest"],
     proves: ["internal-tool", "automation-sprint", "web-app"],
     preview: "turnflow",
+    card: {
+      type: "Operations platform",
+      industry: "Short-term rentals",
+      outcome: "Bookings become scheduled cleaning jobs with photo proof, cleaner pay reconciles itself, and calendar problems are caught before they cost a booking.",
+      metric: { value: "153", label: "unbookable nights caught on one calendar" },
+    },
     featured: true,
   },
   {
@@ -174,6 +182,12 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Flutter", "Riverpod", "SQLite", "Python 3.13", "pytest", "Next.js 16", "TypeScript", "Node.js", "Supabase", "Upstash Redis", "GitHub Actions", "Vercel"],
     proves: ["mobile-app", "web-app", "ai-assistant", "website"],
     preview: "pharmaguide",
+    card: {
+      type: "Health-tech platform",
+      industry: "Consumer health",
+      outcome: "A mobile app, data pipeline and AI assistant that score supplements and flag risky combinations with reviewed rules, not guesses.",
+      metric: { value: "180,000+", label: "products in the catalog" },
+    },
     caveat:
       "Quality scores describe the product, not whether it is right for a specific person. PharmaGuide does not replace advice from a pharmacist or prescriber.",
     featured: true,
@@ -186,7 +200,7 @@ export const caseStudies: CaseStudy[] = [
     summary:
       "GPS-verified clock-ins, photos stamped by the server, and a live supervisor view, replacing WhatsApp photos and Excel timesheets for construction, electrical and infrastructure crews.",
     attribution: "Studio product",
-    status: "In active development · five sprints shipped",
+    status: "In development · core flows shipped",
     role: "Product, Flutter mobile app, supervisor web app, backend",
     accent: "#0f766e",
     links: [
@@ -249,15 +263,21 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Flutter", "Dart", "Riverpod", "Drift", "Next.js", "React 19", "Supabase", "Postgres 17", "Mapbox", "Sentry", "PostHog"],
     proves: ["mobile-app", "internal-tool"],
     preview: "fieldops",
+    card: {
+      type: "Field workforce app",
+      industry: "Construction & electrical",
+      outcome: "Crews clock in with GPS and capture stamped proof photos, even offline. Supervisors watch the day unfold live.",
+      metric: { value: "<30s", label: "per crew action" },
+    },
     featured: true,
   },
   {
     slug: "keniya",
     name: "Keniya",
-    kicker: "Condition-aware commerce",
-    headline: "Snack boxes with a why.",
+    kicker: "E-commerce platform",
+    headline: "A condition-aware online store with a review gate.",
     summary:
-      "Six condition-specific snack boxes, each with its own written screening and a pharmacist review gate before a lineup can go on sale. Commerce, subscriptions and gifting on one platform.",
+      "A storefront for condition-specific product boxes: each line has its own written screening rules, and nothing goes on sale until a reviewer approves it. Checkout, subscriptions and gifting on one platform.",
     attribution: "Launching",
     status: "First boxes ship November 11, 2026",
     role: "Brand, commerce platform, screening rules, admin",
@@ -279,7 +299,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         title: "Checkout and a monthly club",
-        body: "Stripe Checkout with webhooks, a $39/month Snack Club that members can skip, pause or cancel online, and renewals that void instead of charging when no lineup is approved.",
+        body: "Stripe Checkout with webhooks, a monthly subscription members can skip, pause or cancel online, and renewals that void instead of charging when nothing is approved.",
       },
       {
         title: "Gifting as a first-class path",
@@ -287,21 +307,27 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     facts: [
-      { value: "6", label: "condition boxes" },
-      { value: "14", label: "snack selections per box" },
-      { value: "$47", label: "per box, free US shipping" },
-      { value: "$39/mo", label: "Monthly Snack Club" },
+      { value: "6", label: "product lines, each with its own screening rules" },
+      { value: "1", label: "review gate before anything goes on sale" },
+      { value: "Stripe", label: "checkout, subscriptions and webhooks" },
+      { value: "Gifts", label: "gift mode, printed notes and share links" },
     ],
     source: "Keniya PRODUCT.md",
     architecture: [
       { name: "Storefront", items: ["Next.js site", "Condition quiz", "Gift mode"] },
       { name: "Rules", items: ["Per-condition screening", "Clinician approval gate"] },
-      { name: "Commerce", items: ["Stripe Checkout + webhook", "Snack Club subscriptions", "Resend email"] },
+      { name: "Commerce", items: ["Stripe Checkout + webhook", "Subscriptions", "Resend email"] },
       { name: "Data", items: ["Supabase Postgres", "Admin: boxes, offers, lineups"] },
     ],
     stack: ["Next.js", "TypeScript", "Supabase", "Stripe", "Resend", "Vitest", "Vercel"],
     proves: ["website", "web-app"],
     preview: "keniya",
+    card: {
+      type: "E-commerce store",
+      industry: "Retail & subscriptions",
+      outcome: "Checkout, subscriptions and gifting in one store, with a review step before any product goes on sale.",
+      metric: { value: "6", label: "product lines, each with its own rules" },
+    },
     caveat: "Keniya never diagnoses or gives individual medical or nutritional advice.",
   },
   {
@@ -354,6 +380,12 @@ export const caseStudies: CaseStudy[] = [
     stack: ["JavaScript", "HTML", "CSS", "Service Worker", "Node build script", "Vercel"],
     proves: ["web-app", "website"],
     preview: "perks",
+    card: {
+      type: "Consumer web app",
+      industry: "Personal finance",
+      outcome: "An installable offline app that tracks card benefits and finds the subscriptions you already get for free.",
+      metric: { value: "41", label: "cards in its database" },
+    },
   },
   {
     slug: "agentic-orchestrator",
@@ -400,6 +432,12 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Claude Code", "Markdown skills", "Node.js installer", "npm"],
     proves: ["ai-assistant", "automation-sprint"],
     preview: "orchestrator",
+    card: {
+      type: "Developer tooling",
+      industry: "AI engineering",
+      outcome: "Breaks large engineering jobs into small, checked tasks and sends each one to the right AI model.",
+      metric: { value: "9-point", label: "completion check" },
+    },
   },
 ];
 

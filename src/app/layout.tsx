@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Providers } from "@/components/providers";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { StickyCta } from "@/components/layout/sticky-cta";
 import { site, siteUrl } from "@/lib/site";
 import "@/styles/globals.css";
 
@@ -94,6 +95,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Header />
           <main id="main-content">{children}</main>
           <Footer />
+          <StickyCta />
         </Providers>
       </body>
     </html>

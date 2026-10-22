@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>B&amp;Br launch · composition</title>
+<link rel="stylesheet" href="faces.css">
+<!--
+CONCEPT — the amber dot from the B&Br logo is the whole film. One take on a navy ground.
+ t            beat                                             camera                          carries into the next beat
+ 0.00–0.95    the dot appears, pulses, opens into a message    tight on the dot (zoom ~2)      the dot IS the message bubble
+ 0.95–2.30    the customer's message types in                  still                           —
+ 2.30–2.90    rest                                             dead still                      —
+ 2.90–3.80    the bubble is the demo's textarea: card around   pull out to the whole demo      the dot re-emerges, presses Run
+ 3.80–5.50    the dot lands on each stage → it pops            chase down the output column    the dot
+ 5.50–7.10    the reply types; rest on "waits for approval"    settle on the reply             the dot
+ 7.10–7.80    the dot draws an amber line to TurnFlow           whip right                      the dot + the line
+ 7.80–10.6    dot presses "Let an agent fix it", approves      follow, then rest               the dot
+ 10.6–11.2    the line continues to PharmaGuide                 whip down-left                  the dot + the line
+ 11.2–13.5    score fills to 81, dot ticks "banned" → BLOCKED   push, rest                      the dot
+ 13.5–14.6    pull back: three products on one amber thread    pull out                        everything survives
+ 14.6–16.4    world dims; the dot lands as the logo's dot      still                           the dot → the wordmark
+ 16.4–20.0    tagline + Book a call                            dead still                      —
+Copy: demo strings from src/data/demo-scenarios.ts (leak), previews from src/components/previews/*. No invented numbers.
+-->
+<style>
+:root{--navy:#0a0f1a;--navy9:#0f172a;--navy8:#1e293b;--navy7:#334155;--navy6:#475569;--navy4:#94a3b8;
+  --amber:#b05008;--amberB:#d97706;--gold:#fbbf24;--bg:#fbfaf7;--bgalt:#f3f1ec;--card:#fff;--line:#e4e1d9;
+  --fg:#0f172a;--muted:#475569;--subtle:#5f6b7d;--mono:ui-monospace,"SF Mono",Menlo,monospace}
+html,body{margin:0;overflow:hidden;background:var(--navy)}
+body{width:var(--W);height:var(--H);font-family:'Satoshi',system-ui,sans-serif;color:var(--fg);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:0;top:0;width:var(--W);height:var(--H);overflow:hidden;background:var(--navy)}
+#ground{position:absolute;inset:0}
+#world{position:absolute;left:0;top:0;width:4000px;height:2400px;transform-origin:0 0}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.abs{position:absolute}
+.lab{position:absolute;font-family:var(--mono);font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy4);white-space:nowrap}
+.lab b{color:var(--gold);font-weight:500}
+
+/* ── demo card (InquiryPipeline, light theme, ~1.4× the site's sizes) ── */
+#demo{left:210px;top:140px;width:1500px;border-radius:36px;background:var(--card);border:1px solid var(--line);
+  box-shadow:0 60px 160px -60px rgba(0,0,0,.7);transform-origin:50% 50%}
+#demo .hd{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid var(--line)}
+#demo .tabs{display:flex;gap:8px}
+#demo .tab{padding:10px 20px;border-radius:999px;font-size:19px;font-weight:500;color:var(--muted)}
+#demo .tab.on{background:var(--navy9);color:#fff}
+#demo .eb{font-family:var(--mono);font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle)}
+#demo .eb span{color:var(--muted)}
+#demo .bd{display:grid;grid-template-columns:600px 1fr}
+#demo .L{padding:32px;display:flex;flex-direction:column;gap:20px;border-right:1px solid var(--line)}
+#demo .R{padding:32px;background:#f7f6f2;border-radius:0 0 36px 0;min-height:640px}
+.h1{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:700}
+.h1 svg{color:var(--amber);font-size:22px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:16px;font-weight:500;color:var(--muted)}
+.chip.on{border-color:rgba(176,80,8,.5);background:rgba(176,80,8,.1);color:var(--fg)}
+#ta{position:relative;height:230px}
+#bubble{position:absolute;left:0;top:0;border:1px solid var(--line);background:var(--bg);box-sizing:border-box;overflow:hidden}
+#msg{position:absolute;left:24px;top:22px;right:24px;font-size:23px;line-height:1.55;color:var(--fg)}
+#msg i{display:inline-block;width:2px;height:28px;background:var(--amber);vertical-align:-6px;margin-left:1px}
+#count{position:absolute;right:20px;bottom:14px;font-size:16px;color:var(--subtle);font-variant-numeric:tabular-nums}
+#run{height:66px;border-radius:999px;background:var(--navy9);color:var(--gold);display:flex;align-items:center;justify-content:center;gap:12px;font-size:20px;font-weight:700;transform-origin:50% 50%}
+.fine{font-size:15px;line-height:1.5;color:var(--subtle);margin:0}
+#status{font-size:19px;color:var(--muted);height:30px;margin:0}
+.slots{margin-top:16px;display:flex;flex-direction:column;gap:14px}
+.slot{position:relative}
+.ph{position:absolute;left:0;right:0;top:0;height:64px;display:flex;align-items:center;gap:16px;padding:0 22px;border:1.5px dashed #d6d2c8;border-radius:22px;font-size:19px;color:var(--subtle)}
+.ph b{font-family:var(--mono);font-size:15px;letter-spacing:.16em;font-weight:400}
+.stg{border:1px solid var(--line);border-radius:22px;background:#fff;padding:18px 22px;transform-origin:50% 50%}
+.stg .tt{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--subtle)}
+.stg .tt svg{color:var(--amber);font-size:18px}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{border-radius:8px;padding:5px 11px;font-size:16px;font-weight:700}
+.tag.k{background:var(--navy9);color:#fff}
+.tag.u{background:rgba(239,68,68,.1);color:#dc2626;box-shadow:inset 0 0 0 1px rgba(239,68,68,.3)}
+.conf{margin-left:auto;font-size:16px;color:var(--subtle)}
+.p{font-size:19px;color:var(--muted);margin:8px 0 0;line-height:1.45}
+.task{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.task b{font-size:19px;font-weight:500}
+.task span{font-size:16px;color:var(--subtle);white-space:nowrap}
+.alert{display:flex;gap:14px;align-items:flex-start}
+.alert .ic{width:42px;height:42px;border-radius:11px;background:var(--bgalt);box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
+.alert b{font-size:19px;font-weight:500}.alert b span{font-weight:400;color:var(--subtle);text-transform:uppercase}
+.alert p{margin:2px 0 0;font-size:18px;color:var(--muted);line-height:1.4}
+.reply{border-radius:20px 20px 20px 5px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.06),inset 0 0 0 1px var(--line);padding:14px 18px;font-size:19px;line-height:1.5;margin:0}
+.reply .rest{color:transparent}
+.note{font-size:16px;color:var(--subtle);margin:10px 0 0}
+
+/* ── TurnFlow (preview palette, ~1.8×) ── */
+#tf{left:2250px;top:170px;width:1150px;box-sizing:border-box;padding:34px;background:#f4f1ea;color:#1d1b18;border-radius:30px;box-shadow:0 60px 160px -60px rgba(0,0,0,.7)}
+#tf .ban{display:flex;align-items:center;gap:12px;border-radius:14px;background:#b43f33;color:#fff;padding:14px 18px;font-size:20px;font-weight:500}
+#tf .top{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+#tf .ti{font-family:'Cabinet Grotesk';font-weight:800;font-size:34px;color:#16423c;margin:0}
+#tf .sub{font-size:18px;color:#61594f;margin:4px 0 0}
+#tf .scan{height:52px;border-radius:999px;background:#16423c;color:#fff;display:flex;align-items:center;gap:10px;padding:0 24px;font-size:18px;font-weight:700}
+#tf ul{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+#tf li{background:#fff;border-radius:14px;padding:16px 18px}
+.sev{border-radius:6px;padding:3px 9px;font-family:var(--mono);font-size:15px;text-transform:uppercase;color:#fff}
+.sev.c{background:#b43f33}.sev.w{background:#a3480a}.sev.i{background:#1e5aa8}
+#tf code{font-family:var(--mono);font-size:17px;color:#16423c}
+#tf .cal{font-size:17px;color:#61594f}
+#tf .res{margin-left:auto;font-size:17px;font-weight:700;color:#16423c}
+#tf .det{margin:8px 0 0;font-size:19px}
+#fix{margin-top:12px;display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(22,66,60,.3);border-radius:999px;padding:7px 16px;font-size:17px;font-weight:700;color:#16423c;transform-origin:50% 50%}
+#term{margin-top:14px;border-radius:14px;background:#16423c;color:#e9f1ee;font-family:var(--mono);font-size:18px;line-height:1.75;overflow:hidden}
+#term .in{padding:16px 20px}
+#term .ln{display:flex;gap:12px}
+#term .ln .m{color:#9fc3b8}
+#term .ln .o{color:#9fc3b8}
+#term .ln .k{color:#fff}
+#appr{margin-left:12px;border-radius:6px;background:#f4f1ea;color:#16423c;padding:2px 12px;font-family:'Satoshi';font-weight:700;font-size:17px;display:inline-block;transform-origin:50% 50%}
+#term .fin{color:#fff}
+
+/* ── PharmaGuide (preview palette, ~1.7×) ── */
+#pg{left:1050px;top:1190px;width:1450px;box-sizing:border-box;padding:38px;background:#f5f8ff;color:#0b1b3a;border-radius:30px;display:grid;grid-template-columns:1.2fr 1fr;gap:36px;box-shadow:0 60px 160px -60px rgba(0,0,0,.7)}
+.pc{background:#fff;border-radius:26px;padding:32px;box-shadow:0 1px 3px rgba(11,27,58,.06),inset 0 0 0 1px #dfe6f5}
+.pe{font-size:17px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5b6b8c;margin:0}
+.pn{font-family:'Cabinet Grotesk';font-weight:800;font-size:31px;margin:6px 0 0}
+.sc{display:flex;align-items:flex-end;gap:16px;margin-top:22px}
+#score{font-family:'Cabinet Grotesk';font-weight:800;font-size:92px;line-height:.9;color:#2563eb;font-variant-numeric:tabular-nums;min-width:110px}
+#of{padding-bottom:10px;font-size:22px;color:#5b6b8c}
+#verd{margin-left:auto;margin-bottom:12px;display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 15px;font-size:19px;font-weight:700;background:#e0ecff;color:#1d4ed8;transform-origin:50% 50%}
+#pillars{list-style:none;padding:0;margin:24px 0 0;display:flex;flex-direction:column;gap:16px}
+#pillars .r{display:flex;justify-content:space-between;font-size:19px}
+#pillars .r span:last-child{color:#5b6b8c;font-variant-numeric:tabular-nums}
+#pillars .bar{margin-top:7px;height:10px;border-radius:999px;background:#e8eefb;overflow:hidden}
+#pillars .bar i{display:block;height:100%;border-radius:999px;background:#2563eb;width:0}
+#ban{margin-top:26px;display:flex;align-items:center;gap:16px;border-radius:18px;background:#f5f8ff;padding:18px;font-size:19px}
+#box{width:24px;height:24px;border-radius:6px;border:2px solid #9aa7c2;background:#fff;flex:none;position:relative;transform-origin:50% 50%}
+#box.on{background:#b42318;border-color:#b42318}
+#box.on:after{content:"";position:absolute;left:7px;top:2px;width:6px;height:12px;border-right:3px solid #fff;border-bottom:3px solid #fff;transform:rotate(45deg)}
+.lad{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--mono);font-size:16px}
+.lad span.v{border-radius:6px;padding:6px 10px;background:#eef2fb;color:#5b6b8c}
+.lad span.v.on{background:#0b1b3a;color:#fff}
+.lad .gt{color:#9aa7c2}
+.pc .q{margin:20px 0 0 auto;width:fit-content;border-radius:20px 20px 5px 20px;background:#2563eb;color:#fff;padding:12px 18px;font-size:18px}
+.pc .a{margin:12px 0 0;border-radius:20px 20px 20px 5px;background:#f5f8ff;padding:12px 18px;font-size:18px;line-height:1.5}
+.chips2{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;font-family:var(--mono);font-size:15px;color:#5b6b8c}
+.chips2 span{background:#eef2fb;border-radius:6px;padding:3px 9px}
+.pc .ft{font-size:18px;color:#5b6b8c;margin:18px 0 0}
+
+/* ── the thread, the dot, the end card ── */
+#thread{position:absolute;left:0;top:0;overflow:visible}
+#dot{position:absolute;left:0;top:0;width:100px;height:100px;margin:-50px 0 0 -50px;border-radius:50%;background:var(--amberB);
+  box-shadow:0 0 0 0 rgba(217,119,6,.0);transform-origin:50% 50%}
+#ring{position:absolute;left:0;top:0;width:100px;height:100px;margin:-50px 0 0 -50px;border-radius:50%;border:3px solid var(--amberB);box-sizing:border-box}
+#end{position:absolute;left:0;top:0;width:var(--W);height:var(--H)}
+#logo{position:absolute;font-family:'Cabinet Grotesk';font-weight:800;color:#fff;white-space:nowrap;line-height:1}
+#logo span{display:inline-block;transform-origin:50% 90%}
+.tl{position:absolute;left:0;width:var(--W);text-align:center;font-family:'Cabinet Grotesk';font-weight:800;color:#f8fafc;letter-spacing:-.02em;line-height:1.05;white-space:nowrap}
+.tl span{display:inline-block;margin:0 .12em}
+.tl .g{color:var(--gold)}
+#cta{position:absolute;display:flex;align-items:center;gap:12px;border-radius:999px;background:var(--gold);color:var(--navy);font-weight:700;white-space:nowrap;transform-origin:50% 50%}
+#hud{position:absolute;right:14px;bottom:10px;font:14px var(--mono);color:#f66;display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+<canvas id="ground"></canvas>
+<div id="world">
+  <svg id="thread" width="4000" height="2400"><path id="th1" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round"/><path id="th2" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round"/></svg>
+
+  <div id="demo" class="abs">
+    <div class="hd" id="demoHd"><div class="tabs"><div class="tab on">Property management</div><div class="tab">Home services</div><div class="tab">E-commerce</div></div>
+      <div class="eb">Fictional business · <span>Harborline Stays</span></div></div>
+    <div class="bd">
+      <div class="L">
+        <div class="h1" id="inLab"><svg class="i" viewBox="0 0 24 24" data-i="inbox"></svg>Incoming customer message</div>
+        <div class="chips" id="chips"><div class="chip on">Leaking sink</div><div class="chip">Early check-in</div><div class="chip">Cleaning complaint</div></div>
+        <div id="ta"></div>
+        <div id="run"><svg class="i" viewBox="0 0 24 24" data-i="play"></svg><span id="runT">Run the workflow</span></div>
+        <p class="fine" id="fine">Sandbox. Nothing is sent, booked or stored, and messages are processed by a third-party AI provider, so please don't include personal details.</p>
+      </div>
+      <div class="R" id="R">
+        <p id="status">Pick an example or write your own, then run it.</p>
+        <div class="slots" id="slots">
+          <div class="slot"><div class="ph"><b>01</b>Classified</div><div class="stg"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="tags"></svg>Classified</p>
+            <div class="row"><span class="tag k">maintenance</span><span class="tag u">urgent</span><span class="conf">94% confidence</span></div>
+            <p class="p">Guest reports an active bathroom sink leak with water on the floor.</p></div></div>
+          <div class="slot"><div class="ph"><b>02</b>Task created</div><div class="stg"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="clipboard-check"></svg>Task created</p>
+            <div class="task"><b>Fix bathroom sink leak and dry floor</b><span>Maintenance lead · Within 1 hour</span></div></div></div>
+          <div class="slot"><div class="ph"><b>03</b>Alert routed</div><div class="stg"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="bell-ring"></svg>Alert routed</p>
+            <div class="alert"><div class="ic"><svg class="i" viewBox="0 0 24 24" data-i="smartphone"></svg></div><div><b>Maintenance lead <span>· sms</span></b><p>URGENT: active sink leak reported by current guest. Water on bathroom floor.</p></div></div></div></div>
+          <div class="slot"><div class="ph"><b>04</b>Reply drafted</div><div class="stg" id="replyCard"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="message-square-text"></svg>Reply drafted</p>
+            <p class="reply"><span id="rtyped"></span><span class="rest" id="rrest"></span></p><p class="note" id="rnote">Waits for staff approval before sending.</p></div></div>
+          <div class="slot"><div class="ph"><b>05</b>Escalation decision</div><div class="stg"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="user-round-check"></svg>Escalated to a person</p>
+            <p class="p" style="margin:0">Active water damage; maintenance needs to confirm arrival time.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="bubble"><div id="msg"><span id="mtyped"></span><i id="caret"></i></div><div id="count">0/500</div></div>
+
+  <div class="lab" id="tfLab"><b>TurnFlow</b> · Short-term rental operations</div>
+  <div id="tf" class="abs">
+    <div class="ban"><svg class="i" viewBox="0 0 24 24" data-i="shield-alert"></svg><span id="banT">1 critical bookability problem is open.</span></div>
+    <div class="top"><div><p class="ti">Bookability Guardian</p><p class="sub">6 channel calendars · next 180 days · fictional portfolio</p></div>
+      <div class="scan"><svg class="i" viewBox="0 0 24 24" data-i="refresh-cw"></svg>Scan again</div></div>
+    <ul>
+      <li id="f0"><div class="row"><span class="sev c">critical</span><code>missing_price</code><span class="cal">Harbor Loft · Booking.com · Standard Rate</span><span class="res" id="resT"></span></div>
+        <p class="det">153 sellable nights have no price. Guests can't book them.</p>
+        <div id="fix"><svg class="i" viewBox="0 0 24 24" data-i="bot"></svg>Let an agent fix it</div></li>
+      <li><div class="row"><span class="sev w">warning</span><code>pricing_stale</code><span class="cal">Cape House · Airbnb</span></div><p class="det">No price change in 72 hours from the pricing tool.</p></li>
+      <li><div class="row"><span class="sev w">warning</span><code>restriction_conflict</code><span class="cal">Cape House · VRBO</span></div><p class="det">Minimum stay 5 is above maximum stay 4 on an open night.</p></li>
+    </ul>
+    <div id="termWrap" style="height:0;overflow:hidden"><div id="term"><div class="in" id="termIn"></div></div></div>
+  </div>
+
+  <div class="lab" id="pgLab"><b>PharmaGuide</b> · Health technology platform</div>
+  <div id="pg" class="abs">
+    <div class="pc">
+      <p class="pe">Example product</p><p class="pn">Magnesium glycinate, 200 mg</p>
+      <div class="sc"><span id="score">0</span><span id="of">/ 100</span><span id="verd"><svg class="i" viewBox="0 0 24 24" data-i="shield-check" id="verdI"></svg><span id="verdT">SCORED</span></span></div>
+      <ul id="pillars"></ul>
+      <div id="ban"><div id="box"></div>Add a banned ingredient to this label</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:30px">
+      <div class="pc"><p class="pe">Verdict precedence</p><ol class="lad" id="lad"></ol><p class="ft">No amount of quality points overrides a safety verdict.</p></div>
+      <div class="pc"><p class="pe">Assistant · known high-risk pair</p><p class="q">Can I take ginkgo with warfarin?</p>
+        <p class="a">This combination can increase bleeding risk. Please talk to your pharmacist or prescriber before taking them together.</p>
+        <div class="chips2"><span>deterministic route</span><span>no model call</span><span>validator passed</span></div></div>
+    </div>
+  </div>
+</div>
+<div id="ring"></div>
+<div id="dot"></div>
+<div id="end">
+  <div id="logo"><span>B</span><span>&amp;</span><span>B</span><span>r</span></div>
+  <div class="tl" id="tl1"><span>Software,</span><span>AI</span><span>&amp;</span><span>automation,</span></div>
+  <div class="tl" id="tl2"><span>built</span><span>around</span><span class="g">your</span><span class="g">business.</span></div>
+  <div id="cta"><span>Book a call</span><svg class="i" viewBox="0 0 24 24" data-i="arrow-up-right"></svg></div>
+</div>
+<div id="hud"></div>
+</div>
+<script src="motion.js"></script>
+<script src="icons.js"></script>
+<script>
+// ════════════ B&Br launch — every value below is a pure function of t ════════════
+const q=new URLSearchParams(location.search);
+const SQ=q.has('square');                                   // 1:1 social cut: same film, framed for 1080×1080
+const W=SQ?1080:1920, H=1080, DUR=20;
+document.documentElement.style.setProperty('--W',W+'px'); document.documentElement.style.setProperty('--H',H+'px');
+window.__meta={dur:DUR,fps:30,w:W,h:H,inFrame:{dot:[0.15,14.6],logo:[16.2,DUR,'whole'],cta:[17.0,DUR,'whole']}};
+const {clamp,lerp,seg,sstep,ssstep,spring,ease}=OM;
+const $=id=>document.getElementById(id);
+document.querySelectorAll('svg[data-i]').forEach(s=>s.innerHTML=ICONS[s.dataset.i]);
+
+// ── copy (src/data/demo-scenarios.ts · property/leak, src/components/previews/*) ──
+const MSG="Hi, the bathroom sink is leaking and there's water all over the floor. What should we do?";
+const REPLY="I'm so sorry about this. If you can, turn the small valve under the sink clockwise to stop the water, and please avoid the wet floor. Our maintenance lead has been alerted and will be in touch shortly to fix it.";
+const PILLARS=[["Formulation",20,17],["Dose",20,16],["Evidence",20,14],["Transparency",15,13],["Verification",15,12],["Safety & hygiene",10,9]];
+const TOTAL=PILLARS.reduce((s,p)=>s+p[2],0);                // 81, as the preview computes it
+const LADDER=["BLOCKED","UNSAFE","NOT_SCORED","CAUTION","POOR","SAFE"];
+const STEPS=[["get_bookability_report","missing_price on Standard Rate, Mar 1–2"],["preview_calendar_change","dry run: current = none, proposed = $165, no warnings"],
+  ["owner approval","“Set Mar 1–2 to $165?”"],["apply_calendar_change","approved: true, requestId claimed, sent to channel manager"],["verify_calendar_change","read back from the channel: live"]];
+$('pillars').innerHTML=PILLARS.map(p=>`<li><div class="r"><span>${p[0].replace('&','&amp;')}</span><span>${p[2]}/${p[1]}</span></div><div class="bar"><i></i></div></li>`).join('');
+$('lad').innerHTML=LADDER.map((v,i)=>`<li style="display:flex;gap:8px;align-items:center"><span class="v">${v}</span>${i<LADDER.length-1?'<span class="gt">&gt;</span>':''}</li>`).join('');
+$('termIn').innerHTML=STEPS.map((s,i)=>`<div class="ln"><span class="m">›</span><span><span class="k">${s[0]}</span> <span class="o">${s[1]}</span>${i===2?'<span id="appr">Approve as owner</span>':''}</span></div>`).join('')+`<div class="ln fin"><span>✓ verified, live on channel · audit log entry written</span></div>`;
+$('rrest').textContent=REPLY;
+
+// ── timeline ──
+const T={dotIn:0.12, pulse:0.38, open0:0.42, open1:0.95, type0:1.0, cps:72, pull0:2.85, pull1:3.6, card:2.9,
+  out0:3.38, run:3.82, read1:4.18, stage:[4.42,4.68,4.94,5.2,5.46], rtype0:5.26, rcps:190,
+  line1:[7.05,7.86], fix:7.92, term:8.02, step:[8.12,8.38,8.64,9.12,9.38], appr:8.98, fin:9.62,
+  line2:[10.55,11.2], fill:11.26, box:12.6, pull2:[13.45,14.55], dim:[14.55,15.3], fly:[14.9,15.75],
+  logo:15.2, tl:[15.95,16.1,16.25,16.4, 16.62,16.77,16.92,17.07], cta:17.35, ctaPress:18.1};
+const PD={zeta:0.62,omega:18};
+
+// ── layout, measured in __ready (world px) ──
+let R={}, K=[], HITS=[], PATH1, PATH2, BLOT;
+function box(el){ let x=0,y=0,e=el; while(e&&e!==$('world')){ x+=e.offsetLeft; y+=e.offsetTop; e=e.offsetParent; } return {x,y,w:el.offsetWidth,h:el.offsetHeight,cx:x+el.offsetWidth/2,cy:y+el.offsetHeight/2}; }
+const fr=(cx,cy,w,h,t,curve,extra={})=>({t,x:cx,y:cy,zoom:Math.min(W/w,H/(h||w*9/16)),curve,...extra});
+function measure(){
+  ['demo','ta','run','R','tf','fix','pg','box','score','replyCard','f0','termWrap'].forEach(id=>R[id]=box($(id)));
+  R.slots=[...document.querySelectorAll('.slot')].map(box);
+  R.icons=[...document.querySelectorAll('.slot .stg .tt')].map(box).map(b=>({cx:b.x+9,cy:b.cy}));   // svg has no offset*: use its row
+  $('termWrap').style.height='auto'; R.termH=$('term').offsetHeight; R.lines=[...document.querySelectorAll('#term .ln')].map(box); R.finSpan=box(document.querySelector('#term .fin span')); R.appr=box($('appr')); $('termWrap').style.height='0';
+  R.tfFull={x:R.tf.x,y:R.tf.y,w:R.tf.w,h:R.tf.h+R.termH+14};
+  // labels above the two product panels
+  $('tfLab').style.left=R.tf.x+'px'; $('tfLab').style.top=(R.tf.y-46)+'px';
+  $('pgLab').style.left=R.pg.x+'px'; $('pgLab').style.top=(R.pg.y-46)+'px';
+  // the message bubble lives on the world layer over the textarea slot
+  R.bub={x:R.ta.x,y:R.ta.y,w:R.ta.w,h:R.ta.h};
+  // the thread: reply card's right edge → the fix button → PharmaGuide's score
+  const a=[R.replyCard.x+R.replyCard.w, R.replyCard.y+70], b=[R.fix.cx,R.fix.cy], c=[R.score.cx,R.score.cy];
+  PATH1=[a,[a[0]+260,a[1]-40],[b[0]-520,b[1]+40],b];
+  const r1=[R.appr.cx,R.appr.cy+60];
+  PATH2=[b,[b[0]+180,b[1]+520],[c[0]+700,c[1]-380],c];
+  setPath('th1',PATH1); setPath('th2',PATH2);
+  // camera: keys frame world rects, so the 1:1 cut frames the same things
+  const D=R.demo, Rc=R.R, rep=R.replyCard, tf=R.tfFull, pg=R.pg, ta=R.ta;
+  const wide=SQ?1.0:1, zs=SQ?0.86:1;
+  K=[ fr(ta.cx,ta.cy-30,SQ?700:980,null,0),
+      fr(ta.cx,ta.cy-30,SQ?700:980,null,T.pull0),
+      fr(D.cx,D.cy,D.w+(SQ?40:150),D.h+90,T.pull1,ease.quintInOut),
+      fr(D.cx,D.cy,D.w+(SQ?40:150),D.h+90,T.read1+0.04),      // hold wide until the dot has left Run
+      fr(Rc.cx,R.slots[1].cy,(SQ?Rc.w+60:Rc.w+380),Rc.h*0.75,T.stage[0]+0.02,ease.expoInOut),
+      fr(Rc.cx,rep.cy-20,(SQ?Rc.w+40:Rc.w+300),Rc.h*0.7,T.stage[4]+0.2,ease.sineInOut),
+      fr(Rc.cx,rep.cy,(SQ?Rc.w+20:Rc.w+180),rep.h*2.2,T.rtype0+1.0,ease.sineInOut),
+      fr(Rc.cx,rep.cy,(SQ?Rc.w+20:Rc.w+180),rep.h*2.2,T.line1[0]),
+      fr(tf.x+tf.w/2,R.f0.cy+40,tf.w+(SQ?40:420),tf.h*0.9,T.line1[1]+0.02,ease.expoInOut),
+      fr(tf.x+tf.w/2,R.f0.cy+40,tf.w+(SQ?40:420),tf.h*0.9,T.term),
+      fr(tf.x+tf.w/2,(R.f0.y+tf.y+tf.h)/2+20,tf.w+(SQ?40:360),(tf.y+tf.h-R.f0.y)*1.25,T.step[2]+0.1,ease.sineInOut),
+      fr(tf.x+tf.w/2,(R.f0.y+tf.y+tf.h)/2+20,tf.w+(SQ?40:360),(tf.y+tf.h-R.f0.y)*1.25,T.line2[0]),
+      fr(pg.cx,pg.cy,pg.w+(SQ?40:260),pg.h+120,T.line2[1]+0.02,ease.expoInOut),
+      fr(pg.x+pg.w*0.3,pg.cy+40,SQ?pg.w*0.62:pg.w*0.95,pg.h*0.95,T.box-0.1,ease.sineInOut),
+      fr(pg.x+pg.w*0.3,pg.cy+40,SQ?pg.w*0.62:pg.w*0.95,pg.h*0.95,T.pull2[0]),
+      overviewKey(T.pull2[1]) ];
+  HITS=[[T.line1[1],7,9],[T.line2[1],7,9],[T.run,2.5,12],[T.box,2.5,12]];
+}
+function overviewKey(t){ const x0=R.demo.x-80,y0=R.demo.y-120,x1=R.tf.x+R.tf.w+80,y1=R.pg.y+R.pg.h+80; return {...fr((x0+x1)/2,(y0+y1)/2,x1-x0,y1-y0,t,ease.cubicInOut)}; }
+function setPath(id,P){ $(id).setAttribute('d',`M${P[0]} C${P[1]} ${P[2]} ${P[3]}`); }
+const bez=(P,u)=>{ const v=1-u; return [0,1].map(i=>v*v*v*P[0][i]+3*v*v*u*P[1][i]+3*v*u*u*P[2][i]+u*u*u*P[3][i]); };
+
+// ── camera ──
+function camAt(t){
+  const c=OM.camera(t,K); let x=c.x,y=c.y,rot=c.rot;
+  for(const [th,amp,dec] of HITS){ const s=OM.shake(t,th,{amp,decay:dec,seed:Math.round(th*100)}); x+=s.x/c.zoom; y+=s.y/c.zoom; rot+=s.rot*0.5; }
+  return {x,y,zoom:c.zoom,rot};
+}
+
+// ── the dot: where it is in the world, how big, whether it shows ──
+const hopP=(t,t0,t1,a,b,h)=>{ const k=ease.smoother(seg(t,t0,t1)); return [lerp(a[0],b[0],k),lerp(a[1],b[1],k)-Math.sin(k*Math.PI)*h]; };
+const ic=i=>[R.icons[i].cx,R.icons[i].cy];
+function dotWorld(t){
+  const ta=R.ta, run=[R.run.cx,R.run.cy], taC=[ta.cx,ta.cy], taCorner=[ta.x+ta.w-26,ta.y+ta.h-20];
+  const rep=PATH1[0], fix=[R.fix.cx,R.fix.cy], appr=[R.appr.cx,R.appr.cy], fin=[R.finSpan.x+R.finSpan.w+22,R.finSpan.cy], score=[R.score.cx,R.score.cy], bx=[R.box.cx,R.box.cy];
+  if(t<T.out0) return taC;
+  if(t<T.run) return hopP(t,T.out0,T.run-0.04,taCorner,run,70);
+  if(t<T.stage[0]) return hopP(t,T.read1,T.stage[0],run,ic(0),90);
+  for(let i=1;i<5;i++) if(t<T.stage[i]) return hopP(t,T.stage[i]-0.24,T.stage[i],ic(i-1),ic(i),60);
+  if(t<T.line1[0]) return hopP(t,T.stage[4]+0.15,T.stage[4]+0.5,ic(4),rep,40);
+  if(t<T.line1[1]) return bez(PATH1,ease.expoInOut(seg(t,...T.line1)));
+  if(t<T.appr) return hopP(t,T.step[2]+0.06,T.appr-0.04,fix,appr,60);
+  if(t<T.line2[0]) return hopP(t,T.appr+0.32,T.fin,appr,fin,50).map((v,i)=>t<T.appr+0.32?appr[i]:v);
+  if(t<T.line2[1]){ const k=ease.expoInOut(seg(t,...T.line2)); return k<=0?fin:bez(PATH2,k).map((v,i)=>i===0?v:v); }
+  return hopP(t,T.box-0.42,T.box-0.04,score,bx,70);
+}
+function dotPresses(t){ return [T.run,T.stage[0],T.stage[1],T.stage[2],T.stage[3],T.stage[4],T.line1[1],T.appr,T.line2[1],T.box]; }
+
+// ── ground: navy, a lit centre, a far lattice of dots ──
+const G=$('ground'), gx=G.getContext('2d'); G.width=W; G.height=H; G.style.width=W+'px'; G.style.height=H+'px';
+let NOISE; { const n=document.createElement('canvas'); n.width=n.height=256; const c=n.getContext('2d'), d=c.createImageData(256,256), r=OM.rng(7);
+  for(let i=0;i<d.data.length;i+=4){ const w=r()<0.5?255:0; d.data[i]=d.data[i+1]=d.data[i+2]=w; d.data[i+3]=Math.floor(r()*6); } c.putImageData(d,0,0); NOISE=n; }
+function ground(cam,dim){
+  gx.setTransform(1,0,0,1,0,0); gx.fillStyle='#0a0f1a'; gx.fillRect(0,0,W,H);
+  const g=gx.createRadialGradient(W/2,H*0.42,0,W/2,H*0.42,Math.max(W,H)*0.75); g.addColorStop(0,'rgba(30,41,59,0.85)'); g.addColorStop(1,'rgba(10,15,26,0)'); gx.fillStyle=g; gx.fillRect(0,0,W,H);
+  const L=OM.lattice(cam,{depth:1.2,spacing:56,px:1.6,W,H}); gx.setTransform(...L.matrix); gx.fillStyle=`rgba(148,163,184,${0.16*(1-0.6*dim)})`;
+  for(let y=L.y0;y<=L.y1;y+=L.spacing) for(let x=L.x0;x<=L.x1;x+=L.spacing){ gx.beginPath(); gx.arc(x,y,L.r,0,6.2832); gx.fill(); }
+  gx.setTransform(1,0,0,1,0,0); gx.fillStyle=gx.createPattern(NOISE,'repeat'); gx.fillRect(0,0,W,H);
+}
+
+// ── seek ──
+const px=v=>v.toFixed(2)+'px';
+function pop(el,t,t0,opts=PD,extra=''){ const p=OM.popIn(t,t0,{...opts,rise:24}); el.style.opacity=t<t0?0:p.op.toFixed(3); el.style.transform=`translateY(${px(p.dy)}) scale(${p.s.toFixed(4)}) ${extra}`; return p; }
+let CAM, VIEW, DOTS;
+function seek(t){
+  CAM=camAt(t); VIEW=OM.view(CAM,{W,H});
+  const dim=ssstep(...T.dim,t);
+  ground(CAM,dim);
+  const wl=$('world'); wl.style.transform=`matrix(${VIEW.map(v=>v.toFixed(5)).join(',')})`; wl.style.opacity=(1-0.93*dim).toFixed(3);
+
+  // 1 · the dot opens into the message bubble, then the bubble is the textarea of the demo card
+  const B=R.bub, b=$('bubble');
+  const m=OM.morphRect(t,T.open0,T.open1,{x:B.x+B.w/2-14,y:B.y+B.h/2-14,w:28,h:28,r:14},{x:B.x,y:B.y,w:B.w,h:B.h,r:24},{spring:{zeta:0.72,omega:15}});
+  const shown=t>=T.open0;
+  Object.assign(b.style,{left:px(m.x),top:px(m.y),width:px(Math.max(0,m.w)),height:px(Math.max(0,m.h)),borderRadius:px(m.r),opacity:shown?1:0});
+  b.style.background=t<T.card?'#fff':'var(--bg)'; b.style.boxShadow=`0 30px 80px -30px rgba(0,0,0,${(0.6*(1-sstep(T.card,T.card+0.4,t))).toFixed(3)})`;
+  $('msg').style.opacity=sstep(T.open1-0.1,T.open1+0.05,t);
+  const ty=OM.typeOn(t,T.type0,MSG,{cps:T.cps}); $('mtyped').textContent=ty.str; $('caret').style.opacity=(t>=T.type0&&!ty.done)?1:0;
+  $('count').textContent=`${ty.n}/500`; $('count').style.opacity=sstep(T.card,T.card+0.3,t);
+  const lab=OM.wordRise(t,0.62); $('inLab').style.opacity=lab.op.toFixed(3); $('inLab').style.transform=`translateY(${px(lab.y)})`;
+
+  // the card assembles around the bubble as the camera pulls out
+  const demo=$('demo'); const dp=OM.popIn(t,T.card,{zeta:0.8,omega:12,rise:0,s0:0.97,ds:0.03});
+  { const a=t<T.card?0:dp.op; demo.style.background=`rgba(255,255,255,${a.toFixed(3)})`; demo.style.borderColor=`rgba(228,225,217,${a.toFixed(3)})`;
+    demo.style.boxShadow=`0 60px 160px -60px rgba(0,0,0,${(0.7*a).toFixed(3)})`; demo.querySelector('.L').style.borderRightColor=`rgba(228,225,217,${a.toFixed(3)})`;
+    demo.style.transform=`scale(${dp.s.toFixed(4)})`; demo.style.opacity=1; }   // the surface assembles; the label is already there
+  ['demoHd','chips','run','fine','R'].forEach((id,i)=>{ const el=$(id); const p=OM.popIn(t,T.card+0.08+i*0.05,{zeta:0.7,omega:16,rise:18}); el.style.opacity=t<T.card?0:p.op.toFixed(3); el.style.transform=`translateY(${px(p.dy)})`; });
+  { const a=t<T.card?0:sstep(T.card,T.card+0.35,t); $('inLab').style.color=`rgb(${Math.round(lerp(226,15,a))},${Math.round(lerp(232,23,a))},${Math.round(lerp(240,42,a))})`; }   // light on navy, ink once the card is there
+  { const p=OM.press(t,T.run,{depth:0.06}); $('run').style.transform+=` scale(${p.s.toFixed(4)})`; $('runT').textContent=(t>=T.run&&t<T.stage[0])?'Running workflow…':'Run the workflow'; $('run').style.background=p.active?'#1e293b':''; }
+  $('status').textContent= t<T.run?'Pick an example or write your own, then run it.': t<T.stage[0]?'Reading the message against the business rules…':'';
+  // 2 · the dot lands on each stage and the stage pops out of its placeholder
+  document.querySelectorAll('.slot').forEach((s,i)=>{ const ph=s.querySelector('.ph'), st=s.querySelector('.stg'); const tl=T.stage[i];
+    const pulse=(t>=T.run&&t<tl)?0.55+0.45*Math.cos((t-T.run-i*0.12)*9):1;
+    ph.style.opacity=(t<tl?pulse:1-sstep(tl,tl+0.12,t)).toFixed(3);
+    const p=OM.popIn(t,tl,{zeta:0.55,omega:20,rise:16,s0:0.92,ds:0.08}); st.style.opacity=t<tl?0:p.op.toFixed(3); st.style.transform=`translateY(${px(p.dy)}) scale(${p.s.toFixed(4)})`; });
+  { const n=clamp(Math.floor((t-T.rtype0)*T.rcps),0,REPLY.length); $('rtyped').textContent=REPLY.slice(0,n); $('rrest').textContent=REPLY.slice(n);
+    $('rnote').style.opacity=sstep(T.rtype0+REPLY.length/T.rcps,T.rtype0+REPLY.length/T.rcps+0.25,t); }
+
+  // 3 · the thread to TurnFlow; the dot presses "Let an agent fix it", then approves as owner
+  const k1=ease.expoInOut(seg(t,...T.line1)), k2=ease.expoInOut(seg(t,...T.line2));
+  drawThread('th1',k1); drawThread('th2',k2);
+  { const p=pop($('tf'),t,T.line1[0]+0.25,{zeta:0.7,omega:14}); $('tfLab').style.opacity=p.op; }
+  { const p=OM.press(t,T.fix,{depth:0.08}); $('fix').style.transform=`scale(${p.s.toFixed(4)})`; $('fix').style.opacity=(1-sstep(T.term,T.term+0.2,t)).toFixed(3); }
+  { const h=R.termH*ease.expoOut(seg(t,T.term,T.term+0.45)); $('termWrap').style.height=t<T.term?'0':px(h+14); }
+  document.querySelectorAll('#term .ln').forEach((ln,i)=>{ const ti=i<5?T.step[i]:T.fin; const p=OM.wordRise(t,ti,{dist:10}); ln.style.opacity=t<ti?0:p.op.toFixed(3); ln.style.transform=`translateY(${px(p.y)})`;
+    if(i<5){ const done=i<4?t>=(T.step[i+1]):t>=T.fin; ln.querySelector('.m').textContent=done?'✓':'›'; } });
+  { const p=OM.press(t,T.appr,{depth:0.12}); const a=$('appr'); a.style.transform=`scale(${p.s.toFixed(4)})`; a.style.opacity=(1-sstep(T.appr+0.12,T.appr+0.3,t)).toFixed(3); }
+  { const res=t>=T.fin; $('banT').textContent=res?'All critical findings resolved.':'1 critical bookability problem is open.'; $('resT').textContent=res?'Resolved':'';
+    $('f0').style.opacity=res?(1-0.4*sstep(T.fin,T.fin+0.3,t)).toFixed(3):1; }
+
+  // 4 · PharmaGuide: the score fills to 81, the dot ticks a banned ingredient → BLOCKED
+  { const p=pop($('pg'),t,T.line2[0]+0.25,{zeta:0.7,omega:14}); $('pgLab').style.opacity=p.op; }
+  const bars=[...document.querySelectorAll('#pillars .bar i')];
+  bars.forEach((el,i)=>{ const k=ease.expoOut(seg(t,T.fill+i*0.06,T.fill+i*0.06+0.7)); el.style.width=(k*PILLARS[i][2]/PILLARS[i][1]*100).toFixed(2)+'%'; });
+  const banned=t>=T.box+0.04;
+  $('box').className=banned?'on':''; $('box').style.transform=`scale(${OM.press(t,T.box,{depth:0.2}).s.toFixed(4)})`;
+  { const k=ease.quartOut(seg(t,T.fill,T.fill+0.85)); $('score').textContent=banned?'—':String(Math.round(TOTAL*k)); $('score').style.color=banned?'#b42318':'#2563eb';
+    $('of').textContent=banned?'score suppressed':'/ 100';
+    const v=$('verd'); v.style.background=banned?'#fee4e2':'#e0ecff'; v.style.color=banned?'#b42318':'#1d4ed8'; $('verdT').textContent=banned?'BLOCKED':'SCORED';
+    $('verdI').innerHTML=ICONS[banned?'shield-x':'shield-check']; const im=OM.impact(t,T.box+0.04,{sqx:0.12,sqy:0.14}); v.style.transform=banned?`scale(${im.sx.toFixed(4)},${im.sy.toFixed(4)})`:'none';
+    $('pillars').style.opacity=banned?(1-0.65*sstep(T.box,T.box+0.3,t)).toFixed(3):1;
+    document.querySelectorAll('#lad .v').forEach(s=>s.classList.toggle('on',banned?s.textContent==='BLOCKED':s.textContent==='SAFE')); }
+
+  // 5 · the dot: world → screen, and at the end it lands as the logo's dot
+  const end=endLayout();
+  let dw=dotWorld(t), ds=OM.project(VIEW,dw[0],dw[1]);
+  let size=clamp(18*CAM.zoom,9,40), dop=1, sx=1, sy=1;
+  if(t<T.open0){ const k=spring(t-T.dotIn,0.5,22); size*=Math.max(0,k); }
+  else if(t<T.out0){ dop=0; }
+  else if(t<T.out0+0.25){ size*=Math.max(0,spring(t-T.out0,0.5,22)); }
+  if(t>=T.fly[0]){ const a=ds, bb=end.dot, k=ease.smoother(seg(t,...T.fly)); ds=[lerp(a[0],bb[0],k),lerp(a[1],bb[1],k)-Math.sin(k*Math.PI)*(SQ?180:240)]; size=lerp(size,end.dotSize,k); }
+  for(const tp of dotPresses(t)){ const p=OM.press(t,tp,{depth:0.35,decay:9}); sx*=1+p.sq*0.6; sy*=1-p.sq*0.5; }
+  if(t<T.open0){ const pu=OM.press(t,T.pulse,{depth:0.4,decay:8}); sx*=pu.s; sy*=pu.s; }
+  { const im=OM.impact(t,T.fly[1],{sqx:0.35,sqy:0.4}); if(t>=T.fly[1]){ sx*=im.sx; sy*=im.sy; } }
+  const d=$('dot'); d.style.opacity=dop; d.style.transform=`translate(${px(ds[0])},${px(ds[1])}) scale(${(size/100*sx).toFixed(4)},${(size/100*sy).toFixed(4)})`;
+  d.style.boxShadow=`0 0 ${(size*0.9).toFixed(1)}px ${(size*0.25).toFixed(1)}px rgba(217,119,6,${t<T.fly[1]?0.45:0.25*(1-sstep(T.fly[1],T.fly[1]+0.6,t))})`;
+  // a ring leaves the dot on every press — the cause made visible
+  { let rr=0,ro=0; for(const tp of [T.pulse,...dotPresses(t)]){ const u=t-tp; if(u>=0&&u<0.5){ const k=ease.expoOut(u/0.5); rr=size*(1+2.2*k); ro=0.7*(1-k); } }
+    const r=$('ring'); r.style.opacity=(dop*ro).toFixed(3); r.style.transform=`translate(${px(ds[0])},${px(ds[1])}) scale(${(rr/100).toFixed(4)})`; }
+  DOTS={x:ds[0],y:ds[1],s:size};
+
+  // 6 · end card
+  endCard(t,end);
+  $('hud').textContent='t='+t.toFixed(3);
+  return Promise.resolve();
+}
+function drawThread(id,k){ const el=$(id); const L=el.getTotalLength(); el.style.strokeDasharray=L; el.style.strokeDashoffset=(L*(1-k)).toFixed(1); el.style.opacity=k>0?1:0; el.setAttribute('stroke-width',(3/Math.max(0.35,CAM.zoom)).toFixed(2)); }
+
+let END;
+function endLayout(){ return END; }
+function layoutEnd(){
+  const s=SQ?0.62:1, lg=$('logo'), fs=110*s;
+  lg.style.fontSize=fs+'px'; const lw=lg.offsetWidth, dotSize=fs*0.2;
+  const totalW=lw+dotSize*0.9; const lx=(W-totalW)/2, ly=(SQ?300:258);
+  lg.style.left=lx+'px'; lg.style.top=ly+'px';
+  [$('tl1'),$('tl2')].forEach((el,i)=>{ el.style.fontSize=(SQ?64:84)+'px'; el.style.top=((SQ?470:452)+i*(SQ?74:94))+'px'; });
+  const c=$('cta'); c.style.fontSize=(SQ?26:30)+'px'; c.style.padding=SQ?'18px 34px':'22px 42px'; c.style.left='0px'; c.style.top='0px';
+  const cw=c.offsetWidth, ch=c.offsetHeight; c.style.left=((W-cw)/2)+'px'; c.style.top=(SQ?680:700)+'px';
+  END={dot:[lx+lw+dotSize*0.55, ly+fs*0.72], dotSize, cta:{x:(W-cw)/2,y:SQ?680:700,w:cw,h:ch}};
+}
+function endCard(t,end){
+  [...$('logo').children].forEach((s,i)=>{ const d=OM.letterDrop(t,T.logo,i,{dist:60}); s.style.opacity=t<T.logo?0:d.op.toFixed(3); s.style.transform=`translateY(${px(d.y)}) scale(${d.sx.toFixed(4)},${d.sy.toFixed(4)})`; });
+  [...$('tl1').children,...$('tl2').children].forEach((s,i)=>{ const w=OM.wordRise(t,T.tl[i],{dist:34}); s.style.opacity=t<T.tl[i]?0:w.op.toFixed(3); s.style.transform=`translateY(${px(w.y)}) scale(${w.s.toFixed(4)})`; });
+  { const c=$('cta'); const p=OM.popIn(t,T.cta,{zeta:0.55,omega:18,rise:30,s0:0.85,ds:0.15}); const pr=OM.press(t,T.ctaPress,{depth:0.05});
+    c.style.opacity=t<T.cta?0:p.op.toFixed(3); c.style.transform=`translateY(${px(p.dy)}) scale(${(p.s*pr.s).toFixed(4)})`; }
+}
+
+// ── tracks for probe/verify: boxes on screen ──
+window.__track=t=>{ seek(t); const pb=b=>OM.projectBox(VIEW,b);
+  return { dot:{x:DOTS.x-DOTS.s/2,y:DOTS.y-DOTS.s/2,w:DOTS.s,h:DOTS.s,op:1}, demo:{...pb(R.demo),op:+$('demo').style.opacity}, tf:{...pb(R.tf),op:+$('tf').style.opacity}, pg:{...pb(R.pg),op:+$('pg').style.opacity},
+    logo:(()=>{const r=$('logo').getBoundingClientRect(); return {x:r.x,y:r.y,w:r.width+END.dotSize,h:r.height,op:t>=T.logo?1:0};})(),
+    cta:(()=>{const r=$('cta').getBoundingClientRect(); return {x:r.x,y:r.y,w:r.width,h:r.height,op:t>=T.cta?1:0};})() }; };
+window.__motion=(t0,t1)=>{ const c0=camAt(t0),c1=camAt(t1),cm=camAt((t0+t1)/2); let d=OM.screenTravel(c0,c1,cm,{W,H});
+  seek(t0); const a=[DOTS.x,DOTS.y]; seek(t1); d=Math.max(d,Math.hypot(DOTS.x-a[0],DOTS.y-a[1])); return d; };
+window.__seek=async t=>{ await seek(t); return true; };
+window.__ready=document.fonts.ready.then(()=>{ measure(); layoutEnd(); return seek(0); });
+if(q.has('t')) __ready.then(()=>seek(parseFloat(q.get('t'))));
+if(q.has('hud')) $('hud').style.display='block';
+if(q.has('play')) __ready.then(()=>{const t0=performance.now();(function loop(){seek(((performance.now()-t0)/1000)%DUR);requestAnimationFrame(loop);})();});
+</script>
+</body>
+</html>

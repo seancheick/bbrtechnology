@@ -9,7 +9,7 @@ import { HairlineFigure } from "@/components/ui/hairline-figure";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Case studies from products B&Br Technology designed, built and runs: TurnFlow, PharmaGuide, FieldOps AI, Keniya, Perks Ledger and the Agentic Orchestrator, plus client engagements.",
+    "Projects B&Br Technology has delivered: operations platforms, health-tech apps, field workforce software, e-commerce stores, web apps and AI tooling.",
   alternates: { canonical: "/work" },
 };
 
@@ -24,10 +24,10 @@ export default function WorkPage() {
             eyebrow="Work"
             title={
               <>
-                Products we built, <span className="text-amber-600 dark:text-gold-400">and still run.</span>
+                Projects we&apos;ve <span className="text-amber-600 dark:text-gold-400">delivered.</span>
               </>
             }
-            lede="Health tech, hospitality operations, field workforce, commerce and developer tooling. Each case study has an interactive preview rebuilt from the real product."
+            lede="Operations platforms, health-tech apps, field software, online stores and AI tooling. Each project page shows the problem, what we built, and an interactive preview of the real screen."
           />
           <HairlineFigure name="devices" className="hidden lg:block" />
         </div>
@@ -47,11 +47,11 @@ export default function WorkPage() {
                 aria-hidden
               />
               <div className="relative flex flex-wrap items-center gap-3">
-                <span className="eyebrow text-foreground-subtle">{c.kicker}</span>
-                <SpecBadge label={c.attribution} />
+                <span className="eyebrow text-amber-600">{c.card.type}</span>
+                <span className="text-xs text-foreground-subtle">{c.card.industry}</span>
               </div>
               <h2 className="font-display relative mt-6 text-4xl font-extrabold text-foreground sm:text-5xl">{c.name}</h2>
-              <p className="relative mt-3 max-w-lg text-lg text-foreground-muted">{c.headline}</p>
+              <p className="relative mt-3 max-w-lg text-lg text-foreground-muted">{c.card.outcome}</p>
               <dl className="relative mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {c.facts.slice(0, 4).map((f) => (
                   <div key={f.label}>
@@ -73,7 +73,7 @@ export default function WorkPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-bg-alt py-24">
+      <section id="clients" className="scroll-mt-20 border-t border-border bg-bg-alt py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Client engagements"

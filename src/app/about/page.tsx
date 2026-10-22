@@ -9,7 +9,7 @@ import { StatusDot } from "@/components/ui/spec-badge";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "B&Br Technology is a founder-led software studio in Boston. We design, build and run our own products, and bring that operator discipline to client work.",
+    "B&Br Technology is a founder-led software studio in Boston building websites, apps, internal tools and AI automation for growing businesses.",
   alternates: { canonical: "/about" },
 };
 
@@ -63,7 +63,7 @@ export default function AboutPage() {
           <div>
             <p className="eyebrow text-amber-600">The founder</p>
             <h2 className="font-display mt-4 text-4xl font-extrabold text-foreground sm:text-5xl">
-              Built by someone who runs what he builds.
+              Built by someone who&apos;s been the operator.
             </h2>
             <dl className="mt-10 grid grid-cols-2 gap-6 text-sm">
               {[
@@ -81,23 +81,22 @@ export default function AboutPage() {
           </div>
           <div className="space-y-5 text-lg leading-relaxed text-foreground-muted">
             <p>
-              Before taking on client work at scale, Sean built PharmaGuide: a supplement intelligence platform with a
-              Flutter app, a staged data pipeline that scores products on a six-pillar, 100-point model, and an
-              assistant where known high-risk interactions are answered by deterministic rules instead of a model.
+              Sean started B&amp;Br after years of building software where getting it wrong has real consequences: a
+              health-tech platform that scores 180,000+ supplements and flags risky combinations, operations software
+              for a short-term rental business, and a GPS-verified app for field crews.
             </p>
             <p>
-              Then came the operating problems closer to home. TurnFlow started as the system for a real short-term
-              rental portfolio, turning bookings into cleaning jobs, demanding photo proof, reconciling cleaner pay and
-              catching calendar problems before they cost a booking. It runs that portfolio today.
+              Those projects taught us what most agencies learn the hard way. The best automation is the one your team
+              forgets is there. The worst is a new tool someone has to babysit. We scope for the first and design out
+              the second.
             </p>
             <p>
-              That&apos;s the difference we bring to client work. We&apos;ve been the operator with the broken
-              spreadsheet and the late-night guest message. We know which automations save hours and which ones just create
-              a new thing to babysit.
+              Today we take on websites, apps, internal tools and AI automation for growing businesses, with a small
+              team of engineers and designers around a founder who stays on every project.
             </p>
             <p className="text-foreground">
-              Whether it&apos;s a website, an automation or a full platform, the standard is the same: does it work
-              correctly, will it last, and does it solve the actual problem?
+              Whatever we build, the standard is the same: does it work correctly, will it last, and does it solve the
+              actual problem?
             </p>
           </div>
         </div>
@@ -105,7 +104,7 @@ export default function AboutPage() {
 
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading eyebrow="We run our own products" title="Proof that isn't a slide deck." />
+          <SectionHeading eyebrow="Projects we've delivered" title="The kind of work we take on." />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {caseStudies.map((c) => (
               <li key={c.slug}>
@@ -113,9 +112,9 @@ export default function AboutPage() {
                   href={`/work/${c.slug}`}
                   className="group flex h-full flex-col rounded-3xl border border-border bg-bg-elevated p-6 transition-colors hover:border-foreground/25"
                 >
-                  <span className="eyebrow text-foreground-subtle">{c.kicker}</span>
+                  <span className="eyebrow text-amber-600">{c.card.type}</span>
                   <span className="font-display mt-3 text-2xl font-extrabold text-foreground">{c.name}</span>
-                  <span className="mt-2 text-sm text-foreground-muted">{c.headline}</span>
+                  <span className="mt-2 text-sm text-foreground-muted">{c.card.outcome}</span>
                   <span className="mt-auto flex items-center justify-between pt-6">
                     <StatusDot status={c.status} className="text-foreground-muted" />
                     <ArrowUpRight className="h-4 w-4 text-foreground-subtle transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

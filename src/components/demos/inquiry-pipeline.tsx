@@ -47,9 +47,9 @@ const reasonText: Record<string, string> = {
 
 export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
   const reduce = useReducedMotion();
-  const [industry, setIndustry] = React.useState<Industry>("property");
-  const [presetId, setPresetId] = React.useState<string>(demoScenarios.property[0].id);
-  const [message, setMessage] = React.useState(demoScenarios.property[0].message);
+  const [industry, setIndustry] = React.useState<Industry>(industries[0]);
+  const [presetId, setPresetId] = React.useState<string>(demoScenarios[industries[0]][0].id);
+  const [message, setMessage] = React.useState(demoScenarios[industries[0]][0].message);
   const [run, setRun] = React.useState<RunState>({ status: "idle" });
   const [website, setWebsite] = React.useState("");
   const business = demoBusinesses[industry];
@@ -187,7 +187,7 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
                 setMessage(e.target.value.slice(0, MAX_MESSAGE));
                 if (run.status !== "running") setRun({ status: "idle" });
               }}
-              rows={compact ? 4 : 5}
+              rows={compact ? 3 : 4}
               maxLength={MAX_MESSAGE}
               className="w-full resize-none rounded-2xl border border-border bg-bg p-4 pb-8 text-base leading-relaxed text-foreground placeholder:text-foreground-subtle focus:border-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-600/20"
               placeholder="Write a message a customer might send…"
@@ -230,7 +230,7 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
         </div>
 
         {/* Output */}
-        <div className="relative min-h-[420px] bg-bg-alt/60 p-5 sm:p-6" aria-live="polite">
+        <div className="relative bg-bg-alt/60 p-5 sm:p-6 lg:min-h-[420px]" aria-live="polite">
           <StatusLine run={run} />
           <AnimatePresence mode="wait">
             {run.status === "done" ? (
@@ -285,7 +285,7 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
                 </Stage>
               </motion.ol>
             ) : (
-              <motion.ol key="placeholder" className="mt-4 space-y-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <motion.ol key="placeholder" className="mt-4 hidden space-y-3 lg:block" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 {["Classified", "Task created", "Alert routed", "Reply drafted", "Escalation decision"].map((t, i) => (
                   <li
                     key={t}

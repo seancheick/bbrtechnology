@@ -58,8 +58,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             / <span className="text-foreground-muted">{c.name}</span>
           </nav>
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <span className="eyebrow text-amber-600">{c.kicker}</span>
-            <SpecBadge label={c.attribution} />
+            <span className="eyebrow text-amber-600">{c.card.type}</span>
+            <span className="text-xs text-foreground-muted">{c.card.industry}</span>
             <StatusDot status={c.status} className="text-foreground-muted" />
           </div>
           <h1 className="font-display mt-5 text-6xl font-extrabold leading-[0.95] text-foreground sm:text-8xl">{c.name}</h1>
@@ -83,7 +83,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             ))}
           </div>
           <p className="mt-6 text-sm text-foreground-subtle">
-            <span className="font-semibold text-foreground-muted">Our role:</span> {c.role}
+            <span className="font-semibold text-foreground-muted">What we delivered:</span> {c.role}
           </p>
         </div>
       </header>
@@ -213,7 +213,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             className="group mt-16 flex flex-col gap-2 border-t border-border pt-10 sm:flex-row sm:items-end sm:justify-between"
           >
             <span>
-              <span className="eyebrow text-foreground-subtle">Next case study</span>
+              <span className="eyebrow text-foreground-subtle">Next project</span>
               <span className="font-display mt-2 block text-4xl font-extrabold text-foreground sm:text-6xl">{next.name}</span>
             </span>
             <ArrowUpRight className="h-10 w-10 text-foreground-subtle transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />

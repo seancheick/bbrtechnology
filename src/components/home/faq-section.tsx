@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function FaqSection({ index = "07", items = faqItems }: { index?: string; items?: FaqItem[] }) {
   return (
-    <section className="border-t border-border py-24 sm:py-32">
+    <section className="border-t border-border py-16 sm:py-24">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
         <SectionHeading
           index={index}
