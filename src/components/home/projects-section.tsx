@@ -4,6 +4,9 @@ import { caseStudies, clientWork } from "@/data/case-studies";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 const featured = ["turnflow", "pharmaguide", "fieldops-ai"].map((slug) => caseStudies.find((c) => c.slug === slug)!);
+// bottom row: navy fading to slate, so the dark row eases back into the light page
+const bridge = "bg-[linear-gradient(180deg,#0f1626_0%,#1c2740_55%,#2d3b58_100%)] text-white";
+
 const more = ["MVPs & prototypes", "Client portals", "Dashboards", "Inventory systems", "Booking flows", "Chatbots", "APIs & MCP"];
 
 export function ProjectsSection() {
@@ -35,7 +38,7 @@ export function ProjectsSection() {
                 <p className="font-display relative mt-6 text-5xl font-extrabold tabular">{c.card.metric.value}</p>
                 <p className="relative mt-1 text-sm text-navy-400">
                   {c.card.metric.label}
-                  {c.card.metric.note && <span className="ml-1.5 text-xs text-white/40">({c.card.metric.note})</span>}
+                  {c.card.metric.note && <span className="ml-1.5 text-xs text-navy-400">({c.card.metric.note})</span>}
                 </p>
                 <p className="relative mt-6 text-pretty leading-relaxed text-white/85">{c.card.outcome}</p>
                 <span className="relative mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-semibold text-gold-400">
@@ -48,13 +51,13 @@ export function ProjectsSection() {
             <li key={w.title} className="w-[84%] shrink-0 snap-start md:w-auto">
               <Link
                 href="/work#clients"
-                className="group flex h-full flex-col rounded-3xl border border-border bg-bg-elevated p-6 sm:p-7"
+                className={`group flex h-full flex-col rounded-3xl p-6 sm:p-7 ${bridge}`}
               >
-                <p className="eyebrow text-amber-600">{w.sector}</p>
-                <p className="mt-1 text-xs text-foreground-subtle">Client engagement</p>
-                <p className="font-display mt-6 text-2xl font-extrabold leading-tight text-foreground">{w.title}</p>
-                <p className="mt-4 text-pretty leading-relaxed text-foreground-muted">{w.body}</p>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-semibold text-foreground">
+                <p className="eyebrow text-gold-400">{w.sector}</p>
+                <p className="mt-1 text-xs text-white/70">Client engagement</p>
+                <p className="font-display mt-6 text-2xl font-extrabold leading-tight">{w.title}</p>
+                <p className="mt-4 text-pretty leading-relaxed text-white/85">{w.body}</p>
+                <span className="mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-semibold text-gold-400">
                   Client work <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </span>
               </Link>
@@ -63,22 +66,22 @@ export function ProjectsSection() {
           <li className="w-[84%] shrink-0 snap-start md:w-auto">
             <Link
               href="/contact#message"
-              className="group flex h-full flex-col justify-between rounded-3xl border border-dashed border-foreground/25 p-6 sm:p-7"
+              className={`group flex h-full flex-col justify-between rounded-3xl border border-dashed border-gold-400/40 p-6 sm:p-7 ${bridge}`}
             >
               <div>
-                <p className="eyebrow text-foreground-subtle">And more</p>
-                <p className="font-display mt-6 text-3xl font-extrabold leading-tight text-foreground">
+                <p className="eyebrow text-gold-400">And more</p>
+                <p className="font-display mt-6 text-3xl font-extrabold leading-tight">
                   If it runs on software, we can build it.
                 </p>
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {more.map((m) => (
-                    <li key={m} className="rounded-full bg-bg-alt px-3 py-1 text-xs text-foreground-muted">
+                    <li key={m} className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/90">
                       {m}
                     </li>
                   ))}
                 </ul>
               </div>
-              <span className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-amber-600 dark:text-gold-400">
+              <span className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-400">
                 Tell us what you need <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>

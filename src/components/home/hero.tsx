@@ -2,7 +2,7 @@ import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { formatUsd, offers } from "@/data/services";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { KineticText } from "@/components/motion/reveal";
-import { HairlineFigure } from "@/components/ui/hairline-figure";
+import { HeroVisual } from "@/components/three/hero-visual";
 
 const lowest = Math.min(...offers.map((o) => o.from));
 
@@ -60,7 +60,7 @@ export function Hero() {
               ))}
             </ul>
           </div>
-          <HairlineFigure name="stack" className="hidden lg:block" />
+          <HeroVisual className="mx-auto max-w-[300px] lg:max-w-none" />
         </div>
 
         <div className="mt-14 border-t border-border py-6 sm:mt-20">
