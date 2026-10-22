@@ -9,6 +9,7 @@ export type OfferId =
   | "website"
   | "internal-tool"
   | "api-mcp"
+  | "prototype"
   | "web-app"
   | "mobile-app";
 export type Tier = "focused" | "standard" | "advanced";
@@ -71,8 +72,8 @@ export const categories: Category[] = [
     name: "Custom Software",
     short: "Software",
     pitch:
-      "Dashboards, internal tools, APIs and web apps that fit how your team actually works, not the other way around.",
-    offers: ["internal-tool", "api-mcp", "web-app"],
+      "Prototypes, MVPs, dashboards, internal tools and APIs that fit how your team actually works, not the other way around.",
+    offers: ["prototype", "web-app", "internal-tool", "api-mcp"],
     proof: "turnflow",
   },
   {
@@ -236,6 +237,30 @@ export const offers: Offer[] = [
     },
   },
   {
+    id: "prototype",
+    category: "custom-software",
+    name: "Prototype / Proof of Concept",
+    from: 2000,
+    typical: [2000, 5000],
+    timeline: "1–2 weeks",
+    summary:
+      "A clickable prototype or a working proof of concept to test an idea with users, investors or your team before committing to a full build. The fee is credited if we build the MVP.",
+    bestFor: "Founders validating an idea, and teams that need to show a working concept before budget is approved.",
+    includes: [
+      "Scoping session and user flow",
+      "Clickable prototype or working proof of concept",
+      "One round of feedback and changes",
+      "Hosted demo link to share",
+      "Fee credited toward the MVP build",
+    ],
+    excludes: ["Production hardening", "App store submission", "Ongoing hosting"],
+    tiers: {
+      focused: { range: [2000, 2500], weeks: "1 week", example: "Clickable prototype of the core flow" },
+      standard: { range: [2500, 3500], weeks: "1–2 weeks", example: "Working proof of concept with real data" },
+      advanced: { range: [3500, 5000], weeks: "2 weeks", example: "Proof of concept with one integration or AI feature" },
+    },
+  },
+  {
     id: "web-app",
     category: "custom-software",
     name: "Web App / SaaS MVP",
@@ -323,7 +348,7 @@ export interface AddOn {
 }
 
 export const addOns: AddOn[] = [
-  { id: "ai", label: "AI feature (assistant, classification, summaries)", price: 2000, appliesTo: ["website", "internal-tool", "web-app", "mobile-app"] },
+  { id: "ai", label: "AI feature (assistant, classification, summaries)", price: 2000, appliesTo: ["website", "internal-tool", "prototype", "web-app", "mobile-app"] },
   { id: "payments", label: "Payments or subscriptions (Stripe)", price: 1500, appliesTo: ["website", "web-app", "mobile-app"] },
   { id: "integration", label: "Extra integration with an existing tool", price: 1000, appliesTo: ["automation-sprint", "ai-assistant", "internal-tool", "api-mcp", "web-app", "mobile-app"] },
   { id: "admin", label: "Admin dashboard", price: 2500, appliesTo: ["website", "mobile-app"] },
@@ -334,9 +359,10 @@ export const estimatorOffers: OfferId[] = [
   "automation-sprint",
   "ai-assistant",
   "website",
+  "prototype",
+  "web-app",
   "internal-tool",
   "api-mcp",
-  "web-app",
   "mobile-app",
 ];
 

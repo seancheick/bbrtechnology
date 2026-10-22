@@ -78,7 +78,7 @@ export default function ServicesPage() {
               {offersIn(c.id).length === 1 ? (
                 <TierCards offer={offersIn(c.id)[0]} />
               ) : (
-                <div className={`mt-10 grid gap-5 ${offersIn(c.id).length === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3"}`}>
+                <div className={`mt-10 grid gap-5 ${offersIn(c.id).length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
                   {offersIn(c.id).map((o) => (
                     <OfferCard key={o.id} offer={o} />
                   ))}

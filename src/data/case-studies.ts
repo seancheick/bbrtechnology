@@ -39,7 +39,7 @@ export interface CaseStudy {
   caveat?: string;
   featured?: boolean;
   // how the project reads on cards: as a type of job we deliver, in plain words
-  card: { type: string; industry: string; outcome: string; metric: Fact };
+  card: { type: string; industry: string; outcome: string; metric: Fact & { note?: string } };
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -114,10 +114,10 @@ export const caseStudies: CaseStudy[] = [
     proves: ["internal-tool", "api-mcp", "automation-sprint"],
     preview: "turnflow",
     card: {
-      type: "Operations platform",
+      type: "Operations automation",
       industry: "Short-term rentals",
-      outcome: "Bookings become scheduled cleaning jobs with photo proof, cleaner pay reconciles itself, and calendar problems are caught before they cost a booking.",
-      metric: { value: "153", label: "unbookable nights caught on one calendar" },
+      outcome: "Bookings turn into cleaning jobs on their own, cleaners prove the work with photos, pay reconciles itself, and every calendar is checked daily so no night goes unbooked. The owner just approves.",
+      metric: { value: "~150", label: "coordination texts per unit, per month, now automatic", note: "team-reported" },
     },
     featured: true,
   },
@@ -183,10 +183,10 @@ export const caseStudies: CaseStudy[] = [
     proves: ["mobile-app", "web-app", "ai-assistant", "website"],
     preview: "pharmaguide",
     card: {
-      type: "Health-tech platform",
-      industry: "Consumer health",
-      outcome: "A mobile app, data pipeline and AI assistant that score supplements and flag risky combinations with reviewed rules, not guesses.",
-      metric: { value: "180,000+", label: "products in the catalog" },
+      type: "Data & AI platform",
+      industry: "Health tech",
+      outcome: "A data pipeline that cleans and scores raw label data, a mobile app on top, and an AI assistant that answers risky questions with reviewed rules first, so users and clinicians can trust the answer.",
+      metric: { value: "39", label: "medical reference databases merged into one scoring engine" },
     },
     caveat:
       "Quality scores describe the product, not whether it is right for a specific person. PharmaGuide does not replace advice from a pharmacist or prescriber.",
@@ -236,7 +236,7 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     facts: [
-      { value: "<30s", label: "per worker action" },
+      { value: "GPS", label: "verified location on every clock-in and photo" },
       { value: "4", label: "roles: worker, foreman, supervisor, admin" },
       { value: "0", label: "edits or deletes in the event store" },
       { value: "Offline", label: "first, with automatic sync" },
@@ -264,10 +264,10 @@ export const caseStudies: CaseStudy[] = [
     proves: ["mobile-app", "internal-tool"],
     preview: "fieldops",
     card: {
-      type: "Field workforce app",
+      type: "Field workforce platform",
       industry: "Construction & electrical",
-      outcome: "Crews clock in with GPS and capture stamped proof photos, even offline. Supervisors watch the day unfold live.",
-      metric: { value: "<30s", label: "per crew action" },
+      outcome: "Every clock-in, photo and overtime request is GPS-stamped and tracked, so crews are paid correctly, supervisors see the day live, and disputed invoices are settled with proof.",
+      metric: { value: "12 hrs/wk", label: "of manual dispatch tracking removed", note: "team-reported" },
     },
     featured: true,
   },
@@ -449,10 +449,10 @@ export const clientWork = [
     stack: ["EHR/EMR", "HL7/FHIR", "API integration"],
   },
   {
-    title: "eCommerce builds and checkout optimization",
+    title: "Online stores, on Shopify or built from scratch",
     sector: "eCommerce",
-    body: "Custom storefronts on Shopify and WooCommerce with payments, inventory, conversion-focused checkout, analytics and email sequences.",
-    stack: ["Shopify", "WooCommerce", "Stripe", "GA4"],
+    body: "Custom Shopify storefronts, or fully owned stores built from scratch with inventory, subscriptions, payments and fulfillment workflows, and checkout built to convert.",
+    stack: ["Shopify", "Next.js", "Stripe", "Inventory", "GA4"],
   },
   {
     title: "AI support assistants and lead pipelines",

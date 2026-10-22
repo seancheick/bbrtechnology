@@ -4,7 +4,7 @@ import { caseStudies, clientWork } from "@/data/case-studies";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 const featured = ["turnflow", "pharmaguide", "fieldops-ai"].map((slug) => caseStudies.find((c) => c.slug === slug)!);
-const more = ["Client portals", "Dashboards", "Booking flows", "Chatbots", "Integrations", "MVPs"];
+const more = ["MVPs & prototypes", "Client portals", "Dashboards", "Inventory systems", "Booking flows", "Chatbots", "APIs & MCP"];
 
 export function ProjectsSection() {
   return (
@@ -33,7 +33,10 @@ export function ProjectsSection() {
                 <p className="eyebrow relative text-gold-400">{c.card.type}</p>
                 <p className="relative mt-1 text-xs text-navy-400">{c.card.industry}</p>
                 <p className="font-display relative mt-6 text-5xl font-extrabold tabular">{c.card.metric.value}</p>
-                <p className="relative mt-1 text-sm text-navy-400">{c.card.metric.label}</p>
+                <p className="relative mt-1 text-sm text-navy-400">
+                  {c.card.metric.label}
+                  {c.card.metric.note && <span className="ml-1.5 text-xs text-white/40">({c.card.metric.note})</span>}
+                </p>
                 <p className="relative mt-6 text-pretty leading-relaxed text-white/85">{c.card.outcome}</p>
                 <span className="relative mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-semibold text-gold-400">
                   See the project <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
