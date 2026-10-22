@@ -1,16 +1,9 @@
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
-import { formatUsd, offers } from "@/data/services";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { KineticText } from "@/components/motion/reveal";
 import { HeroVisual } from "@/components/three/hero-visual";
 
-const lowest = Math.min(...offers.map((o) => o.from));
-
-const promises = [
-  `Projects from ${formatUsd(lowest)}`,
-  "Fixed quote in 2 business days",
-  "You own the code",
-];
+const promises = ["Fixed quote in 2 business days", "Weekly previews", "You own the code"];
 
 // Tools we connect through their own APIs. A capability list, not a partner claim.
 const tools = [
@@ -31,12 +24,12 @@ export function Hero() {
               Software studio · Boston · Taking on new projects
             </p>
             <h1 className="font-display mt-6 text-balance text-[2.6rem] font-extrabold leading-[0.98] text-foreground sm:text-6xl lg:text-[4.6rem]">
-              <KineticText text="Software and AI automation" />{" "}
-              <KineticText text="that gives your team hours back." delay={0.25} className="text-amber-600 dark:text-gold-400" />
+              <KineticText text="Launch what's next." />{" "}
+              <KineticText text="Automate what slows you down." delay={0.25} className="text-amber-600 dark:text-gold-400" />
             </h1>
             <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-foreground-muted">
-              We build websites, web and mobile apps, and AI automations around the tools you already use. Fixed
-              prices, a person who answers, and everything is yours at handover.
+              We design and build websites, web and mobile apps, and AI workflows around the tools you already use.
+              Clear scope, direct access to the people building it, and code you own.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <TrackedLink

@@ -116,7 +116,7 @@ export const caseStudies: CaseStudy[] = [
     card: {
       type: "Operations automation",
       industry: "Short-term rentals",
-      outcome: "Bookings turn into cleaning jobs on their own, cleaners prove the work with photos, pay reconciles itself, and every calendar is checked daily so no night goes unbooked. The owner just approves.",
+      outcome: "Bookings turn into cleaning jobs on their own, cleaners prove the work with photos, pay reconciles itself, and every calendar is checked daily for missing prices and restrictions before they block a booking. The owner just approves.",
       metric: { value: "~150", label: "coordination texts per unit, per month, now automatic", note: "team-reported" },
     },
     featured: true,
@@ -200,7 +200,7 @@ export const caseStudies: CaseStudy[] = [
     summary:
       "GPS-verified clock-ins, photos stamped by the server, and a live supervisor view, replacing WhatsApp photos and Excel timesheets for construction, electrical and infrastructure crews.",
     attribution: "Studio product",
-    status: "In development · core flows shipped",
+    status: "Live in production",
     role: "Product, Flutter mobile app, supervisor web app, backend",
     accent: "#0f766e",
     links: [

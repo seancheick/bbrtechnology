@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Clock, FileCheck2, Mail, Phone } from "lucide-react";
-import { decodeBrief, describeBrief, encodeBrief } from "@/data/services";
+import { decodeBrief, describeBrief, encodeBrief, estimate as estimateOf } from "@/data/services";
+import { demoScenarios } from "@/data/demo-scenarios";
+import { demoBusinesses } from "@/lib/demo/businesses";
+import { industries, type Industry } from "@/lib/demo/schema";
 import { site } from "@/lib/site";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ContactForm } from "@/components/forms/contact-form";
@@ -13,14 +16,26 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
+// ?demo=clinic.refill (from "Build this for my business") becomes a one-line brief.
+function describeDemo(raw: string | string[] | undefined): string | undefined {
+  const [ind, id] = (Array.isArray(raw) ? raw[0] : raw ?? "").split(".");
+  if (!industries.includes(ind as Industry)) return undefined;
+  const industry = ind as Industry;
+  const example = demoScenarios[industry].find((s) => s.id === id);
+  const label = demoBusinesses[industry].label;
+  return `From the live demo: I'd like a workflow like the ${label} example${example ? ` ("${example.label}")` : ""} for my business.`;
+}
+
 export default async function ContactPage({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const brief = decodeBrief(await searchParams);
-  const notes = brief ? describeBrief(brief) : undefined;
+  const params = await searchParams;
+  const brief = decodeBrief(params);
+  const notes = brief ? describeBrief(brief) : describeDemo(params.demo);
   const estimate = brief?.tier ? encodeBrief(brief.offer.id, brief.tier, brief.extras) : undefined;
+  const budgetLow = brief?.tier ? estimateOf(brief.offer.id, brief.tier, brief.extras).low : undefined;
 
   return (
     <>
@@ -71,7 +86,7 @@ export default async function ContactPage({
           <div id="book" className="scroll-mt-24">
             <h2 className="font-display text-2xl font-extrabold text-foreground">Book a free 30-minute call</h2>
             <p className="mt-2 text-sm text-foreground-muted">
-              Pick a time that suits you. {brief ? "Your brief is prefilled in the booking notes." : ""}
+              Pick a time that suits you. {notes ? "Your brief is prefilled in the booking notes." : ""}
             </p>
             <div className="mt-5">
               <CalBooking notes={notes} estimate={estimate} />
@@ -84,7 +99,8 @@ export default async function ContactPage({
             </p>
             <div className="mt-5">
               <ContactForm
-                defaultOffer={brief?.offer.id}
+                defaultOffer={brief?.offer.id ?? (notes ? "ai-assistant" : undefined)}
+                budgetLow={budgetLow}
                 defaultMessage={notes ? `${notes}\n\n` : undefined}
                 brief={estimate}
               />

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
+  ArrowRight,
   BellRing,
   BookOpen,
   ClipboardCheck,
@@ -22,6 +23,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { track } from "@/lib/analytics";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { demoScenarios } from "@/data/demo-scenarios";
 import { demoBusinesses } from "@/lib/demo/businesses";
 import { MAX_MESSAGE, industries, type DemoResponse, type DemoResult, type Industry } from "@/lib/demo/schema";
@@ -253,9 +255,6 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
                     <span className={cn("rounded-md px-2 py-1 text-xs font-semibold capitalize ring-1", urgencyStyle[run.result.urgency])}>
                       {run.result.urgency}
                     </span>
-                    <span className="tabular ml-auto text-xs text-foreground-subtle">
-                      {Math.round(run.result.confidence * 100)}% confidence
-                    </span>
                   </div>
                   <p className="mt-2 text-sm text-foreground-muted">{run.result.summary}</p>
                 </Stage>
@@ -355,6 +354,22 @@ export function InquiryPipeline({ compact = false }: { compact?: boolean }) {
               </motion.ol>
             )}
           </AnimatePresence>
+          {run.status === "done" && (
+            <div className="mt-5 flex flex-col gap-3 rounded-2xl bg-navy-900 p-4 text-white sm:flex-row sm:items-center sm:justify-between dark:bg-white/5">
+              <div>
+                <p className="font-semibold">Want this workflow for your business?</p>
+                <p className="text-sm text-white/70">We build it around the tools you already use.</p>
+              </div>
+              {/* only the preset id travels in the URL, never what the visitor typed */}
+              <TrackedLink
+                cta="demo_build_this"
+                href={`/contact?demo=${industry}${preset ? `.${preset.id}` : ""}#message`}
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-gold-400 px-5 py-3 text-sm font-semibold text-navy-950 transition-colors hover:bg-gold-400/90"
+              >
+                Build this for my business <ArrowRight className="h-4 w-4" />
+              </TrackedLink>
+            </div>
+          )}
         </div>
       </div>
     </div>

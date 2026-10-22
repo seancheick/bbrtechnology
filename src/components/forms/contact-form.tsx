@@ -9,6 +9,13 @@ import { track } from "@/lib/analytics";
 const FORMSPREE = "https://formspree.io/f/mzdaenay";
 
 const budgets = ["Under $1,000", "$1,000–$3,000", "$3,000–$10,000", "$10,000–$25,000", "$25,000+", "Not sure yet"];
+const budgetFloors = [0, 1000, 3000, 10000, 25000];
+
+// the band an estimator range starts in; the visitor can still change it
+function budgetFor(low?: number) {
+  if (low === undefined) return "";
+  return budgets[budgetFloors.findLastIndex((f) => low >= f)];
+}
 const timelines = ["As soon as possible", "Within a month", "In 1–3 months", "Just exploring"];
 const sources = ["Upwork", "Referral", "Direct outreach from B&Br", "Google search", "LinkedIn", "Business card / in person", "Other"];
 
@@ -20,10 +27,12 @@ export function ContactForm({
   defaultOffer,
   defaultMessage,
   brief,
+  budgetLow,
 }: {
   defaultOffer?: string;
   defaultMessage?: string;
   brief?: string;
+  budgetLow?: number;
 }) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
@@ -86,16 +95,25 @@ export function ContactForm({
         </div>
       </div>
 
+      <div>
+        <label htmlFor="message" className={label}>
+          What would you like to build or improve? <span className="text-amber-600">*</span>
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows={5}
+          defaultValue={defaultMessage}
+          placeholder="The idea or the workflow, the tools involved, and what a good outcome looks like."
+          className={`${input} resize-y`}
+        />
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="company" className={label}>
-            Company <span className="text-foreground-subtle">(optional)</span>
-          </label>
-          <input id="company" name="company" autoComplete="organization" className={input} />
-        </div>
-        <div>
           <label htmlFor="service" className={label}>
-            What do you need?
+            Project type <span className="text-foreground-subtle">(optional)</span>
           </label>
           <select id="service" name="service" defaultValue={defaultOffer ?? ""} className={input}>
             <option value="">Not sure yet</option>
@@ -106,64 +124,54 @@ export function ContactForm({
             ))}
           </select>
         </div>
-      </div>
-
-      <div className="grid gap-5 sm:grid-cols-3">
         <div>
           <label htmlFor="budget" className={label}>
-            Budget
+            Budget <span className="text-foreground-subtle">(optional)</span>
           </label>
-          <select id="budget" name="budget" defaultValue="" className={input}>
-            <option value="" disabled>
-              Choose…
-            </option>
+          <select id="budget" name="budget" defaultValue={budgetFor(budgetLow)} className={input}>
+            <option value="">Choose…</option>
             {budgets.map((b) => (
               <option key={b}>{b}</option>
             ))}
           </select>
         </div>
-        <div>
-          <label htmlFor="timeline" className={label}>
-            Timeline
-          </label>
-          <select id="timeline" name="timeline" defaultValue="" className={input}>
-            <option value="" disabled>
-              Choose…
-            </option>
-            {timelines.map((t) => (
-              <option key={t}>{t}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="source" className={label}>
-            How did you find us? <span className="text-amber-600">*</span>
-          </label>
-          <select id="source" name="source" required defaultValue="" className={input}>
-            <option value="" disabled>
-              Choose…
-            </option>
-            {sources.map((s) => (
-              <option key={s}>{s}</option>
-            ))}
-          </select>
-        </div>
       </div>
 
-      <div>
-        <label htmlFor="message" className={label}>
-          What&apos;s slowing you down? <span className="text-amber-600">*</span>
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          required
-          rows={6}
-          defaultValue={defaultMessage}
-          placeholder="The workflow, the tools involved, and what a good outcome looks like."
-          className={`${input} resize-y`}
-        />
-      </div>
+      <details className="group rounded-xl border border-border px-4 py-3">
+        <summary className="cursor-pointer text-sm font-medium text-foreground-muted marker:text-foreground-subtle">
+          More details <span className="text-foreground-subtle">(optional)</span>
+        </summary>
+        <div className="mt-4 grid gap-5 sm:grid-cols-3">
+          <div>
+            <label htmlFor="company" className={label}>
+              Company
+            </label>
+            <input id="company" name="company" autoComplete="organization" className={input} />
+          </div>
+          <div>
+            <label htmlFor="timeline" className={label}>
+              Timeline
+            </label>
+            <select id="timeline" name="timeline" defaultValue="" className={input}>
+              <option value="">Choose…</option>
+              {timelines.map((t) => (
+                <option key={t}>{t}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="source" className={label}>
+              How did you find us?
+            </label>
+            <select id="source" name="source" defaultValue="" className={input}>
+              <option value="">Choose…</option>
+              {sources.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </details>
 
       {status === "error" && (
         <p role="alert" className="rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
