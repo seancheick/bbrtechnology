@@ -59,11 +59,6 @@ export function HeroVisual({ className }: { className?: string }) {
           <HeroScene onReady={() => window.setTimeout(() => setReady(true), 150)} />
         </React.Suspense>
       )}
-      {ready && (
-        <p className="eyebrow pointer-events-none absolute inset-x-0 -bottom-6 text-center text-foreground-subtle">
-          Hover a layer · click to run it
-        </p>
-      )}
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { ContactShadows, Edges, Html, RoundedBox } from "@react-three/drei";
+import { ContactShadows, Edges, RoundedBox } from "@react-three/drei";
 import type { Group, Mesh, PointLight } from "three";
 
 // The B&Br product stack in 3D: data plinth, logic board, integration plate and a
@@ -27,7 +27,17 @@ const RUN_SECONDS = 2.4;
 
 type Pointer = { x: number; y: number; over: boolean };
 
-function Stack({ pointer, runAt }: { pointer: React.RefObject<Pointer>; runAt: React.RefObject<number> }) {
+function Stack({
+  pointer,
+  runAt,
+  onHover,
+  onDone,
+}: {
+  pointer: React.RefObject<Pointer>;
+  runAt: React.RefObject<number>;
+  onHover: (i: number) => void;
+  onDone: (done: boolean) => void;
+}) {
   const group = React.useRef<Group>(null);
   const layers = React.useRef<(Group | null)[]>([]);
   const packets = React.useRef<(Mesh | null)[]>([]);
@@ -37,6 +47,7 @@ function Stack({ pointer, runAt }: { pointer: React.RefObject<Pointer>; runAt: R
   const spread = React.useRef(1.15);
   const lift = React.useRef([0, 0, 0, 0]);
   const [hovered, setHovered] = React.useState(-1);
+  React.useEffect(() => onHover(hovered), [hovered, onHover]);
   const [lit, setLit] = React.useState(-1);
   const [done, setDone] = React.useState(false);
   const litRef = React.useRef(-1);
@@ -102,6 +113,7 @@ function Stack({ pointer, runAt }: { pointer: React.RefObject<Pointer>; runAt: R
     if (isDone !== doneRef.current) {
       doneRef.current = isDone;
       setDone(isDone);
+      onDone(isDone);
     }
     // the dashboard's highlighted bar grows when the request lands, then settles
     if (bar.current) {
@@ -139,14 +151,6 @@ function Stack({ pointer, runAt }: { pointer: React.RefObject<Pointer>; runAt: R
               />
               <Edges threshold={20} color={active || i === 3 ? GOLD : EDGE} />
             </RoundedBox>
-            {hovered === i && (
-              <Html position={[-L.w / 2 - 0.2, 0, L.w / 2]} center={false} pointerEvents="none" zIndexRange={[20, 0]}>
-                <div className="pointer-events-none w-60 -translate-x-full -translate-y-1/2 rounded-xl border border-gold-400/30 bg-navy-950/95 px-4 py-3 text-white shadow-2xl">
-                  <p className="font-display text-base font-extrabold text-gold-400">{L.name}</p>
-                  <p className="mt-0.5 text-sm leading-snug text-white/90">{L.line}</p>
-                </div>
-              </Html>
-            )}
             {i === 0 &&
               [-0.75, 0, 0.75].map((x) => (
                 <mesh key={x} position={[x, 0, L.w / 2 + 0.005]}>
@@ -219,13 +223,6 @@ function Stack({ pointer, runAt }: { pointer: React.RefObject<Pointer>; runAt: R
         <cylinderGeometry args={[0.006, 0.006, 2.3, 6]} />
         <meshBasicMaterial color={GOLD} transparent opacity={0.35} />
       </mesh>
-      {done && (
-        <Html position={[0, LAYERS[3].y * 1.4 + 0.55, 0]} center pointerEvents="none">
-          <div className="pointer-events-none whitespace-nowrap rounded-full bg-gold-400 px-3 py-1 text-xs font-semibold text-navy-950 shadow-lg">
-            Request in → task done
-          </div>
-        </Html>
-      )}
     </group>
   );
 }
@@ -235,6 +232,8 @@ export default function HeroScene({ onReady }: { onReady?: () => void }) {
   const pointer = React.useRef<Pointer>({ x: 0, y: 0, over: false });
   const runAt = React.useRef(-1);
   const [visible, setVisible] = React.useState(true);
+  const [hovered, setHovered] = React.useState(-1);
+  const [done, setDone] = React.useState(false);
 
   // stop rendering while the hero is off screen
   React.useEffect(() => {
@@ -288,9 +287,27 @@ export default function HeroScene({ onReady }: { onReady?: () => void }) {
         <hemisphereLight args={["#dbe4ff", "#0a0f1a", 0.6]} />
         <directionalLight position={[-4, 6, 4]} intensity={2.4} />
         <directionalLight position={[5, 2, -2]} intensity={0.9} color="#9fb4ff" />
-        <Stack pointer={pointer} runAt={runAt} />
+        <Stack pointer={pointer} runAt={runAt} onHover={setHovered} onDone={setDone} />
         <ContactShadows position={[0, -1.35, 0]} opacity={0.35} scale={7} blur={2.6} far={3} resolution={256} frames={1} color="#0a0f1a" />
       </Canvas>
+      {/* captions live in the page, inside this frame, so nothing can clip them */}
+      <div className="pointer-events-none absolute inset-x-0 top-2 flex justify-center" aria-live="polite">
+        {done && (
+          <span className="rounded-full bg-gold-400 px-3 py-1 text-xs font-semibold text-navy-950 shadow-lg">
+            Request in → task done
+          </span>
+        )}
+      </div>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center px-2" aria-live="polite">
+        {hovered >= 0 ? (
+          <div className="w-full max-w-xs rounded-xl border border-gold-400/30 bg-navy-950/95 px-4 py-3 text-center text-white shadow-2xl">
+            <p className="font-display text-base font-extrabold text-gold-400">{LAYERS[hovered].name}</p>
+            <p className="mt-0.5 text-sm leading-snug text-white/90">{LAYERS[hovered].line}</p>
+          </div>
+        ) : (
+          <p className="eyebrow text-foreground-subtle">Hover a layer · click to run it</p>
+        )}
+      </div>
     </div>
   );
 }
