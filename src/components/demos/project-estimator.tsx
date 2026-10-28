@@ -38,9 +38,9 @@ export function ProjectEstimator() {
   };
 
   return (
-    <div className="grid overflow-hidden rounded-3xl border border-border bg-bg-elevated lg:grid-cols-[1.25fr_0.75fr]">
+    <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-border bg-bg-elevated lg:grid-cols-[1.25fr_0.75fr]">
       <div className="space-y-6 p-5 sm:space-y-8 sm:p-8">
-        <fieldset>
+        <fieldset className="min-w-0">
           <legend className="eyebrow text-foreground-subtle">1 · What are you building?</legend>
           <div className="mt-3 grid grid-cols-2 gap-2 lg:grid-cols-3">
             {estimatorOffers.map((id) => {
@@ -68,7 +68,7 @@ export function ProjectEstimator() {
           </div>
         </fieldset>
 
-        <fieldset>
+        <fieldset className="min-w-0">
           <legend className="eyebrow text-foreground-subtle">2 · How big is it?</legend>
           <div className="mt-3 grid grid-cols-3 gap-2">
             {(Object.keys(tierLabels) as Tier[]).map((t) => (
@@ -93,7 +93,7 @@ export function ProjectEstimator() {
         </fieldset>
 
         {available.length > 0 && (
-          <fieldset>
+          <fieldset className="min-w-0">
             <legend className="eyebrow text-foreground-subtle">3 · Anything extra?</legend>
             <div className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden">
               {available.map((a) => {
@@ -102,7 +102,7 @@ export function ProjectEstimator() {
                   <label
                     key={a.id}
                     className={cn(
-                      "flex shrink-0 cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-amber-600",
+                      "relative flex shrink-0 cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-amber-600",
                       on ? "border-amber-600 bg-amber-600/5 text-foreground" : "border-border text-foreground-muted"
                     )}
                   >
