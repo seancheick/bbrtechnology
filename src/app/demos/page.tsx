@@ -23,7 +23,6 @@ export default function DemosPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             as="h1"
-            eyebrow="Demos"
             title={
               <>
                 Don&apos;t take our word for it. <span className="text-amber-600 dark:text-gold-400">Click around.</span>
@@ -59,7 +58,6 @@ export default function DemosPage() {
       <section className="border-t border-border py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Interaction craft"
             title="Small figures, built to answer the pointer."
             lede="Hand-built isometric line figures: hover, drag across, try the slider. The same care goes into the interfaces we build for clients."
           />
@@ -73,7 +71,7 @@ export default function DemosPage() {
 
       <section className="border-t border-border py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading eyebrow="Product previews" title="Screens from real products, rebuilt to play with." />
+          <SectionHeading title="Screens from real products, rebuilt to play with." />
           <div className="mt-14 space-y-20">
             {caseStudies.map((c) => (
               <div key={c.slug}>

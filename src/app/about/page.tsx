@@ -47,7 +47,6 @@ export default function AboutPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             as="h1"
-            eyebrow="About the studio"
             title={
               <>
                 A small studio <span className="text-amber-600 dark:text-gold-400">with a high bar.</span>
@@ -104,7 +103,7 @@ export default function AboutPage() {
 
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading eyebrow="Projects we've delivered" title="The kind of work we take on." />
+          <SectionHeading title="The kind of work we take on." />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {caseStudies.map((c) => (
               <li key={c.slug}>
@@ -129,7 +128,7 @@ export default function AboutPage() {
       <section className="border-t border-border bg-bg-alt py-24">
         <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
-            <SectionHeading eyebrow="How we think" title="Four rules we don't bend." />
+            <SectionHeading title="Four rules we don't bend." />
             <ul className="mt-10 space-y-6">
               {principles.map((p, i) => (
                 <li key={p.title} className="flex gap-5 border-t border-border pt-6">
@@ -143,7 +142,7 @@ export default function AboutPage() {
             </ul>
           </div>
           <div>
-            <SectionHeading eyebrow="Toolbox" title="What we build with." />
+            <SectionHeading title="What we build with." />
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
               {toolbox.map((g) => (
                 <div key={g.title} className="rounded-3xl border border-border bg-bg-elevated p-6">

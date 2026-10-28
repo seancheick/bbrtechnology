@@ -44,7 +44,6 @@ export default async function ContactPage({
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             as="h1"
-            eyebrow="Contact"
             title={
               <>
                 Tell us what&apos;s <span className="text-amber-600 dark:text-gold-400">slowing you down.</span>

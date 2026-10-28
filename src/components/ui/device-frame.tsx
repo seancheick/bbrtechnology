@@ -28,7 +28,7 @@ export function BrowserFrame({
           <span className="truncate">{url}</span>
         </div>
         {label ? (
-          <span className="eyebrow hidden shrink-0 text-[9px] text-navy-400 sm:inline">{label}</span>
+          <span className="eyebrow hidden shrink-0 text-[9px] text-navy-600 sm:inline dark:text-navy-400">{label}</span>
         ) : (
           <span className="w-10" aria-hidden />
         )}

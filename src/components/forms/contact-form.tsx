@@ -184,7 +184,7 @@ export function ContactForm({
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-navy-900 px-7 text-sm font-semibold text-gold-400 transition-colors hover:bg-navy-800 disabled:opacity-60 dark:bg-gold-400 dark:text-navy-950"
+          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-navy-900 px-7 text-sm font-semibold text-gold-400 transition-colors hover:bg-navy-800 disabled:opacity-60 dark:bg-gold-400 dark:text-navy-950"
         >
           {status === "submitting" ? (
             <>

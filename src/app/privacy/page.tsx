@@ -54,10 +54,7 @@ export default function PrivacyPage() {
     <section className="bg-bg py-24">
       <div className="mx-auto flex max-w-4xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-amber-600">
-            Privacy
-          </p>
-          <h1 className="mt-4 font-[family-name:var(--font-display)] text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+          <h1 className="font-[family-name:var(--font-display)] text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
             Privacy Policy
           </h1>
           <p className="mt-5 text-base leading-7 text-foreground-muted sm:text-lg">

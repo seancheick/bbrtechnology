@@ -25,7 +25,6 @@ export default function ServicesPage() {
           <div>
           <SectionHeading
             as="h1"
-            eyebrow="Services & pricing"
             title={
               <>
                 Clear scope. <span className="text-amber-600 dark:text-gold-400">Published prices.</span>
@@ -93,7 +92,6 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             tone="inverse"
-            eyebrow="After launch"
             title="Care plans with stated limits."
             lede="Monitoring, updates and a set number of hours each month. No open-ended retainers."
           />
@@ -137,7 +135,7 @@ export default function ServicesPage() {
             </Link>
             <Link
               href="/contact#book"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-navy-900 px-6 text-sm font-semibold text-gold-400 hover:bg-navy-800 dark:bg-gold-400 dark:text-navy-950"
+              className="inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-navy-900 px-6 text-sm font-semibold text-gold-400 hover:bg-navy-800 dark:bg-gold-400 dark:text-navy-950"
             >
               Book a free call <ArrowRight className="h-4 w-4" />
             </Link>

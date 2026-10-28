@@ -55,9 +55,23 @@
     scroll-behavior: smooth;
   }
 
+  /* clip, not hidden: hidden would break position: sticky. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
 

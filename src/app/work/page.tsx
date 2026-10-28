@@ -21,7 +21,6 @@ export default function WorkPage() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_380px] lg:px-8">
           <SectionHeading
             as="h1"
-            eyebrow="Work"
             title={
               <>
                 Projects we&apos;ve <span className="text-amber-600 dark:text-gold-400">delivered.</span>
@@ -76,7 +75,6 @@ export default function WorkPage() {
       <section id="clients" className="scroll-mt-20 border-t border-border bg-bg-alt py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Client engagements"
             title="Work we've done for others."
             lede="Client names and repositories stay private. These are the kinds of systems we've delivered."
           />
