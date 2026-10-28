@@ -1,0 +1,33 @@
+{
+ "comp": "/Users/seancheick/Downloads/bbr-website/design/video/built-to-move/comp.html?portrait",
+ "fps": 30,
+ "scale": 1,
+ "size": [
+  1080,
+  1920
+ ],
+ "shutter": 180.0,
+ "samples": "adaptive",
+ "gap_px": 16.0,
+ "samples_per_moving_frame": {
+  "4": 504,
+  "5": 33,
+  "6": 5,
+  "7": 1,
+  "8": 3,
+  "9": 1,
+  "10": 1,
+  "12": 1,
+  "13": 1,
+  "16": 2,
+  "19": 1,
+  "27": 2
+ },
+ "workers": 8,
+ "frames": 600,
+ "still_frames": 45,
+ "cut_frames": 20,
+ "captures": 2481,
+ "seconds": 187.2,
+ "final": false
+}

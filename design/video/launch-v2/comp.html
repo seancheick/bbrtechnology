@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>B&amp;Br launch v2 · composition</title>
+<link rel="stylesheet" href="faces.css">
+<!--
+CONCEPT v2 — outcome first, then the product proves it. One take on the site's own dark hero.
+ t             beat                                                     carries into the next beat
+ 0.00–2.30     headline lands word by word; "hours back." in gold        the headline
+ 2.30–3.40     headline slides into the hero layout; the 3D stack rises  the headline, the stack
+ 3.60–6.40     a cursor moves: the stack turns to it, the amber light     the cursor
+               follows, layers open; hover Logic, then Screen (captions)
+ 6.40–8.20     click: a request runs up the stack, each layer lights,     the stack's screen
+               the dashboard updates, "Request in → task done"
+ 8.40–9.20     the camera dives into the stack's screen                   the screen fills the frame → the demo ground
+ 9.20–13.6     the demo: a furnace message types in, Run, five stages     the camera
+ 13.6–18.7     whip through three project cards (numbers as published),   the camera
+               pull back to the row
+ 18.7–24.0     end card: headline, Book a free 30-min call, URL, checks   —
+Copy: hero.tsx, hero-scene.tsx, demo-section.tsx, demo-scenarios.ts (home-services/furnace), case-studies.ts cards,
+projects-section.tsx. The demo's "Live AI" pill is left out: the frames use the preset text, not a live answer.
+-->
+<style>
+:root{--navy:#0a0f1a;--gold:#fbbf24;--amber:#d97706;--fg:#f8fafc;--muted:#94a3b8;--subtle:#7b879b;--el:#151e31;--alt:#0f1626;
+  --bd:rgba(255,255,255,.12);--mono:ui-monospace,"SF Mono",Menlo,monospace;--success:#22c55e}
+html,body{margin:0;overflow:hidden;background:var(--navy)}
+body{width:var(--W);height:var(--H);font-family:'Satoshi',system-ui,sans-serif;color:var(--fg);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:0;top:0;width:var(--W);height:var(--H);overflow:hidden;background:var(--navy)}
+canvas.full{position:absolute;left:0;top:0}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.abs{position:absolute;left:0;top:0}
+.eyebrow{font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase}
+
+/* ── hero (screen space) ── */
+#hero{position:absolute;left:0;top:0;width:var(--W);height:var(--H);transform-origin:0 0}
+#h1{position:absolute;left:0;top:0;font-family:'Cabinet Grotesk';font-weight:800;line-height:.98;letter-spacing:-.01em;white-space:nowrap;transform-origin:0 0}
+#h1 .ln{display:block}
+#h1 span.w{display:inline-block;margin-right:.24em}
+#h1 .g{color:var(--gold)}
+#pill{position:absolute;display:inline-flex;align-items:center;gap:12px;border:1px solid var(--bd);background:var(--el);border-radius:999px;padding:10px 20px;font-size:16px;color:var(--muted)}
+#pill i{width:9px;height:9px;border-radius:50%;background:var(--success)}
+#btns{position:absolute;display:flex;gap:16px}
+.btn{display:inline-flex;align-items:center;gap:12px;border-radius:999px;padding:22px 40px;font-size:24px;font-weight:700;white-space:nowrap;transform-origin:50% 50%}
+.btn.p{background:var(--gold);color:var(--navy)}
+.btn.s{border:1px solid var(--bd);background:var(--el);color:var(--fg)}
+#checks{position:absolute;display:flex;gap:30px;font-size:20px;color:var(--muted);white-space:nowrap}
+#checks span{display:inline-flex;align-items:center;gap:8px}
+#checks svg{color:var(--success);font-size:22px}
+#tools{position:absolute;white-space:nowrap}
+#tools p{margin:0 0 14px;font-size:15px;color:var(--subtle)}
+#tools ul{list-style:none;margin:0;padding:0;display:flex;gap:40px;font-family:'Cabinet Grotesk';font-weight:800;font-size:25px;color:rgba(248,250,252,.55)}
+#hint{position:absolute;font-size:15px;color:var(--subtle);white-space:nowrap}
+#cap{position:absolute;width:420px;border-radius:16px;border:1px solid rgba(251,191,36,.3);background:rgba(10,15,26,.95);padding:16px 22px;text-align:center;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+#cap b{display:block;font-family:'Cabinet Grotesk';font-weight:800;font-size:25px;color:var(--gold)}
+#cap span{display:block;margin-top:2px;font-size:19px;color:rgba(255,255,255,.9)}
+#badge{position:absolute;border-radius:999px;background:var(--gold);color:var(--navy);padding:12px 26px;font-size:25px;font-weight:700;white-space:nowrap;box-shadow:0 20px 40px -10px rgba(0,0,0,.6);transform-origin:50% 50%}
+
+/* ── world: demo + projects (dark theme, ~1.4× site sizes) ── */
+#world{position:absolute;left:0;top:0;width:4400px;height:1400px;transform-origin:0 0}
+.sh{position:absolute}
+.sh .eyebrow{font-size:17px;color:var(--gold);margin:0}
+.sh h2{margin:12px 0 0;font-family:'Cabinet Grotesk';font-weight:800;font-size:66px;letter-spacing:-.01em;line-height:1.02;white-space:nowrap}
+#demo{left:210px;top:250px;width:1500px;border-radius:36px;background:var(--el);border:1px solid var(--bd);box-shadow:0 60px 160px -60px rgba(0,0,0,.8);transform-origin:50% 0}
+#demo .hd{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid var(--bd)}
+#demo .tabs{display:flex;gap:8px}
+#demo .tab{padding:10px 20px;border-radius:999px;font-size:19px;font-weight:500;color:var(--muted)}
+#demo .tab.on{background:#fff;color:var(--navy)}
+#demo .eb{font-size:15px;color:var(--subtle)}
+#demo .eb span{color:var(--muted)}
+#demo .bd{display:grid;grid-template-columns:600px 1fr}
+#demo .L{padding:32px;display:flex;flex-direction:column;gap:20px;border-right:1px solid var(--bd)}
+#demo .R{padding:32px;background:rgba(15,22,38,.6);border-radius:0 0 36px 0;min-height:600px}
+.h1x{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:700}
+.h1x svg{color:var(--amber);font-size:22px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--bd);border-radius:999px;padding:8px 16px;font-size:16px;font-weight:500;color:var(--muted)}
+.chip.on{border-color:rgba(217,119,6,.5);background:rgba(217,119,6,.1);color:var(--fg)}
+#ta{position:relative;height:200px;border-radius:24px;border:1px solid var(--bd);background:var(--navy)}
+#msg{position:absolute;left:24px;top:22px;right:24px;font-size:23px;line-height:1.55}
+#msg i{display:inline-block;width:2px;height:28px;background:var(--amber);vertical-align:-6px;margin-left:1px}
+#count{position:absolute;right:20px;bottom:14px;font-size:16px;color:var(--subtle);font-variant-numeric:tabular-nums}
+#run{height:66px;border-radius:999px;background:var(--gold);color:var(--navy);display:flex;align-items:center;justify-content:center;gap:12px;font-size:20px;font-weight:700;transform-origin:50% 50%}
+.fine{font-size:15px;line-height:1.5;color:var(--subtle);margin:0}
+#status{font-size:19px;color:var(--muted);height:30px;margin:0}
+.slots{margin-top:14px;display:flex;flex-direction:column;gap:14px}
+.slot{position:relative}
+.ph{position:absolute;left:0;right:0;top:0;height:64px;display:flex;align-items:center;gap:16px;padding:0 22px;border:1.5px dashed var(--bd);border-radius:22px;font-size:19px;color:var(--subtle)}
+.ph b{font-family:var(--mono);font-size:15px;letter-spacing:.16em;font-weight:400}
+.stg{border:1px solid var(--bd);border-radius:22px;background:var(--el);padding:18px 22px;transform-origin:50% 50%}
+.stg .tt{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--subtle)}
+.stg .tt svg{color:var(--amber);font-size:18px}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{border-radius:8px;padding:5px 11px;font-size:16px;font-weight:700}
+.tag.k{background:#fff;color:var(--navy)}
+.tag.u{background:rgba(239,68,68,.1);color:#f87171;box-shadow:inset 0 0 0 1px rgba(239,68,68,.3)}
+.conf{margin-left:auto;font-size:16px;color:var(--subtle)}
+.p{font-size:19px;color:var(--muted);margin:8px 0 0;line-height:1.45}
+.task{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.task b{font-size:19px;font-weight:500}.task span{font-size:16px;color:var(--subtle);white-space:nowrap}
+.alert{display:flex;gap:14px;align-items:flex-start}
+.alert .ic{width:42px;height:42px;border-radius:11px;background:var(--alt);box-shadow:inset 0 0 0 1px var(--bd);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
+.alert b{font-size:19px;font-weight:500}.alert b span{font-weight:400;color:var(--subtle);text-transform:uppercase}
+.alert p{margin:2px 0 0;font-size:18px;color:var(--muted);line-height:1.4}
+.reply{border-radius:20px 20px 20px 5px;background:var(--el);box-shadow:inset 0 0 0 1px var(--bd);padding:14px 18px;font-size:19px;line-height:1.5;margin:0}
+.reply .rest{color:transparent}
+.note{font-size:16px;color:var(--subtle);margin:10px 0 0}
+/* project cards */
+.pcard{position:absolute;top:260px;width:470px;height:640px;box-sizing:border-box;border-radius:34px;padding:38px;overflow:hidden;background:#0a0f1a;border:1px solid rgba(255,255,255,.08);box-shadow:0 50px 120px -50px rgba(0,0,0,.9);display:flex;flex-direction:column;transform-origin:50% 50%}
+.pcard .blob{position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;filter:blur(60px);opacity:.45}
+.pcard .eyebrow{position:relative;font-size:16px;color:var(--gold);margin:0}
+.pcard .ind{position:relative;margin:6px 0 0;font-size:18px;color:var(--muted)}
+.pcard .met{position:relative;margin:34px 0 0;font-family:'Cabinet Grotesk';font-weight:800;font-size:80px;white-space:nowrap;line-height:1;font-variant-numeric:tabular-nums}
+.pcard .lab{position:relative;margin:10px 0 0;font-size:21px;line-height:1.4;color:var(--muted)}
+.pcard .lab small{font-size:17px}
+.pcard .out{position:relative;margin:28px 0 0;font-size:20px;line-height:1.55;color:rgba(255,255,255,.85)}
+.pcard .go{position:relative;margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-size:20px;font-weight:700;color:var(--gold)}
+.pcard.more{background:linear-gradient(180deg,#0f1626 0%,#1c2740 55%,#2d3b58 100%);border:1.5px dashed rgba(251,191,36,.4)}
+.pcard.more h3{margin:34px 0 0;font-family:'Cabinet Grotesk';font-weight:800;font-size:46px;line-height:1.08}
+.pcard.more ul{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.pcard.more li{border-radius:999px;background:rgba(255,255,255,.1);padding:7px 15px;font-size:17px;color:rgba(255,255,255,.9)}
+
+/* ── end card ── */
+#end{position:absolute;left:0;top:0;width:var(--W);height:var(--H)}
+#logo{position:absolute;font-family:'Cabinet Grotesk';font-weight:800;color:#fff;white-space:nowrap;line-height:1}
+#logo span{display:inline-block;transform-origin:50% 90%}
+#logo span.d{width:.2em;height:.2em;border-radius:50%;background:var(--amber);margin-left:.04em}
+.tl{position:absolute;left:0;width:var(--W);text-align:center;font-family:'Cabinet Grotesk';font-weight:800;color:var(--fg);line-height:1.02;white-space:nowrap}
+.tl span{display:inline-block;margin:0 .12em}
+.tl .g{color:var(--gold)}
+#cta{position:absolute;transform-origin:50% 50%}
+#url{position:absolute;left:0;width:var(--W);text-align:center;font-family:var(--mono);letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+#echecks{position:absolute;left:0;width:var(--W);display:flex;justify-content:center;gap:30px;color:var(--muted);white-space:nowrap}
+#echecks span{display:inline-flex;align-items:center;gap:8px}
+#echecks svg{color:var(--success)}
+#cursor{position:absolute;left:0;top:0;width:34px;height:44px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.5))}
+#hud{position:absolute;right:14px;bottom:10px;font:14px var(--mono);color:#f66;display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+<canvas id="ground" class="full"></canvas>
+<div id="world">
+  <div class="sh" id="demoSH" style="left:210px;top:40px"><p class="eyebrow">01 · See it work</p><h2>A customer message in. A finished workflow out.</h2></div>
+  <div id="demo" class="abs">
+    <div class="hd" id="demoHd"><div class="tabs"><div class="tab on">Home services</div><div class="tab">E-commerce</div><div class="tab">Property management</div></div>
+      <div class="eb eyebrow">Fictional business · <span>Northside Plumbing &amp; Heating</span></div></div>
+    <div class="bd">
+      <div class="L">
+        <div class="h1x"><svg class="i" viewBox="0 0 24 24" data-i="inbox"></svg>Incoming customer message</div>
+        <div class="chips"><div class="chip on">No heat tonight</div><div class="chip">Water heater quote</div><div class="chip">Invoice question</div></div>
+        <div id="ta"><div id="msg"><span id="mtyped"></span><i id="caret"></i></div><div id="count">0/500</div></div>
+        <div id="run"><svg class="i" viewBox="0 0 24 24" data-i="play"></svg><span id="runT">Run the workflow</span></div>
+        <p class="fine">Sandbox. Nothing is sent, booked or stored, and messages are processed by a third-party AI provider, so please don't include personal details.</p>
+      </div>
+      <div class="R" id="R">
+        <p id="status">Pick an example or write your own, then run it.</p>
+        <div class="slots">
+          <div class="slot"><div class="ph"><b>01</b>Classified</div><div class="stg"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="tags"></svg>Classified</p>
+            <div class="row"><span class="tag k" id="cat"></span><span class="tag u" id="urg"></span><span class="conf" id="conf"></span></div><p class="p" id="sum"></p></div></div>
+          <div class="slot"><div class="ph"><b>02</b>Task created</div><div class="stg"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="clipboard-check"></svg>Task created</p>
+            <div class="task"><b id="taskT"></b><span id="taskM"></span></div></div></div>
+          <div class="slot"><div class="ph"><b>03</b>Alert routed</div><div class="stg"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="bell-ring"></svg>Alert routed</p>
+            <div class="alert"><div class="ic"><svg class="i" viewBox="0 0 24 24" data-i="smartphone"></svg></div><div><b><span id="alTo" style="text-transform:none;color:inherit;font-weight:500"></span> <span>· sms</span></b><p id="alM"></p></div></div></div></div>
+          <div class="slot"><div class="ph"><b>04</b>Reply drafted</div><div class="stg" id="replyCard"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="message-square-text"></svg>Reply drafted</p>
+            <p class="reply"><span id="rtyped"></span><span class="rest" id="rrest"></span></p><p class="note" id="rnote">Waits for staff approval before sending.</p></div></div>
+          <div class="slot"><div class="ph"><b>05</b>Escalation decision</div><div class="stg"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="shield-check"></svg>Within the rules</p>
+            <p class="p" style="margin:0">Handled by the playbook. A person still approves the reply.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh" id="projSH"><p class="eyebrow">03 · Projects we've delivered</p><h2>Built for real operations.</h2></div>
+  <div id="cards"></div>
+</div>
+<canvas id="gl" class="full"></canvas>
+<div id="hero">
+  <div id="pill" class="eyebrow"><i></i>Software studio · Boston · Taking on new projects</div>
+  <div id="h1"><span class="ln" id="l1"></span><span class="ln g" id="l2"></span></div>
+  <div id="btns"><div class="btn p" id="heroBook">Book a free 30-min call<svg class="i" viewBox="0 0 24 24" data-i="arrow-up-right"></svg></div><div class="btn s">See it work<svg class="i" viewBox="0 0 24 24" data-i="arrow-right"></svg></div></div>
+  <div id="checks"></div>
+  <div id="tools"><p class="eyebrow">We connect the tools you already pay for</p><ul id="toolList"></ul></div>
+  <div id="hint" class="eyebrow">Hover a layer · click to run it</div>
+  <div id="cap"><b id="capN"></b><span id="capL"></span></div>
+  <div id="badge">Request in → task done</div>
+</div>
+<div id="end">
+  <div id="logo"><span>B</span><span>&amp;</span><span>B</span><span>r</span><span class="d"></span></div>
+  <div class="tl" id="tl1"></div>
+  <div class="tl g" id="tl2"></div>
+  <div id="cta" class="btn p">Book a free 30-min call<svg class="i" viewBox="0 0 24 24" data-i="arrow-up-right"></svg></div>
+  <div id="url">bbrtechnology.vercel.app</div>
+  <div id="echecks"></div>
+</div>
+<svg id="cursor" viewBox="0 0 34 44"><path d="M4 3 L30 22 L18 24 L26 40 L20 43 L12 27 L4 36 Z" fill="#fff" stroke="#0a0f1a" stroke-width="2.5" stroke-linejoin="round"/></svg>
+<div id="hud"></div>
+</div>
+<script src="motion.js"></script>
+<script src="icons.js"></script>
+<script src="three.bundle.js"></script>
+<script src="rounded-box.js"></script>
+<script>
+// ════════════ B&Br launch v2 — every value below is a pure function of t ════════════
+const q=new URLSearchParams(location.search), SQ=q.has('square');
+const W=SQ?1080:1920, H=1080, DUR=24;
+document.documentElement.style.setProperty('--W',W+'px'); document.documentElement.style.setProperty('--H',H+'px');
+const {clamp,lerp,seg,sstep,ssstep,spring,ease}=OM;
+const $=id=>document.getElementById(id);
+document.querySelectorAll('svg[data-i]').forEach(s=>s.innerHTML=ICONS[s.dataset.i]);
+const px=v=>v.toFixed(2)+'px';
+
+// ── copy, verbatim from the site ──
+const H1A=['Software','and','AI','automation'], H1B=['that','gives','your','team','hours','back.'];
+const CHECKS=['Projects from $250','Fixed quote in 2 business days','You own the code'];
+const TOOLS=['Google Workspace','Microsoft 365','Shopify','Stripe','HubSpot','QuickBooks','Slack','Twilio','Hostex','Calendly'];
+const LAYERS=[{y:0,h:0.42,w:2.6,color:'#1c2745',name:'Data',line:'Databases, pipelines and reporting'},
+  {y:0.72,h:0.22,w:2.3,color:'#243256',name:'Logic',line:'Automations and AI that follow your rules'},
+  {y:1.22,h:0.14,w:2.1,color:'#2e3e68',name:'APIs',line:'Integrations, and MCP for AI agents'},
+  {y:1.72,h:0.1,w:1.95,color:'#1c2745',name:'Screen',line:'Websites, web apps and mobile apps'}];
+const MSG="Our furnace stopped working and it's 40 degrees in the house. Can someone come tonight?";
+const SIM={category:'maintenance',urgency:'urgent',summary:'No heat with indoor temperature around 40°F; customer requests tonight.',
+  task:{title:'Emergency furnace call',assignee_role:'On-call technician',due:'Tonight'},
+  alert:{to_role:'On-call technician',message:'EMERGENCY: no heat, house at ~40°F. Customer requests a visit tonight.'},
+  draft_reply:'That sounds miserable, and we treat no heat as an emergency. Our on-call technician has been alerted and will call you shortly to confirm a time. After-hours visits carry a $149 dispatch fee.',confidence:0.95};
+const CARDS=[
+  {type:'Operations automation',ind:'Short-term rentals',accent:'#16423c',pre:'~',num:150,suf:'',label:'coordination texts per unit, per month, now automatic',note:'team-reported',
+   out:'Bookings turn into cleaning jobs on their own, cleaners prove the work with photos, pay reconciles itself, and every calendar is checked daily so no night goes unbooked. The owner just approves.'},
+  {type:'Data & AI platform',ind:'Health tech',accent:'#2563eb',pre:'',num:39,suf:'',label:'medical reference databases merged into one scoring engine',note:'',
+   out:'A data pipeline that cleans and scores raw label data, a mobile app on top, and an AI assistant that answers risky questions with reviewed rules first, so users and clinicians can trust the answer.'},
+  {type:'Field workforce platform',ind:'Construction & electrical',accent:'#0f766e',pre:'',num:12,suf:' hrs/wk',label:'of manual dispatch tracking removed',note:'team-reported',
+   out:'Every clock-in, photo and overtime request is GPS-stamped and tracked, so crews are paid correctly, supervisors see the day live, and disputed invoices are settled with proof.'}];
+const MORE=['MVPs & prototypes','Client portals','Dashboards','Inventory systems','Booking flows','Chatbots','APIs & MCP'];
+
+// ── timeline ──
+const T={w1:[0.25,0.38,0.51,0.64], w2:[0.95,1.08,1.21,1.34,1.55,1.72], hMove:[2.3,3.05], rise:2.45, pill:2.75, btns:2.9, checks:[3.0,3.08,3.16], tools:3.2,
+  hand0:3.65, hover:[[5.05,5.75,1],[5.75,6.3,3]], click:6.45, run:1.8, dive:[8.45,9.25], swap:[9.0,9.25],
+  sh:9.2, card:9.35, type0:9.6, cps:92, run2:10.85, read:11.15, stage:[11.2,11.42,11.64,11.86,12.08], rtype0:11.9, rcps:180,
+  whips:[[13.65,14.2],[15.15,15.5],[16.25,16.6]], count:[14.0,14.07,14.14], pull:[17.35,18.15], dim:[18.75,19.3],
+  logo:19.25, tl1:[19.6,19.72,19.84,19.96], tl2:[20.15,20.27,20.39,20.51,20.68,20.85], cta:21.2, url:21.45, echecks:21.6, ctaClick:22.35};
+T.done=T.click+T.run*0.9;
+window.__meta={dur:DUR,fps:30,w:W,h:H,cuts:[T.swap[0]+0.1],
+  inFrame:{h1:[0.2,8.4,'whole'],logo:[19.8,DUR,'whole'],cta:[21.6,DUR,'whole']}};
+
+// ── build DOM from copy ──
+$('l1').innerHTML=H1A.map(w=>`<span class="w">${w}</span>`).join('');
+$('l2').innerHTML=H1B.map(w=>`<span class="w">${w}</span>`).join('');
+const chk=c=>`<span><svg class="i" viewBox="0 0 24 24">${ICONS.check}</svg>${c}</span>`;
+$('checks').innerHTML=CHECKS.map(chk).join(''); $('echecks').innerHTML=CHECKS.map(chk).join('');
+$('toolList').innerHTML=TOOLS.map(t=>`<li>${t}</li>`).join('');
+$('tl1').innerHTML=H1A.map(w=>`<span>${w}</span>`).join(''); $('tl2').innerHTML=H1B.map(w=>`<span>${w}</span>`).join('');
+$('cat').textContent=SIM.category; $('urg').textContent=SIM.urgency; $('conf').textContent=Math.round(SIM.confidence*100)+'% confidence'; $('sum').textContent=SIM.summary;
+$('taskT').textContent=SIM.task.title; $('taskM').textContent=`${SIM.task.assignee_role} · ${SIM.task.due}`; $('alTo').textContent=SIM.alert.to_role; $('alM').textContent=SIM.alert.message;
+$('rrest').textContent=SIM.draft_reply;
+$('cards').innerHTML=CARDS.map((c,i)=>`<div class="pcard" id="pc${i}"><span class="blob" style="background:${c.accent}"></span><p class="eyebrow">${c.type}</p><p class="ind">${c.ind}</p>
+  <p class="met" id="met${i}">${c.pre}${c.num}${c.suf}</p><p class="lab">${c.label}${c.note?` <small>(${c.note})</small>`:''}</p><p class="out">${c.out}</p>
+  <span class="go">See the project<svg class="i" viewBox="0 0 24 24">${ICONS['arrow-right']}</svg></span></div>`).join('')+
+  `<div class="pcard more" id="pc3"><p class="eyebrow">And more</p><h3>If it runs on software, we can build it.</h3><ul>${MORE.map(m=>`<li>${m.replace('&','&amp;')}</li>`).join('')}</ul>
+  <span class="go">Tell us what you need<svg class="i" viewBox="0 0 24 24">${ICONS['arrow-right']}</svg></span></div>`;
+const PCX=2120, PCW=470, PCG=34; [0,1,2,3].forEach(i=>$('pc'+i).style.left=(PCX+i*(PCW+PCG))+'px');
+$('projSH').style.left=PCX+'px'; $('projSH').style.top='60px';
+
+// ── hero layout (screen space) ──
+const HL = SQ ? {big:62, cx:540, cy:420, small:0.86, hx:60, hy:96, stack:[540,700], pill:[60,40], btn:null}
+              : {big:108, cx:960, cy:470, small:0.68, hx:150, hy:330, stack:[1500,540], pill:[150,250]};
+let H1W=0,H1H=0;
+
+// ── three: the stack, as hero-scene.tsx builds it ──
+const gl=$('gl');
+const R3=new THREE.WebGLRenderer({canvas:gl,antialias:true,alpha:true,preserveDrawingBuffer:true});
+R3.setPixelRatio(window.devicePixelRatio||1); R3.setSize(W,H,false); gl.style.width=W+'px'; gl.style.height=H+'px';
+R3.toneMapping=THREE.ACESFilmicToneMapping; R3.outputColorSpace=THREE.SRGBColorSpace;
+const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(32,W/H,0.1,100);
+scene.add(new THREE.AmbientLight(0xffffff,0.5)); scene.add(new THREE.HemisphereLight('#dbe4ff','#0a0f1a',0.6));
+{ const d1=new THREE.DirectionalLight(0xffffff,2.4); d1.position.set(-4,6,4); scene.add(d1); const d2=new THREE.DirectionalLight('#9fb4ff',0.9); d2.position.set(5,2,-2); scene.add(d2); }
+const group=new THREE.Group(); scene.add(group);
+const spot=new THREE.PointLight('#d97706',7,8); spot.position.set(1.5,3,3); group.add(spot);
+const GOLD='#fbbf24', EDGE='#93a6d6';
+const L3=LAYERS.map((L,i)=>{
+  const g=new THREE.Group(); group.add(g);
+  const geo=new RoundedBoxGeometry(L.w,L.h,L.w,4,Math.min(0.12,L.h/2.2));
+  const mat=new THREE.MeshPhysicalMaterial({color:L.color,roughness:0.38,metalness:0.25,clearcoat:0.7,clearcoatRoughness:0.25,emissive:'#d97706',emissiveIntensity:0});
+  g.add(new THREE.Mesh(geo,mat));
+  const edges=new THREE.LineSegments(new THREE.EdgesGeometry(geo,20),new THREE.LineBasicMaterial({color:i===3?GOLD:EDGE})); g.add(edges);
+  if(i===0) [-0.75,0,0.75].forEach(x=>{ const m=new THREE.Mesh(new THREE.PlaneGeometry(0.55,0.1),new THREE.MeshBasicMaterial({color:'#0b1222'})); m.position.set(x,0,L.w/2+0.005); g.add(m); });
+  if(i===1) [-0.6,0,0.6].forEach(x=>[-0.6,0,0.6].forEach(z=>{ const m=new THREE.Mesh(new RoundedBoxGeometry(0.42,0.07,0.42,4,0.03),new THREE.MeshStandardMaterial({color:'#3b4a72',roughness:0.3,metalness:0.4})); m.position.set(x,L.h/2+0.035,z); g.add(m); }));
+  if(i===2) [-0.8,-0.4,0,0.4,0.8].forEach(x=>{ const m=new THREE.Mesh(new THREE.SphereGeometry(0.028,12,12),new THREE.MeshBasicMaterial({color:GOLD})); m.position.set(x,0,L.w/2+0.01); g.add(m); });
+  const out={g,mat,edges};
+  if(i===3){ const s=new THREE.Group(); s.position.set(0,L.h/2+0.006,0); s.rotation.x=-Math.PI/2; g.add(s);
+    out.scr=new THREE.MeshStandardMaterial({color:'#0b1430',emissive:'#1e3a8a',emissiveIntensity:0.35}); s.add(new THREE.Mesh(new THREE.PlaneGeometry(1.62,1.62),out.scr));
+    const hb=new THREE.Mesh(new THREE.PlaneGeometry(1.3,0.12),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:0.85})); hb.position.set(0,0.58,0.002); s.add(hb);
+    out.cardR=new THREE.MeshBasicMaterial({color:'#26355c'});
+    [-0.34,0.34].forEach(x=>{ const m=new THREE.Mesh(new THREE.PlaneGeometry(0.6,0.42),x>0?out.cardR:new THREE.MeshBasicMaterial({color:'#26355c'})); m.position.set(x,0.18,0.002); s.add(m); });
+    [0,1,2,3,4,5].forEach(n=>{ const h=0.2+(n%3)*0.16; const m=new THREE.Mesh(new THREE.PlaneGeometry(0.12,h),new THREE.MeshBasicMaterial({color:n===4?GOLD:'#4a5c8c'}));
+      if(n===4){ m.geometry.translate(0,h/2,0); m.position.set(-0.55+n*0.22,-0.52,0.002); out.bar=m; } else m.position.set(-0.55+n*0.22,-0.52+h/2,0.002); s.add(m); });
+    out.screenGroup=s; }
+  return out; });
+const packets=[0,1,2].map(()=>{ const m=new THREE.Mesh(new THREE.SphereGeometry(0.065,20,20),new THREE.MeshBasicMaterial({color:GOLD})); m.position.set(1.55,0,1.55); group.add(m); return m; });
+const runner=new THREE.Mesh(new THREE.SphereGeometry(0.14,24,24),new THREE.MeshBasicMaterial({color:'#fff3c4'})); runner.position.set(1.55,0,1.55); group.add(runner);
+{ const m=new THREE.Mesh(new THREE.CylinderGeometry(0.006,0.006,2.3,6),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:0.35})); m.position.set(1.55,1.0,1.55); group.add(m); }
+// contact shadow: a soft dark ellipse under the stack
+{ const c=document.createElement('canvas'); c.width=c.height=256; const x=c.getContext('2d'), g=x.createRadialGradient(128,128,0,128,128,128); g.addColorStop(0,'rgba(0,0,0,.55)'); g.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle=g; x.fillRect(0,0,256,256);
+  const m=new THREE.Mesh(new THREE.PlaneGeometry(5.5,5.5),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false})); m.rotation.x=-Math.PI/2; m.position.y=-0.3; group.add(m); }
+
+// ── the hand: one path for the whole film (screen px) ──
+let HAND=[], CLICKS=[];
+const hand=t=>OM.spline(HAND,t);
+// what the stack feels from the pointer, smoothed exactly like the site's useFrame (rate × dt), integrated once at 240 Hz
+let SIM3=null;
+function hovered(t){ for(const [a,b,i] of T.hover) if(t>=a&&t<b) return i; return -1; }
+const over=t=>t>=T.hand0+0.15&&t<T.dive[0];
+function simulate(){
+  const hz=240, n=Math.ceil(DUR*hz)+2, A={ry:new Float32Array(n),rx:new Float32Array(n),sx:new Float32Array(n),sy:new Float32Array(n),si:new Float32Array(n),sp:new Float32Array(n),lift:[0,1,2,3].map(()=>new Float32Array(n)),bar:new Float32Array(n)};
+  let ry=-0.62,rx=0.1,sx=1.5,sy=3,si=7,sp=1.15,lift=[0,0,0,0],bar=1; const dt=1/hz;
+  for(let k=0;k<n;k++){ const t=k*dt, o=over(t), h=hand(t);
+    const p={x:clamp((h[0]-HL.stack[0])/(W/2),-1,1), y:clamp((h[1]-HL.stack[1])/(H/2),-1,1)};
+    const e=Math.min(1,dt*4);
+    ry+=((o?p.x*0.85:0)-0.62-ry)*e; rx+=((o?p.y*0.3:0)+0.1-rx)*e;
+    sx+=((o?p.x*3.2:1.5)-sx)*e; sy+=((o?2.2-p.y*2.2:3)-sy)*e; si+=((o?16:7)-si)*e;
+    sp+=((o?1.4:1.15)-sp)*Math.min(1,dt*2.5);
+    const hv=hovered(t); lift=lift.map((v,i)=>v+((hv===i?0.22:0)-v)*e);
+    const el=t-T.click, isDone=el>=T.run*0.9&&el<T.run+2.5; bar+=((isDone?1.9:1)-bar)*Math.min(1,dt*5);
+    A.ry[k]=ry;A.rx[k]=rx;A.sx[k]=sx;A.sy[k]=sy;A.si[k]=si;A.sp[k]=sp;lift.forEach((v,i)=>A.lift[i][k]=v);A.bar[k]=bar; }
+  SIM3={hz,A,at:(arr,t)=>{ const f=clamp(t*hz,0,n-1.001), i=Math.floor(f), u=f-i; return arr[i]*(1-u)+arr[i+1]*u; }};
+}
+
+function stack(t){
+  const S=SIM3, A=S.A, at=a=>S.at(a,t);
+  const r=spring(t-T.rise,0.62,9);                                   // the stack rises in when the headline settles
+  const div=ssstep(...T.dive,t), dk=ease.cubicInOut(seg(t,...T.dive));
+  group.position.set(0,lerp(-7,-1.05,r),0);
+  group.rotation.y=lerp(at(A.ry)-(1-r)*1.6,0,dk); group.rotation.x=lerp(at(A.rx),0,dk);
+  group.scale.setScalar(lerp(0.6,1,clamp(r,0,1.2)));
+  spot.position.x=at(A.sx); spot.position.y=at(A.sy); spot.intensity=at(A.si);
+  const sp=at(A.sp); L3.forEach((l,i)=>l.g.position.y=LAYERS[i].y*sp+at(A.lift[i]));
+  const topY=LAYERS[3].y*sp+at(A.lift[3]);
+  packets.forEach((m,i)=>{ const k=(t*0.28+i/3)%1; m.position.y=-0.1+k*(topY+0.25); m.scale.setScalar(0.25+Math.sin(Math.PI*k)*0.75); });
+  const el=t-T.click, k=el>=0&&el<T.run?el/T.run:-1;
+  runner.visible=k>=0; if(k>=0){ runner.position.y=-0.1+k*(topY+0.3); runner.scale.setScalar(1+Math.sin(k*Math.PI*6)*0.15); }
+  const lit=k<0?-1:Math.min(3,Math.floor(k*4)), hv=hovered(t), done=el>=T.run*0.9;
+  L3.forEach((l,i)=>{ l.mat.emissiveIntensity=lit===i?0.25:0; l.edges.material.color.set((hv===i||lit===i||i===3)?GOLD:EDGE); });
+  L3[3].scr.emissiveIntensity=done?0.7:0.35; L3[3].cardR.color.set(done?'#3a5596':'#26355c'); L3[3].bar.scale.y=at(A.bar);
+  // camera: the site's view, shifted so the stack sits right of the headline; the dive ends over the screen
+  group.updateMatrixWorld(true);
+  const top=new THREE.Vector3(0,LAYERS[3].h/2,0); L3[3].g.localToWorld(top);
+  const from=new THREE.Vector3(0,3.85,10.4), to=new THREE.Vector3(top.x,top.y+2.75,top.z+0.0001);
+  cam.position.lerpVectors(from,to,dk);
+  cam.up.set(0,1,0).lerp(new THREE.Vector3(0,0,-1),dk).normalize();
+  cam.lookAt(new THREE.Vector3().lerpVectors(new THREE.Vector3(0,0,0),top,dk));
+  cam.filmOffset=lerp(SQ?0:-((HL.stack[0]-W/2)/W)*cam.getFilmWidth()*1.0,0,dk);
+  cam.updateProjectionMatrix();
+  if(SQ) cam.setViewOffset(W,H,0,lerp(-(HL.stack[1]-H/2),0,dk),W,H); else cam.clearViewOffset();
+  R3.render(scene,cam);
+  return {topY,done,el,lit,top};
+}
+const proj=v=>{ const p=v.clone().project(cam); return [(p.x+1)/2*W,(1-p.y)/2*H]; };
+function layerScreen(i){ const v=new THREE.Vector3(0,0,LAYERS[i].w/2); L3[i].g.localToWorld(v); return proj(v); }
+
+// ── world camera (demo + projects), keyed on world rects ──
+let RW={}, K=[], HITS=[];
+function box(el){ let x=0,y=0,e=el; while(e&&e!==$('world')){ x+=e.offsetLeft; y+=e.offsetTop; e=e.offsetParent; } return {x,y,w:el.offsetWidth,h:el.offsetHeight,cx:x+el.offsetWidth/2,cy:y+el.offsetHeight/2}; }
+const fr=(cx,cy,w,h,t,curve)=>({t,x:cx,y:cy,zoom:Math.min(W/w,H/h),curve});
+function measureWorld(){
+  ['demo','R','run','ta','replyCard','demoSH','projSH','pc0','pc1','pc2','pc3'].forEach(id=>RW[id]=box($(id)));
+  RW.slots=[...document.querySelectorAll('.slot')].map(box);
+  const D=RW.demo, Rc=RW.R, rep=RW.replyCard, sh=RW.demoSH, P=[0,1,2].map(i=>RW['pc'+i]);
+  const wideH=D.y+D.h-sh.y+120, all=[RW.projSH.x-80,RW.projSH.y-60,RW.pc3.x+RW.pc3.w+80,RW.pc0.y+RW.pc0.h+80];
+  const card=(c,t,curve)=>fr(c.cx,c.cy-90,SQ?c.w+120:c.w*2.15,c.h+330,t,curve)   // keep the section heading in frame;
+  K=[ fr(D.cx,(sh.y+D.y+D.h)/2,D.w+140,wideH,0),
+      fr(D.cx,(sh.y+D.y+D.h)/2,D.w+140,wideH,T.card+0.2),
+      fr(RW.ta.cx+(SQ?0:300),RW.ta.cy,SQ?700:1300,SQ?700:730,T.type0+0.6,ease.cubicInOut),
+      fr(RW.ta.cx+(SQ?0:300),RW.ta.cy,SQ?700:1300,SQ?700:730,T.run2+0.05),
+      fr(Rc.cx,RW.slots[1].cy,SQ?Rc.w+60:Rc.w+420,Rc.h*0.75,T.stage[0]+0.05,ease.expoInOut),
+      fr(Rc.cx,rep.cy,SQ?Rc.w+40:Rc.w+260,rep.h*2.3,T.stage[4]+0.3,ease.sineInOut),
+      fr(Rc.cx,rep.cy,SQ?Rc.w+40:Rc.w+260,rep.h*2.3,T.whips[0][0]),
+      card(P[0],T.whips[0][1],ease.expoInOut), card(P[0],T.whips[1][0]),
+      card(P[1],T.whips[1][1],ease.expoInOut), card(P[1],T.whips[2][0]),
+      card(P[2],T.whips[2][1],ease.expoInOut), card(P[2],T.pull[0]),
+      fr((all[0]+all[2])/2,(all[1]+all[3])/2,all[2]-all[0],all[3]-all[1],T.pull[1],ease.cubicInOut)];
+  HITS=[[T.whips[0][1],6,9],[T.whips[1][1],6,9],[T.whips[2][1],6,9]];
+}
+function camAt(t){ const c=OM.camera(t,K); let x=c.x,y=c.y,rot=c.rot;
+  for(const [th,amp,dec] of HITS){ const s=OM.shake(t,th,{amp,decay:dec,seed:Math.round(th*100)}); x+=s.x/c.zoom; y+=s.y/c.zoom; rot+=s.rot*0.5; }
+  return {x,y,zoom:c.zoom,rot}; }
+
+// ── ground: the site's 48 px grid, seen through whichever camera is live ──
+const G=$('ground'), gx=G.getContext('2d'); G.width=W; G.height=H; G.style.width=W+'px'; G.style.height=H+'px';
+let NOISE; { const n=document.createElement('canvas'); n.width=n.height=256; const c=n.getContext('2d'), d=c.createImageData(256,256), r=OM.rng(7);
+  for(let i=0;i<d.data.length;i+=4){ const w=r()<0.5?255:0; d.data[i]=d.data[i+1]=d.data[i+2]=w; d.data[i+3]=Math.floor(r()*6); } c.putImageData(d,0,0); NOISE=n; }
+function ground(gcam,alpha){
+  gx.setTransform(1,0,0,1,0,0); gx.fillStyle='#0a0f1a'; gx.fillRect(0,0,W,H);
+  const g=gx.createRadialGradient(W/2,H*0.4,0,W/2,H*0.4,Math.max(W,H)*0.7); g.addColorStop(0,'rgba(30,41,59,.75)'); g.addColorStop(1,'rgba(10,15,26,0)'); gx.fillStyle=g; gx.fillRect(0,0,W,H);
+  const L=OM.lattice(gcam,{depth:0.6,spacing:48,px:1,W,H}); gx.setTransform(...L.matrix); gx.strokeStyle=`rgba(255,255,255,${(0.05*alpha).toFixed(3)})`; gx.lineWidth=L.r;
+  gx.beginPath(); for(let x=L.x0;x<=L.x1;x+=48){ gx.moveTo(x,L.y0); gx.lineTo(x,L.y1); } for(let y=L.y0;y<=L.y1;y+=48){ gx.moveTo(L.x0,y); gx.lineTo(L.x1,y); } gx.stroke();
+  gx.setTransform(1,0,0,1,0,0); const m=gx.createRadialGradient(W/2,H*0.4,H*0.25,W/2,H*0.4,W*0.75); m.addColorStop(0,'rgba(10,15,26,0)'); m.addColorStop(1,'rgba(10,15,26,1)'); gx.fillStyle=m; gx.fillRect(0,0,W,H);
+  gx.fillStyle=gx.createPattern(NOISE,'repeat'); gx.fillRect(0,0,W,H);
+}
+
+// ── seek ──
+let CAM, VIEW, ST, CUR;
+function seek(t){
+  const inWorld=t>=T.swap[0];
+  // ground camera: still in the hero, the world camera after the dive
+  CAM=camAt(t); VIEW=OM.view(CAM,{W,H});
+  const heroCam={x:W/2,y:H/2,zoom:1+2.5*ease.expoIn(seg(t,...T.dive)),rot:0};
+  ground(inWorld?CAM:heroCam, 1);
+
+  // 1 · headline: words land big and centred, then the line block slides into the hero layout
+  const mk=ease.quintInOut(seg(t,...T.hMove)), h1=$('h1');
+  const s=lerp(1,HL.small,mk), fs=HL.big;
+  h1.style.fontSize=fs+'px';
+  const x0=HL.cx-H1W/2, y0=HL.cy-H1H/2;
+  const dive=ease.expoIn(seg(t,...T.dive));
+  const hx=lerp(x0,HL.hx,mk), hy=lerp(y0,HL.hy,mk);
+  h1.style.transform=`translate(${px(hx)},${px(hy)}) scale(${s.toFixed(4)})`;
+  [...$('l1').children].forEach((w,i)=>wr(w,t,T.w1[i])); [...$('l2').children].forEach((w,i)=>wr(w,t,T.w2[i]));
+  // the rest of the hero arrives around it
+  pin($('pill'),t,T.pill,HL.pill[0],HL.pill[1]);
+  pin($('btns'),t,T.btns,HL.hx,HL.hy+H1H*HL.small+58);
+  pin($('checks'),t,T.checks[0],HL.hx,HL.hy+H1H*HL.small+58+112);
+  pin($('tools'),t,T.tools,HL.hx,SQ?2000:975);
+  if(SQ){ ['btns','checks','tools','pill'].forEach(id=>$(id).style.opacity=0); }
+  const hero=$('hero'); const hs=1+2.2*dive, ox=HL.stack[0], oy=HL.stack[1];
+  hero.style.transform=`translate(${px(ox*(1-hs))},${px(oy*(1-hs))}) scale(${hs.toFixed(4)})`; hero.style.opacity=(1-sstep(T.dive[0],T.dive[0]+0.45,t)).toFixed(3);
+  hero.style.display=t<T.swap[1]?'block':'none';
+
+  // 2 · the stack
+  ST=stack(t);
+  gl.style.opacity=(1-sstep(...T.swap,t)).toFixed(3); gl.style.display=t<T.swap[1]?'block':'none';
+  { const hv=hovered(t), c=$('cap'); const on=hv>=0; c.style.opacity=on?1:0;
+    if(on){ $('capN').textContent=LAYERS[hv].name; $('capL').textContent=LAYERS[hv].line; }
+    c.style.transform=`translate(${px(HL.stack[0]-210)},${px(SQ?960:835)})`;
+    const hint=$('hint'); hint.style.transform=`translate(${px(HL.stack[0]-hint.offsetWidth/2)},${px(SQ?990:880)})`; hint.style.opacity=(on||SQ?0:1)*sstep(3.3,3.6,t)*(1-sstep(T.dive[0],T.dive[0]+0.2,t));
+    const b=$('badge'), bt=T.done; const p=OM.popIn(t,bt,{zeta:0.55,omega:18,rise:16,s0:0.85,ds:0.15});
+    b.style.opacity=t<bt?0:p.op.toFixed(3); b.style.transform=`translate(${px(HL.stack[0]-b.offsetWidth/2)},${px((SQ?470:150)+p.dy)}) scale(${p.s.toFixed(4)})`; }
+
+  // 3 · the world: the demo, then the projects
+  const wl=$('world'); wl.style.transform=`matrix(${VIEW.map(v=>v.toFixed(5)).join(',')})`;
+  wl.style.opacity=(sstep(...T.swap,t)*(1-ssstep(...T.dim,t))).toFixed(3); wl.style.display=inWorld?'block':'none';
+  demo(t); projects(t);
+
+  // 4 · end card
+  endCard(t);
+
+  // the hand
+  { const c=OM.cursor(t,HAND,CLICKS); const vis=(t>=T.hand0&&t<T.dive[0]+0.1)||(t>=10.2&&t<T.stage[0]+0.3)||(t>=21.7&&t<23.2);
+    $('cursor').style.opacity=vis?1:0; $('cursor').style.transform=`translate(${px(c.x-4)},${px(c.y-3)}) scale(${c.s})`; CUR=c; }
+  $('hud').textContent='t='+t.toFixed(3);
+  return Promise.resolve();
+}
+function wr(el,t,t0){ const w=OM.wordRise(t,t0,{dist:40}); el.style.opacity=t<t0?0:w.op.toFixed(3); el.style.transform=`translateY(${px(w.y)}) scale(${w.s.toFixed(4)})`; }
+function pin(el,t,t0,x,y){ const p=OM.popIn(t,t0,{zeta:0.7,omega:16,rise:22}); el.style.opacity=t<t0?0:p.op.toFixed(3); el.style.transform=`translate(${px(x)},${px(y+p.dy)})`; }
+
+function demo(t){
+  { const p=OM.wordRise(t,T.sh,{dist:30}); const e=$('demoSH'); e.style.opacity=t<T.sh?0:p.op.toFixed(3); e.style.transform=`translateY(${px(p.y)})`; }
+  { const p=OM.popIn(t,T.card,{zeta:0.7,omega:14,rise:40,s0:0.96,ds:0.04}); const e=$('demo'); e.style.opacity=t<T.card?0:p.op.toFixed(3); e.style.transform=`translateY(${px(p.dy)}) scale(${p.s.toFixed(4)})`; }
+  const ty=OM.typeOn(t,T.type0,MSG,{cps:T.cps}); $('mtyped').textContent=ty.str; $('caret').style.opacity=(t>=T.type0&&!ty.done)?1:0; $('count').textContent=`${ty.n}/500`;
+  { const p=OM.press(t,T.run2,{depth:0.06}); $('run').style.transform=`scale(${p.s.toFixed(4)})`; $('runT').textContent=(t>=T.run2&&t<T.stage[0])?'Running workflow…':'Run the workflow'; }
+  $('status').textContent=t<T.run2?'Pick an example or write your own, then run it.':t<T.stage[0]?'Reading the message against the business rules…':'';
+  document.querySelectorAll('.slot').forEach((s,i)=>{ const ph=s.querySelector('.ph'), st=s.querySelector('.stg'), tl=T.stage[i];
+    const pulse=(t>=T.run2&&t<tl)?0.55+0.45*Math.cos((t-T.run2-i*0.12)*9):1; ph.style.opacity=(t<tl?pulse:1-sstep(tl,tl+0.12,t)).toFixed(3);
+    const p=OM.popIn(t,tl,{zeta:0.55,omega:20,rise:16,s0:0.92,ds:0.08}); st.style.opacity=t<tl?0:p.op.toFixed(3); st.style.transform=`translateY(${px(p.dy)}) scale(${p.s.toFixed(4)})`; });
+  const R=SIM.draft_reply, n=clamp(Math.floor((t-T.rtype0)*T.rcps),0,R.length); $('rtyped').textContent=R.slice(0,n); $('rrest').textContent=R.slice(n);
+  const tEnd=T.rtype0+R.length/T.rcps; $('rnote').style.opacity=sstep(tEnd,tEnd+0.25,t);
+}
+function projects(t){
+  { const p=OM.wordRise(t,T.whips[0][0]+0.25,{dist:30}); const e=$('projSH'); e.style.opacity=t<T.whips[0][0]+0.25?0:p.op.toFixed(3); e.style.transform=`translateY(${px(p.y)})`; }
+  [0,1,2,3].forEach(i=>{ const t0=T.whips[0][0]+0.2+i*0.07; const p=OM.popIn(t,t0,{zeta:0.65,omega:15,rise:50,s0:0.94,ds:0.06}); const e=$('pc'+i);
+    e.style.opacity=t<t0?0:p.op.toFixed(3); e.style.transform=`translateY(${px(p.dy)}) scale(${p.s.toFixed(4)})`; });
+  CARDS.forEach((c,i)=>{ $('met'+i).textContent=`${c.pre}${c.num}${c.suf}`;   // as published; no count-up (the shutter smears changing digits)
+    const th=T.whips[i][1], im=OM.impact(t,th,{sqx:0.07,sqy:0.09}); $('met'+i).style.transform=t>=th?`scale(${im.sx.toFixed(4)},${im.sy.toFixed(4)})`:'none'; });
+}
+let END;
+function layoutEnd(){
+  const S=SQ?0.62:1, lg=$('logo'); lg.style.fontSize=(96*S)+'px';
+  lg.style.left=((W-lg.offsetWidth)/2)+'px'; lg.style.top=(SQ?250:200)+'px';
+  $('tl1').style.fontSize=$('tl2').style.fontSize=(SQ?56:78)+'px';
+  $('tl1').style.top=(SQ?400:360)+'px'; $('tl2').style.top=(SQ?462:442)+'px';
+  if(SQ){ $('tl2').style.fontSize='50px'; }
+  const c=$('cta'); c.style.fontSize=(SQ?24:28)+'px'; c.style.left='0px'; const cw=c.offsetWidth; c.style.left=((W-cw)/2)+'px'; c.style.top=(SQ?580:590)+'px';
+  $('url').style.fontSize=(SQ?20:22)+'px'; $('url').style.top=(SQ?700:710)+'px';
+  $('echecks').style.fontSize=(SQ?17:20)+'px'; $('echecks').style.top=(SQ?790:800)+'px'; if(SQ){ $('echecks').style.flexDirection='column'; $('echecks').style.alignItems='center'; $('echecks').style.gap='10px'; }
+  END={cta:[(W+cw)/2-56,(SQ?580:590)+c.offsetHeight/2]};
+}
+function endCard(t){
+  [...$('logo').children].forEach((s,i)=>{ const d=OM.letterDrop(t,T.logo,i,{dist:60}); s.style.opacity=t<T.logo?0:d.op.toFixed(3); s.style.transform=`translateY(${px(d.y)}) scale(${d.sx.toFixed(4)},${d.sy.toFixed(4)})`; });
+  [...$('tl1').children].forEach((s,i)=>wr(s,t,T.tl1[i])); [...$('tl2').children].forEach((s,i)=>wr(s,t,T.tl2[i]));
+  { const c=$('cta'); const p=OM.popIn(t,T.cta,{zeta:0.55,omega:18,rise:30,s0:0.85,ds:0.15}); const pr=OM.press(t,T.ctaClick,{depth:0.06});
+    c.style.opacity=t<T.cta?0:p.op.toFixed(3); c.style.transform=`translateY(${px(p.dy)}) scale(${(p.s*pr.s).toFixed(4)})`; }
+  { const p=OM.wordRise(t,T.url,{dist:16}); $('url').style.opacity=t<T.url?0:p.op.toFixed(3); $('url').style.transform=`translateY(${px(p.y)})`; }
+  { const p=OM.wordRise(t,T.echecks,{dist:16}); $('echecks').style.opacity=t<T.echecks?0:(p.op*0.95).toFixed(3); $('echecks').style.transform=`translateY(${px(p.y)})`; }
+  $('end').style.display=t>=T.logo-0.05?'block':'none';
+}
+
+// ── tracks, motion, ready ──
+window.__track=t=>{ seek(t); const r=el=>{ const b=el.getBoundingClientRect(); return {x:b.x,y:b.y,w:b.width,h:b.height,op:+getComputedStyle(el).opacity}; };
+  const tk={h1:r($('h1')),logo:r($('logo')),cta:r($('cta')),cursor:{x:CUR.x,y:CUR.y,w:30,h:40,op:+$('cursor').style.opacity}};
+  if(t<T.swap[1]){ const a=layerScreen(0), b=proj(ST.top); tk.stack={x:Math.min(a[0],b[0])-200,y:b[1]-60,w:Math.abs(a[0]-b[0])+400,h:Math.abs(a[1]-b[1])+160,op:+gl.style.opacity}; }
+  if(t>=T.swap[0]) [['demo','demo'],['pc0','pc0'],['pc1','pc1'],['pc2','pc2']].forEach(([k,id])=>tk[k]={...OM.projectBox(VIEW,RW[id]),op:+$('world').style.opacity});
+  return tk; };
+window.__motion=(t0,t1)=>{ let d=t0>=T.swap[0]?OM.screenTravel(camAt(t0),camAt(t1),camAt((t0+t1)/2),{W,H}):0;
+  if(t1>T.dive[0]-0.05&&t0<T.swap[1]) d=Math.max(d,900*(t1-t0)/0.033*Math.max(seg(t1,...T.dive)-seg(t0,...T.dive),0));
+  const a=OM.spline(HAND,t0), b=OM.spline(HAND,t1); d=Math.max(d,Math.hypot(a[0]-b[0],a[1]-b[1]));
+  return d; };
+window.__seek=async t=>{ await seek(t); return true; };
+window.__ready=document.fonts.ready.then(()=>{
+  const h1=$('h1'); h1.style.fontSize=HL.big+'px'; h1.style.transform='none'; H1W=h1.offsetWidth; H1H=h1.offsetHeight;
+  measureWorld(); layoutEnd(); buildHand(); simulate(); return seek(0); });
+function buildHand(){
+  // the stack's on-screen layer positions in its resting pose (pointer centred), to aim the hover and the click
+  SIM3={A:null,at:()=>0}; const save=[group.rotation.y,group.rotation.x];
+  group.position.set(0,-1.05,0); group.rotation.set(0.1,-0.62,0); group.scale.setScalar(1); L3.forEach((l,i)=>l.g.position.y=LAYERS[i].y*1.4);
+  cam.position.set(0,3.85,10.4); cam.up.set(0,1,0); cam.lookAt(0,0,0); cam.filmOffset=SQ?0:-((HL.stack[0]-W/2)/W)*cam.getFilmWidth(); cam.updateProjectionMatrix();
+  if(SQ) cam.setViewOffset(W,H,0,-(HL.stack[1]-H/2),W,H);
+  group.updateMatrixWorld(true);
+  const Lp=[0,1,2,3].map(layerScreen);
+  const RUN=(()=>{ const r=$('run').getBoundingClientRect(); return null; })();
+  const sx=SQ?W*0.8:W-120;
+  HAND=[{t:T.hand0,x:sx,y:H+40},{t:4.2,x:Lp[2][0]-420,y:Lp[2][1]+60},{t:4.75,x:Lp[2][0]+300,y:Lp[2][1]-260},
+        {t:5.05,x:Lp[1][0]+40,y:Lp[1][1]-6},{t:5.6,x:Lp[1][0]+70,y:Lp[1][1]-10},{t:5.75,x:Lp[3][0]+50,y:Lp[3][1]-30},{t:6.3,x:Lp[3][0]+40,y:Lp[3][1]-26},
+        {t:T.click,x:Lp[3][0]+40,y:Lp[3][1]-26},{t:T.dive[0],x:Lp[3][0]+60,y:Lp[3][1]+40},
+        {t:9.9,x:W*0.9,y:H+60}];
+  CLICKS=[T.click];
+  WORLD_HAND=true;
+}
+let WORLD_HAND=false;
+// the world clicks (Run, then the CTA) are added once the world camera is known, in screen space at that time
+function addWorldClicks(){
+  const runS=t=>{ const c=camAt(t), V=OM.view(c,{W,H}); return OM.project(V,RW.run.cx,RW.run.cy); };
+  const a=runS(T.run2);
+  HAND.push({t:10.45,x:a[0]+160,y:a[1]+120},{t:T.run2-0.05,x:a[0]+10,y:a[1]+8},{t:T.run2+0.25,x:a[0]+10,y:a[1]+8},{t:T.stage[0]+0.3,x:a[0]+260,y:H+80},
+    {t:21.7,x:W/2+260,y:H+60},{t:T.ctaClick-0.05,x:END.cta[0]+40,y:END.cta[1]+10},{t:T.ctaClick+0.6,x:END.cta[0]+40,y:END.cta[1]+10},{t:23.2,x:END.cta[0]+40,y:END.cta[1]+10});
+  CLICKS.push(T.run2,T.ctaClick);
+}
+window.__ready=window.__ready.then(()=>{ addWorldClicks(); simulate(); return seek(0); });
+if(q.has('t')) __ready.then(()=>seek(parseFloat(q.get('t'))));
+if(q.has('hud')) $('hud').style.display='block';
+if(q.has('play')) __ready.then(()=>{const t0=performance.now();(function loop(){seek(((performance.now()-t0)/1000)%DUR);requestAnimationFrame(loop);})();});
+</script>
+</body>
+</html>

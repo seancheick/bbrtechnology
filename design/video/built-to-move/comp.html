@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>B&amp;Br · Built to Move</title>
+<link rel="stylesheet" href="faces.css">
+<!--
+BUILT TO MOVE — 20 s, 600 frames at 30 fps. One apparent camera move through the B&Br stack; a thin gold light leads.
+ t            beat                                                            transition out
+ 0.00–2.00    macro on a copper bevel; a gold spark runs the edge; pull back;  the camera dives into the top
+              logo + "Websites · Apps · AI" by 0.4 s                            screen, which is the website
+ 2.00–6.00    Keniya: the site turns frontal; a customer picks the Blood        a navy slab crosses the lens (5.9)
+              Sugar box; the panel updates (settled 3.3, readable to 5.35)
+ 6.00–10.0    TurnFlow: a cleaning job with checklist + before/after photos     a navy divider crosses (9.6)
+              is submitted and moves into owner review (sample reconstruction)
+ 10.0–14.0    AI demo: "Could you send a quote?" → gold connection → draft →    pull back
+              "Ready for approval" (settled 11.5, held to 13.5)
+ 14.0–17.0    the three surfaces fold into the stack; layers seat; "Code you own."
+ 17.0–20.0    end card, camera locked: B&Br Technology · Book a free 30-minute call · bbrtechnology.com
+Copy: the supplied script. Keniya strings/photos from ~/Keneya (box.ts, site.ts, public/images). Demo and TurnFlow
+states are reconstructed samples and say so on screen.
+-->
+<style>
+:root{--ivory:#f5f1e8;--ivory2:#ebe5d8;--navy:#0f172a;--navy9:#0a0f1a;--copper:#b8703f;--gold:#fbbf24;--amber:#b05008;
+  --ink:#0f172a;--muted:#475569;--subtle:#5f6b7d;--line:#e4e1d9;--mono:ui-monospace,"SF Mono",Menlo,monospace}
+html,body{margin:0;overflow:hidden;background:var(--ivory)}
+body{width:var(--W);height:var(--H);font-family:'Satoshi',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:0;top:0;width:var(--W);height:var(--H);overflow:hidden;background:var(--ivory)}
+canvas.full{position:absolute;left:0;top:0}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.abs{position:absolute;left:0;top:0}
+#scene{position:absolute;left:0;top:0;width:var(--W);height:var(--H);perspective:2600px;perspective-origin:50% 45%}
+.panel{position:absolute;left:0;top:0;box-sizing:border-box;border-radius:28px;overflow:hidden;transform-origin:50% 50%;backface-visibility:hidden;
+  box-shadow:0 70px 140px -60px rgba(15,23,42,.45),0 0 0 1.5px rgba(184,112,63,.55)}
+.panel .glint{position:absolute;left:0;top:0;height:3px;width:28%;background:linear-gradient(90deg,transparent,#ffe3a0 40%,#fbbf24 60%,transparent);filter:blur(.5px);opacity:.9}
+.sample{position:absolute;right:22px;bottom:16px;font-family:var(--mono);font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.label{position:absolute;font-family:'Cabinet Grotesk';font-weight:800;color:var(--navy);letter-spacing:-.01em;white-space:nowrap;line-height:1}
+.label i{display:inline-block;width:.2em;height:.2em;border-radius:50%;background:var(--amber);margin-left:.06em}
+
+/* ── Keniya (its own theme: cream paper, charcoal, Bricolage + Figtree) ── */
+#kn{background:#fff8ef;color:#252525;font-family:'Figtree'}
+#kn .nav{display:flex;align-items:center;justify-content:space-between;padding:22px 40px;border-bottom:1px solid #ebdfcd}
+#kn .wm{font-family:'Bricolage Grotesque';font-weight:800;font-size:34px;letter-spacing:-.02em}
+#kn .wm span{color:#b23a2c}
+#kn .tag{font-size:17px;color:#5b554d}
+#kn .bd{display:grid;grid-template-columns:1fr 1.08fr;gap:34px;padding:34px 40px}
+#kn h3{margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:56px;letter-spacing:-.03em;line-height:1}
+#kn .sub{margin:8px 0 0;font-size:18px;color:#5b554d}
+#kn .tiles{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#kn .tile{position:relative;border-radius:18px;background:#fbeedc;border:2.5px solid transparent;overflow:hidden;transform-origin:50% 50%}
+#kn .tile img{display:block;width:100%;height:150px;object-fit:cover}
+#kn .tile p{margin:0;padding:12px 14px;font-weight:700;font-size:18px}
+#kn .tile.on{border-color:#252525;box-shadow:5px 5px 0 #252525;background:#fffdf9}
+#kn .buy{border-radius:22px;border:1px solid #ebdfcd;background:#fffdf9;padding:20px}
+#kn .hero{position:relative;border-radius:16px;overflow:hidden;height:330px}
+#kn .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#kn .price{position:absolute;right:16px;top:16px;width:84px;height:84px;border-radius:50%;background:#ffe38a;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;transform:rotate(12deg)}
+#kn .bname{margin:18px 0 0;font-family:'Bricolage Grotesque';font-weight:800;font-size:36px;letter-spacing:-.02em}
+#kn .btag{margin:6px 0 0;font-size:18px;color:#5b554d}
+#kn .order{margin-top:18px;height:62px;border-radius:999px;background:#252525;color:#fff8ef;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:20px}
+#kn .note{margin:10px 0 0;text-align:center;font-size:15px;font-weight:600}
+
+/* ── TurnFlow (warm paper, #16423c, system type) ── */
+#tf{background:#f4f1ea;color:#1d1b18;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+#tf .top{display:flex;align-items:center;justify-content:space-between;padding:24px 40px;border-bottom:1px solid rgba(29,27,24,.1)}
+#tf .brand{font-weight:800;font-size:26px;color:#16423c}
+#tf .crumb{font-size:17px;color:#61594f}
+#tf .bd{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding:30px 40px}
+#tf .card{background:#fff;border-radius:20px;padding:32px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+#tf h4{margin:0;font-size:38px;font-weight:800;letter-spacing:-.01em}
+#tf .meta{margin:8px 0 0;font-size:21px;color:#61594f}
+#tf .pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:9px 20px;font-size:20px;font-weight:700;transform-origin:0 50%}
+#tf .pill.prog{background:#ebe4d7;color:#61594f}
+#tf .pill.rev{background:#16423c;color:#fff}
+#tf ul{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:18px}
+#tf li{display:flex;align-items:center;gap:14px;font-size:24px}
+#tf li .bx{width:30px;height:30px;border-radius:8px;background:#16423c;color:#fff;display:grid;place-items:center;font-size:15px;flex:none}
+#tf .ph{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+#tf .ph figure{margin:0;position:relative;border-radius:14px;overflow:hidden;height:240px}
+#tf .ph canvas{width:100%;height:100%;display:block}
+#tf .ph figcaption{position:absolute;left:10px;bottom:10px;border-radius:999px;background:rgba(255,255,255,.92);padding:4px 10px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px}
+#tf .ph figcaption svg{color:#16423c}
+#tf .sub{margin:22px 0 0;height:68px;font-size:22px !important;border-radius:999px;background:#16423c;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font-size:19px;font-weight:700;transform-origin:50% 50%}
+#tf .tl{margin-top:18px;display:flex;align-items:center;gap:10px;font-size:21px;color:#16423c;font-weight:600}
+
+/* ── AI demo (the site's light theme) ── */
+#ai{background:#fbfaf7;color:#0f172a}
+#ai .top{display:flex;align-items:center;justify-content:space-between;padding:22px 40px;border-bottom:1px solid var(--line)}
+#ai .eb{font-family:var(--mono);font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle)}
+#ai .bd{display:grid;grid-template-columns:0.9fr 1.1fr;gap:0;position:relative}
+#ai .L{padding:44px 44px;border-right:1px solid var(--line)}
+#ai .R{padding:44px 44px;background:#f6f4ef}
+#ai .h{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#0f172a}
+#ai .h svg{color:var(--amber);font-size:21px}
+#ai .msg{margin-top:26px;border-radius:28px 28px 28px 6px;background:#fff;border:1px solid var(--line);padding:30px 34px;font-size:40px;font-weight:500;line-height:1.3;box-shadow:0 20px 40px -24px rgba(15,23,42,.3);transform-origin:0 100%}
+#ai .who{margin-top:14px;font-size:19px;color:var(--subtle)}
+#ai .tags{display:flex;gap:10px;align-items:center;margin-top:16px}
+#ai .t{border-radius:9px;padding:7px 14px;font-size:19px;font-weight:700}
+#ai .t.k{background:#0f172a;color:#fff}
+#ai .t.n{background:rgba(14,165,233,.1);color:#0369a1;box-shadow:inset 0 0 0 1px rgba(14,165,233,.3)}
+#ai .stg{margin-top:20px;border-radius:22px;border:1px solid var(--line);background:#fff;padding:26px 28px;transform-origin:50% 50%}
+#ai .stg .tt{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--subtle)}
+#ai .stg .tt svg{color:var(--amber);font-size:18px}
+#ai .reply{margin:0;font-size:24px;line-height:1.5}
+#ai .reply .rest{color:transparent}
+#ai .ready{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+#ai .rp{display:inline-flex;align-items:center;gap:10px;border-radius:999px;background:rgba(251,191,36,.22);color:#7a3d06;box-shadow:inset 0 0 0 1.5px rgba(176,80,8,.45);padding:11px 22px;font-size:24px;font-weight:700;transform-origin:0 50%}
+#ai .ap{border-radius:999px;background:#0f172a;color:var(--gold);padding:13px 26px;font-size:21px;font-weight:700}
+#ai .wait{margin:14px 0 0;font-size:18px;color:var(--subtle)}
+#wire{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+
+/* portrait recomposition */
+body.pt #kn .bd{grid-template-columns:1fr;gap:26px}
+body.pt #kn .tiles{grid-template-columns:repeat(4,1fr);gap:10px}
+body.pt #kn .tile img{height:110px}
+body.pt #kn .tile p{font-size:14px;padding:8px 10px}
+body.pt #kn .hero{height:420px}
+body.pt #tf .bd,body.pt #ai .bd{grid-template-columns:1fr}
+body.pt #ai .L{border-right:0;border-bottom:1px solid var(--line)}
+
+/* ── slabs that cross the lens ── */
+.slab{position:absolute;left:0;top:0;background:linear-gradient(90deg,#1c2745 0%,#0f172a 40%,#141d35 100%);box-shadow:inset 6px 0 0 #b8703f,inset -6px 0 0 #b8703f;transform-origin:50% 50%}
+
+/* ── end card ── */
+#end{position:absolute;left:0;top:0;width:var(--W);height:var(--H)}
+#own{position:absolute;font-family:'Cabinet Grotesk';font-weight:800;color:var(--navy);letter-spacing:-.02em;white-space:nowrap;line-height:1}
+#own span{display:inline-block;margin-right:.22em}
+#logo{position:absolute;display:flex;align-items:baseline;gap:.32em;white-space:nowrap;line-height:1}
+#logo .m{font-family:'Cabinet Grotesk';font-weight:800;color:var(--navy);display:inline-flex;align-items:baseline}
+#logo .m i{display:inline-block;width:.16em;height:.16em;border-radius:50%;background:var(--amber);margin-left:.05em}
+#logo .t{font-family:'Satoshi';font-weight:500;color:var(--muted)}
+#cta{position:absolute;display:inline-flex;align-items:center;gap:14px;border-radius:999px;background:var(--navy);color:var(--gold);font-weight:700;white-space:nowrap;transform-origin:50% 50%}
+#url{position:absolute;font-family:'Satoshi';font-weight:700;color:var(--navy);letter-spacing:.01em;white-space:nowrap}
+#url b{color:var(--amber);font-weight:700}
+#opPlate{position:absolute;left:0;top:0;border-radius:28px;background:rgba(245,241,232,.78);backdrop-filter:blur(18px) saturate(1.1);box-shadow:0 30px 60px -30px rgba(15,23,42,.45),inset 0 0 0 1px rgba(184,112,63,.35)}
+#cursor{position:absolute;left:0;top:0;width:34px;height:44px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.35))}
+#hud{position:absolute;right:14px;bottom:10px;font:14px var(--mono);color:#c00;display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+<canvas id="ground" class="full"></canvas>
+<canvas id="gl" class="full"></canvas>
+<div id="scene">
+  <div class="panel" id="kn">
+    <div class="nav"><div class="wm">Keniya<span>.</span></div><div class="tag">Snack boxes with a why</div></div>
+    <div class="bd">
+      <div>
+        <h3>Pick a box.</h3>
+        <p class="sub">Every snack screened against the box's own written rules.</p>
+        <div class="tiles" id="tiles"></div>
+      </div>
+      <div class="buy">
+        <div class="hero"><img id="heroA" alt=""><img id="heroB" alt=""><div class="price">$47</div></div>
+        <p class="bname" id="bname"></p><p class="btag" id="btag"></p>
+        <div class="order" id="order"></div>
+        <p class="note">No subscription. No surprise renewal.</p>
+      </div>
+    </div>
+    <div class="glint"></div>
+  </div>
+  <div class="panel" id="tf">
+    <div class="top"><div class="brand">TurnFlow</div><div class="crumb">Jobs · Harbor Loft</div></div>
+    <div class="bd">
+      <div class="card">
+        <h4>Turnover · Harbor Loft</h4>
+        <p class="meta">Checkout 10:00 · next check-in 16:00</p>
+        <div style="margin-top:14px"><span class="pill" id="tfPill"></span></div>
+        <ul id="chk"></ul>
+      </div>
+      <div class="card">
+        <p style="margin:0;font-size:18px;font-weight:700">Photo proof</p>
+        <div class="ph"><figure><canvas id="ph0" width="560" height="340"></canvas><figcaption><svg class="i" viewBox="0 0 24 24" data-i="camera"></svg>Before</figcaption></figure>
+          <figure><canvas id="ph1" width="560" height="340"></canvas><figcaption><svg class="i" viewBox="0 0 24 24" data-i="camera"></svg>After</figcaption></figure></div>
+        <div class="sub" id="tfSub"><svg class="i" viewBox="0 0 24 24" data-i="send"></svg><span id="tfSubT">Submit for review</span></div>
+        <div class="tl" id="tfTl"><svg class="i" viewBox="0 0 24 24" data-i="circle-check"></svg>Sent to the owner for review</div>
+      </div>
+    </div>
+    <div class="glint"></div><div class="sample">Sample · reconstructed screen</div>
+  </div>
+  <div class="panel" id="ai">
+    <div class="top"><div class="h"><svg class="i" viewBox="0 0 24 24" data-i="sparkles"></svg>AI workflow</div><div class="eb">Fictional business · sample</div></div>
+    <div class="bd" id="aiBd">
+      <div class="L">
+        <div class="h"><svg class="i" viewBox="0 0 24 24" data-i="inbox"></svg>Incoming customer message</div>
+        <div class="msg" id="aiMsg">Could you send a quote?</div>
+        <p class="who" id="aiWho">Customer · just now</p>
+      </div>
+      <div class="R">
+        <div class="tags" id="aiTags"><span class="t k">quote request</span><span class="t n">normal</span></div>
+        <div class="stg" id="aiDraft"><p class="tt"><svg class="i" viewBox="0 0 24 24" data-i="message-square-text"></svg>Reply drafted</p>
+          <p class="reply"><span id="rTyped"></span><span class="rest" id="rRest"></span></p>
+          <div class="ready" id="aiReady"><span class="rp"><svg class="i" viewBox="0 0 24 24" data-i="circle-check"></svg>Ready for approval</span><span class="ap">Approve &amp; send</span></div>
+          <p class="wait">Waits for staff approval before sending.</p></div>
+      </div>
+      <svg id="wire"><path id="wireP" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/><circle id="wireD" r="6" fill="#fbbf24"/></svg>
+    </div>
+    <div class="glint"></div>
+  </div>
+</div>
+<div class="label" id="lab0"></div>
+<div class="slab" id="slab1"></div>
+<div class="slab" id="slab2"></div>
+<div id="end">
+  <div id="own"><span>Code</span><span>you</span><span>own.</span></div>
+  <div id="logo"><span class="m">B&amp;Br<i></i></span><span class="t">Technology</span></div>
+  <div id="cta">Book a free 30-minute call<svg class="i" viewBox="0 0 24 24" data-i="arrow-up-right"></svg></div>
+  <div id="url">bbrtechnology<b>.</b>com</div>
+</div>
+<div id="opener" class="abs"><div id="opPlate"></div><div id="opLogo" class="label"></div><div id="opSub" class="label"></div></div>
+<svg id="cursor" viewBox="0 0 34 44"><path d="M4 3 L30 22 L18 24 L26 40 L20 43 L12 27 L4 36 Z" fill="#0f172a" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg>
+<div id="hud"></div>
+</div>
+<script src="motion.js"></script>
+<script src="icons.js"></script>
+<script src="three.bundle.js"></script>
+<script src="rounded-box.js"></script>
+<script src="screen-img.js"></script>
+<script>
+// ════════════ Built to Move — every value below is a pure function of t ════════════
+const q=new URLSearchParams(location.search), PT=q.has('portrait');
+const W=PT?1080:1920, H=PT?1920:1080, DUR=20;
+document.documentElement.style.setProperty('--W',W+'px'); document.documentElement.style.setProperty('--H',H+'px');
+if(PT) document.body.classList.add('pt');
+const {clamp,lerp,seg,sstep,ssstep,spring,ease}=OM; const cubicIn=u=>u*u*u;
+const $=id=>document.getElementById(id), px=v=>v.toFixed(2)+'px';
+document.querySelectorAll('svg[data-i]').forEach(s=>s.innerHTML=ICONS[s.dataset.i]);
+
+// ── timeline (the script's own marks) ──
+const T={spark:[0.15,1.55], logo:0.32, sub:0.5, pull:[0.2,1.75], dive:[1.6,2.2], swapKn:[1.98,2.13],
+  knTurn:[2.0,3.3], pick:2.95, knArc:[5.35,6.0], slab1:[5.55,6.25],
+  tfIn:[5.95,6.6], tfCheck:[6.3,6.95], tfPress:7.25, tfRev:7.45, slab2:[9.3,9.95],
+  aiIn:[9.7,10.3], aiMsg:10.18, wire:[10.55,11.15], aiTags:10.7, aiDraft:10.95, aiType:11.0, aiReady:11.5,
+  fold:[13.5,16.2], seat:[15.2,16.5], own:15.0, camEnd:17.0, end:[16.55,17.2], sweep:[17.3,19.4]};
+const VO=[[0.15,'Your ambition. In motion.'],[2.25,'Websites that draw people in.'],[6.10,'Apps that make complex work feel simple.'],[10.15,'AI that moves work forward.'],[14.05,'Built around you. Owned by you.'],[17.10,"Let's build what's next."]];
+window.__meta={dur:DUR,fps:30,w:W,h:H,cuts:[5.9,9.62,17.1],inFrame:{logo:[17.4,DUR,'whole'],cta:[17.4,DUR,'whole'],url:[17.4,DUR,'whole']}};
+
+// ── copy ──
+const BOXES=[{n:'Pregnancy Comfort',img:'img/box-pregnancy.jpg',tag:'Gentle picks for rough mornings, real treats for cravings.'},
+  {n:'Blood Sugar',img:'img/box-blood-sugar.jpg',tag:'Crunchy, satisfying snacks with the carbs already checked.'},
+  {n:'Heart Wellness',img:'img/box-heart.jpg',tag:'Big crunch and real treats, with every pack\'s sodium capped.'},
+  {n:'GLP-1 Companion',img:'img/box-glp1.jpg',tag:''}];
+const CHECK=['Bathrooms cleaned','Linens changed','Kitchen reset','Supplies restocked'];
+const REPLY="Thanks for reaching out! We'd be glad to put a quote together. Could you share your address and a photo of the job? A team member will follow up with your written quote.";
+$('tiles').innerHTML=BOXES.map((b,i)=>`<div class="tile" id="tile${i}"><img src="${b.img}" alt=""><p>${b.n}</p></div>`).join('');
+$('chk').innerHTML=CHECK.map(c=>`<li><span class="bx"><svg class="i" viewBox="0 0 24 24">${ICONS.check}</svg></span>${c}</li>`).join('');
+$('rRest').textContent=REPLY;
+
+// ── layout per orientation ──
+const LY=PT?{panel:{w:960,h:1300,cx:540,cy:880},lab:{x:60,y:1640,fs:88},stack:[540,640],own:{x:540,y:1280,fs:96,center:true},
+  logo:{x:540,y:1240,fs:92},cta:{x:540,y:1420,fs:34},url:{x:540,y:1560,fs:40},opener:{x:60,y:1500}}
+ :{panel:{w:1360,h:765,cx:960,cy:500},lab:{x:280,y:930,fs:72},stack:[640,560],own:{x:1100,y:500,fs:104},
+  logo:{x:1060,y:360,fs:104},cta:{x:1060,y:520,fs:32},url:{x:1060,y:660,fs:40},opener:{x:120,y:820}};
+const PH={kn:LY.panel.h,tf:PT?1050:640,ai:PT?1150:640}; ['kn','tf','ai'].forEach(id=>{ const e=$(id); e.style.width=LY.panel.w+'px'; e.style.height=PH[id]+'px'; e.dataset.h=PH[id]; });
+
+// ── ground: ivory, a soft floor light, fixed grain ──
+const G=$('ground'), gx=G.getContext('2d'); G.width=W; G.height=H; G.style.width=W+'px'; G.style.height=H+'px';
+let NOISE; { const n=document.createElement('canvas'); n.width=n.height=256; const c=n.getContext('2d'), d=c.createImageData(256,256), r=OM.rng(11);
+  for(let i=0;i<d.data.length;i+=4){ const w=r()<0.5?255:0; d.data[i]=d.data[i+1]=d.data[i+2]=w; d.data[i+3]=Math.floor(r()*5); } c.putImageData(d,0,0); NOISE=n; }
+function ground(light){
+  gx.setTransform(1,0,0,1,0,0); gx.fillStyle='#f5f1e8'; gx.fillRect(0,0,W,H);
+  const g=gx.createRadialGradient(W*0.5,H*0.42,0,W*0.5,H*0.42,Math.max(W,H)*0.75); g.addColorStop(0,'rgba(255,253,247,.9)'); g.addColorStop(1,'rgba(225,216,198,.55)'); gx.fillStyle=g; gx.fillRect(0,0,W,H);
+  if(light>0){ const s=gx.createRadialGradient(W*0.5,H*0.55,0,W*0.5,H*0.55,H*0.6); s.addColorStop(0,`rgba(251,191,36,${0.10*light})`); s.addColorStop(1,'rgba(251,191,36,0)'); gx.fillStyle=s; gx.fillRect(0,0,W,H); }
+  gx.fillStyle=gx.createPattern(NOISE,'repeat'); gx.fillRect(0,0,W,H);
+}
+
+// ── three: the stack in navy and copper ──
+const gl=$('gl'), R3=new THREE.WebGLRenderer({canvas:gl,antialias:true,alpha:true,preserveDrawingBuffer:true});
+R3.setPixelRatio(window.devicePixelRatio||1); R3.setSize(W,H,false); gl.style.width=W+'px'; gl.style.height=H+'px';
+R3.toneMapping=THREE.ACESFilmicToneMapping; R3.outputColorSpace=THREE.SRGBColorSpace;
+const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(30,W/H,0.02,100);
+scene.add(new THREE.HemisphereLight('#fffaf0','#c9bfae',1.4));
+{ const d1=new THREE.DirectionalLight('#fff6e6',2.6); d1.position.set(-4,7,5); scene.add(d1); const d2=new THREE.DirectionalLight('#dfe7ff',0.8); d2.position.set(5,2,-3); scene.add(d2); }
+const group=new THREE.Group(); scene.add(group);
+const LAYERS=[{y:0,h:0.42,w:2.6,c:'#1c2745'},{y:0.72,h:0.22,w:2.3,c:'#243256'},{y:1.22,h:0.14,w:2.1,c:'#2e3e68'},{y:1.72,h:0.1,w:1.95,c:'#1c2745'}];
+const COPPER='#c27a45';
+const L3=LAYERS.map((L,i)=>{ const g=new THREE.Group(); group.add(g);
+  const geo=new RoundedBoxGeometry(L.w,L.h,L.w,5,Math.min(0.12,L.h/2.2));
+  const mat=new THREE.MeshPhysicalMaterial({color:L.c,roughness:0.32,metalness:0.3,clearcoat:0.8,clearcoatRoughness:0.2});
+  g.add(new THREE.Mesh(geo,mat));
+  const em=new THREE.LineBasicMaterial({color:COPPER}); g.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo,20),em));
+  return {g,mat,em}; });
+// the top screen shows the website the camera is about to enter
+const scrC=document.createElement('canvas'); scrC.width=1024; scrC.height=1024; const scrTex=new THREE.CanvasTexture(scrC); scrTex.colorSpace=THREE.SRGBColorSpace;
+{ const s=new THREE.Mesh(new THREE.PlaneGeometry(1.62,1.62),new THREE.MeshBasicMaterial({map:scrTex,toneMapped:false})); s.rotation.x=-Math.PI/2; s.position.y=LAYERS[3].h/2+0.004; L3[3].g.add(s); }
+// the gold spark and its light
+const spark=new THREE.Mesh(new THREE.SphereGeometry(0.018,20,20),new THREE.MeshBasicMaterial({color:'#fff1c4',toneMapped:false})); group.add(spark);
+const halo=new THREE.Mesh(new THREE.SphereGeometry(0.05,20,20),new THREE.MeshBasicMaterial({color:'#fbbf24',transparent:true,opacity:0.35,toneMapped:false,depthWrite:false})); group.add(halo);
+const sparkL=new THREE.PointLight('#fbbf24',0,1.6,2); group.add(sparkL);
+const trail=new THREE.Mesh(new THREE.BoxGeometry(1,0.006,0.006),new THREE.MeshBasicMaterial({color:'#fbbf24',toneMapped:false})); group.add(trail);
+{ const c=document.createElement('canvas'); c.width=c.height=256; const x=c.getContext('2d'), g=x.createRadialGradient(128,128,0,128,128,128); g.addColorStop(0,'rgba(60,45,30,.42)'); g.addColorStop(1,'rgba(60,45,30,0)'); x.fillStyle=g; x.fillRect(0,0,256,256);
+  const m=new THREE.Mesh(new THREE.PlaneGeometry(6,6),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false})); m.rotation.x=-Math.PI/2; m.position.y=-0.24; group.add(m); }
+
+function paintScreen(img){
+  const x=scrC.getContext('2d'); x.fillStyle='#fff8ef'; x.fillRect(0,0,1024,1024);
+  x.fillStyle='#252525'; x.font="800 64px 'Bricolage Grotesque'"; x.fillText('Keniya',60,110);
+  x.font="800 92px 'Bricolage Grotesque'"; x.fillText('Pick a box.',60,250);
+  if(img.complete&&img.naturalWidth){ const r=Math.max(904/img.naturalWidth,560/img.naturalHeight); const w=img.naturalWidth*r,h=img.naturalHeight*r; x.save(); x.beginPath(); x.roundRect(60,320,904,560,36); x.clip(); x.drawImage(img,60+(904-w)/2,320+(560-h)/2,w,h); x.restore(); }
+  x.fillStyle='#252525'; x.beginPath(); x.roundRect(60,920,904,70,35); x.fill();
+  scrTex.needsUpdate=true;
+}
+
+// the stack's layout in the film: seated values, an opening pose, and the folded-in pose at the end
+function stackPose(t){
+  const seat=L3.map((l,i)=>{ const d=t-(T.seat[0]+i*0.22); const k=spring(Math.max(0,d),0.55,13); return d<0?1:1-k; });   // 1 = lifted, 0 = seated
+  return seat;
+}
+const camOpen=t=>{ // macro → pull back, then dive to the screen
+  const topY=LAYERS[3].y+LAYERS[3].h/2, z=LAYERS[3].w/2;
+  const k=ease.cubicInOut(seg(t,...T.pull)), d=ease.expoIn(seg(t,...T.dive));
+  const p0=new THREE.Vector3(0.62,topY+0.07,z+0.3), p1=new THREE.Vector3(-1.2,topY+1.7,z+3.4), p2=new THREE.Vector3(0,topY+2.3,0.001);
+  const l0=new THREE.Vector3(0.1,topY-0.01,z), l1=new THREE.Vector3(0,topY-0.5,0), l2=new THREE.Vector3(0,topY,0);
+  group.updateMatrixWorld(true);
+  const pos=group.localToWorld(p0.clone().lerp(p1,k).lerp(p2,d)), look=group.localToWorld(l0.clone().lerp(l1,k).lerp(l2,d));
+  const up=new THREE.Vector3(0,1,0).lerp(new THREE.Vector3(0,0,-1).applyQuaternion(group.quaternion),d).normalize();
+  return {pos,look,up};
+};
+const camEnd=t=>{ // crane back from above the folding panels to the settled hero framing
+  const k=ease.quintOut(seg(t,T.fold[0]+0.4,T.camEnd));
+  const pos=new THREE.Vector3(lerp(0.6,3.6,k),lerp(7.5,3.9,k),lerp(2.0,8.6,k)), look=new THREE.Vector3(0,lerp(1.4,0.9,k),0);
+  if(PT) pos.sub(look).multiplyScalar(1.75).add(look);   // portrait: the stack sits small in the upper frame
+  return {pos,look,up:new THREE.Vector3(0,1,0)};
+};
+let STACK={};
+function drawStack(t){
+  const open=t<T.swapKn[1], end=t>=T.fold[0];
+  gl.style.display=(open||end)?'block':'none'; if(!(open||end)) return;
+  group.position.set(0,-0.95,0); group.rotation.set(0,open?-0.5:-0.62,0);
+  const seat=end?stackPose(t):[0,0,0,0];
+  L3.forEach((l,i)=>{ l.g.position.y=LAYERS[i].y+seat[i]*(0.55+i*0.32); l.mat.opacity=1; });
+  // spark: runs the top layer's front edge, then rests as the edge accent at the end
+  const topY=LAYERS[3].y+LAYERS[3].h/2+L3[3].g.position.y-LAYERS[3].y, z=LAYERS[3].w/2+0.002, hw=LAYERS[3].w/2-0.08;
+  let sx, on;
+  if(open){ const k=ease.sineInOut(seg(t,...T.spark)); sx=lerp(hw,-hw,k); on=sstep(0.08,0.2,t)*(1-sstep(1.9,2.1,t)); }
+  else { const k=ease.sineInOut(seg(t,...T.sweep)); sx=lerp(-hw,hw,k); on=sstep(T.seat[1]-0.2,T.seat[1]+0.3,t)*(0.55+0.45*(1-sstep(T.sweep[1],T.sweep[1]+0.4,t))); }
+  spark.position.set(sx,topY,z); halo.position.copy(spark.position); sparkL.position.set(sx,topY+0.05,z+0.15);
+  spark.visible=halo.visible=on>0.01; sparkL.intensity=3.2*on; halo.material.opacity=0.35*on;
+  const tw=open?Math.abs(hw-sx):Math.abs(sx+hw); trail.scale.x=Math.max(0.0001,tw); trail.position.set(open?(hw+sx)/2:(sx-hw)/2,topY,z); trail.visible=on>0.01; trail.material.opacity=on;
+  trail.material.transparent=true;
+  L3[3].em.color.set(end&&t>T.seat[1]?'#e0a24a':COPPER);
+  const C=open?camOpen(t):camEnd(t);
+  cam.position.copy(C.pos); cam.up.copy(C.up); cam.lookAt(C.look);
+  // the end framing puts the stack off-centre (left in landscape, top in portrait)
+  const fo=end?ssstep(T.fold[0],T.camEnd,t):0;
+  cam.filmOffset=PT?0:fo*((W/2-LY.stack[0])/W)*cam.getFilmWidth();
+  if(PT) cam.setViewOffset(W,H,0,fo*(H/2-LY.stack[1]),W,H); else cam.clearViewOffset();
+  cam.updateProjectionMatrix();
+  gl.style.opacity=open?(1-sstep(...T.swapKn,t)).toFixed(3):sstep(T.fold[0]+0.3,T.fold[0]+1.0,t).toFixed(3);
+  R3.render(scene,cam);
+  STACK={topY};
+}
+const proj=v=>{ const p=v.clone().project(cam); return [(p.x+1)/2*W,(1-p.y)/2*H]; };
+
+// ── TurnFlow photo tiles: drawn rooms, clearly not photographs of a real property ──
+function room(cv,after){ const x=cv.getContext('2d'), w=cv.width, h=cv.height;
+  const g=x.createLinearGradient(0,0,0,h); g.addColorStop(0,after?'#efe6d6':'#d9cdb8'); g.addColorStop(1,after?'#d8c7ab':'#b9a888'); x.fillStyle=g; x.fillRect(0,0,w,h);
+  x.fillStyle=after?'#f8f3ea':'#e6dccb'; x.fillRect(w*0.62,h*0.12,w*0.26,h*0.42);           // window
+  x.fillStyle=after?'rgba(255,240,200,.55)':'rgba(255,240,200,.2)'; x.beginPath(); x.moveTo(w*0.62,h*0.54); x.lineTo(w*0.88,h*0.54); x.lineTo(w*0.7,h); x.lineTo(w*0.3,h); x.fill();
+  x.fillStyle='#8a6a4a'; x.fillRect(w*0.08,h*0.48,w*0.5,h*0.08);                           // headboard
+  x.fillStyle=after?'#ffffff':'#ece7df'; x.beginPath(); x.roundRect(w*0.06,h*0.56,w*0.56,h*0.3,10); x.fill();   // bed
+  x.fillStyle=after?'#16423c':'#9a8f80'; x.fillRect(w*0.06,h*0.74,w*0.56,h*0.06);
+  if(!after){ x.strokeStyle='#cfc6b8'; x.lineWidth=6; for(let i=0;i<5;i++){ x.beginPath(); x.moveTo(w*(0.1+i*0.1),h*0.6); x.quadraticCurveTo(w*(0.15+i*0.1),h*0.7,w*(0.12+i*0.1),h*0.82); x.stroke(); }
+    x.fillStyle='#f3efe8'; x.beginPath(); x.ellipse(w*0.75,h*0.86,w*0.08,h*0.05,0.3,0,6.3); x.fill(); }
+  else { x.fillStyle='#fffdf8'; x.beginPath(); x.roundRect(w*0.1,h*0.5,w*0.16,h*0.1,8); x.fill(); x.beginPath(); x.roundRect(w*0.3,h*0.5,w*0.16,h*0.1,8); x.fill(); } }
+room($('ph0'),false); room($('ph1'),true);
+
+// ── panels in 3D ──
+function setPanel(el,{x=0,y=0,z=0,rx=0,ry=0,rz=0,s=1,op=1}){
+  const P=LY.panel, ph=+el.dataset.h||P.h; el.style.opacity=op.toFixed(3); el.style.visibility=op>0.001?'visible':'hidden';   // hidden, not display:none: the wire and the hand measure it
+  el.style.transform=`translate3d(${px(P.cx-P.w/2+x)},${px(P.cy-ph/2+y)},${z.toFixed(1)}px) rotateX(${rx.toFixed(3)}deg) rotateY(${ry.toFixed(3)}deg) rotateZ(${rz.toFixed(3)}deg) scale(${s.toFixed(4)})`; }
+function glint(el,t,t0,t1){ const g=el.querySelector('.glint'); const k=ease.sineInOut(seg(t,t0,t1)); g.style.transform=`translateX(${px(lerp(-0.3,1.05,k)*LY.panel.w)})`; g.style.opacity=(sstep(t0,t0+0.2,t)*(1-sstep(t1-0.2,t1,t))*0.9).toFixed(3); }
+function label(t,text,t0,t1,id){ const ly=PT?LY.lab.y:LY.panel.cy+(+$(id).dataset.h)/2+52; const e=$('lab0'); e.textContent=text; const w=OM.wordRise(t,t0,{dist:30}); const out=sstep(t1-0.25,t1,t);
+  e.style.fontSize=LY.lab.fs+'px'; e.style.opacity=t<t0||t>=t1?0:(w.op*(1-out)).toFixed(3); e.style.transform=`translate(${px(LY.lab.x)},${px(ly+w.y-out*20)})`; }
+
+// ── the cursor ──
+let HAND=[], CLICKS=[], CURVIS=[];
+function buildHand(){
+  const P=LY.panel, kn=$('kn'), tile=$('tile1'), tf=$('tfSub');
+  const at=(el)=>{ let x=0,y=0,e=el; while(e&&!e.classList.contains('panel')){ x+=e.offsetLeft; y+=e.offsetTop; e=e.offsetParent; } const ph=+e.dataset.h; return [P.cx-P.w/2+x+el.offsetWidth*0.55, P.cy-ph/2+y+el.offsetHeight*0.55]; };
+  const a=at(tile), b=at(tf);
+  HAND=[{t:2.4,x:a[0]+260,y:H+60},{t:T.pick-0.04,x:a[0],y:a[1]},{t:T.pick+0.4,x:a[0]+6,y:a[1]+4},{t:4.2,x:a[0]+40,y:a[1]+30},{t:5.3,x:a[0]+60,y:a[1]+50},
+        {t:6.5,x:b[0]+240,y:b[1]+260},{t:T.tfPress-0.04,x:b[0],y:b[1]},{t:T.tfPress+0.5,x:b[0]+8,y:b[1]+6},{t:9.2,x:b[0]+30,y:b[1]+30}];
+  CLICKS=[T.pick,T.tfPress]; CURVIS=[[2.45,5.45],[6.45,9.4]];
+}
+
+// ── seek ──
+let CUR={x:0,y:0};
+function seek(t){
+  const P=LY.panel;
+  ground(sstep(T.seat[1],T.camEnd,t)); $('lab0').style.opacity=0;
+  drawStack(t);
+
+  // opener: the logo and the service line, over the macro
+  { const o=$('opener'), out=sstep(1.5,1.85,t); o.style.display=t<2?'block':'none';
+    const L=$('opLogo'), S=$('opSub'); L.innerHTML='B&amp;Br<i></i>'; L.style.fontSize=(PT?120:132)+'px'; S.textContent='Websites · Apps · AI'; S.style.fontSize=(PT?44:46)+'px'; S.style.fontFamily="'Satoshi'"; S.style.fontWeight=500; S.style.color='#334155';
+    const a=OM.wordRise(t,T.logo,{dist:40}), b=OM.wordRise(t,T.sub,{dist:20});
+    L.style.opacity=t<T.logo?0:(a.op*(1-out)).toFixed(3); L.style.transform=`translate(${px(LY.opener.x)},${px(LY.opener.y-(PT?150:160)+a.y-out*30)})`;
+    S.style.opacity=t<T.sub?0:(b.op*(1-out)).toFixed(3); S.style.transform=`translate(${px(LY.opener.x+6)},${px(LY.opener.y+b.y-out*30)})`;
+    const pl=$('opPlate'), pw=PT?560:620, ph=PT?290:300, pp=OM.popIn(t,T.logo-0.12,{zeta:0.8,omega:16,rise:20,s0:0.96,ds:0.04}); pl.style.width=pw+'px'; pl.style.height=ph+'px';
+    pl.style.opacity=t<T.logo-0.12?0:(pp.op*(1-out)).toFixed(3); pl.style.transform=`translate(${px(LY.opener.x-44)},${px(LY.opener.y-(PT?190:200)+pp.dy-out*30)}) scale(${pp.s.toFixed(4)})`; }
+
+  // 1 · Keniya: turns toward us from the stack's screen, a box is picked, the camera arcs away
+  { const turn=ease.quintOut(seg(t,...T.knTurn)), arc=cubicIn(seg(t,...T.knArc));
+    const vis=t>=T.swapKn[0]&&t<T.slab1[0]+0.36;
+    setPanel($('kn'),{y:lerp(160,0,turn)+arc*-30,z:lerp(-900,0,turn)+arc*120,rx:lerp(58,3,turn)-arc*2,ry:lerp(-14,0,turn)+arc*-28,s:1,op:vis?sstep(...T.swapKn,t):0});
+    const sel=t>=T.pick?1:0; BOXES.forEach((b,i)=>{ const e=$('tile'+i); e.classList.toggle('on',i===sel); const pr=OM.press(t,T.pick,{depth:0.05}); e.style.transform=i===1?`scale(${pr.s.toFixed(4)})`:'none'; });
+    const A=$('heroA'),B=$('heroB'); if(!A.src.endsWith(BOXES[0].img)) A.src=BOXES[0].img; if(!B.src.endsWith(BOXES[1].img)) B.src=BOXES[1].img;
+    const x=ssstep(T.pick+0.02,T.pick+0.35,t); B.style.opacity=x.toFixed(3); B.style.transform=`scale(${lerp(1.06,1,x).toFixed(4)})`;
+    const cur=BOXES[sel]; $('bname').textContent=cur.n+' Box'; $('btag').textContent=cur.tag; $('order').textContent=`Order the ${cur.n} box, $47`;
+    glint($('kn'),t,2.3,3.4);
+    if(t>=1.9&&t<6) label(t,'Websites',2.45,5.6,'kn'); }
+
+  // 2 · TurnFlow: the job is checked off, submitted, and moves into owner review
+  { const k=ease.quintOut(seg(t,...T.tfIn)), orbit=ease.sineInOut(seg(t,T.tfIn[0],8.4)), out=cubicIn(seg(t,9.2,9.7));
+    const vis=t>=T.slab1[0]+0.34&&t<T.slab2[0]+0.36;
+    setPanel($('tf'),{x:lerp(140,0,k)-out*60,z:lerp(-260,0,k),ry:lerp(-16,-2,orbit)+lerp(0,0,k)+out*24,rx:lerp(6,2,orbit),op:vis?1:0});
+    $('chk').querySelectorAll('li').forEach((li,i)=>{ const tk=OM.tick(t,T.tfCheck[0]+i*0.15); li.querySelector('.bx').style.transform=`scale(${tk.on?tk.s:0.001})`; li.style.opacity=tk.on?1:0.45; });
+    const pr=OM.press(t,T.tfPress,{depth:0.06}); $('tfSub').style.transform=`scale(${pr.s.toFixed(4)})`;
+    const rev=t>=T.tfRev; const pill=$('tfPill'); pill.className='pill '+(rev?'rev':'prog'); pill.textContent=rev?'Owner review':'In progress';
+    const im=OM.impact(t,T.tfRev,{sqx:0.1,sqy:0.12}); pill.style.transform=rev?`scale(${im.sx.toFixed(4)},${im.sy.toFixed(4)})`:'none';
+    $('tfSubT').textContent=rev?'Submitted':'Submit for review'; $('tfSub').style.background=rev?'#2d5a52':'#16423c';
+    const tl=OM.wordRise(t,T.tfRev+0.12,{dist:12}); $('tfTl').style.opacity=t<T.tfRev+0.12?0:tl.op.toFixed(3); $('tfTl').style.transform=`translateY(${px(tl.y)})`;
+    glint($('tf'),t,7.2,8.4);
+    if(t>=6&&t<10) label(t,'Apps & software',6.35,9.35,'tf'); }
+
+  // 3 · AI: a message comes in, a gold connection carries it to a draft that waits for approval
+  { const k=ease.quintOut(seg(t,...T.aiIn)), back=ease.cubicInOut(seg(t,T.fold[0],T.fold[0]+1.3));
+    const vis=t>=T.slab2[0]+0.34&&t<T.fold[0]+1.35;
+    setPanel($('ai'),{x:lerp(-120,0,k),z:lerp(-260,0,k)-back*900,ry:lerp(14,1.5,k)+back*-6,rx:lerp(4,1,k)+back*52,y:back*(PT?-120:-60),s:1-back*0.25,op:vis?(1-sstep(T.fold[0]+0.9,T.fold[0]+1.35,t)):0});
+    const m=OM.popIn(t,T.aiMsg,{zeta:0.55,omega:18,rise:24,s0:0.9,ds:0.1}); $('aiMsg').style.opacity=t<T.aiMsg?0:m.op.toFixed(3); $('aiMsg').style.transform=`translateY(${px(m.dy)}) scale(${m.s.toFixed(4)})`;
+    $('aiWho').style.opacity=sstep(T.aiMsg+0.15,T.aiMsg+0.4,t);
+    const tg=OM.popIn(t,T.aiTags,{rise:14}); $('aiTags').style.opacity=t<T.aiTags?0:tg.op.toFixed(3); $('aiTags').style.transform=`translateY(${px(tg.dy)})`;
+    const dr=OM.popIn(t,T.aiDraft,{zeta:0.6,omega:16,rise:24,s0:0.94,ds:0.06}); $('aiDraft').style.opacity=t<T.aiDraft?0:dr.op.toFixed(3); $('aiDraft').style.transform=`translateY(${px(dr.dy)}) scale(${dr.s.toFixed(4)})`;
+    const n=clamp(Math.floor((t-T.aiType)*240),0,REPLY.length); $('rTyped').textContent=REPLY.slice(0,n); $('rRest').textContent=REPLY.slice(n);
+    const rd=OM.popIn(t,T.aiReady,{zeta:0.5,omega:20,rise:10,s0:0.85,ds:0.15}); $('aiReady').style.opacity=t<T.aiReady?0:rd.op.toFixed(3); $('aiReady').querySelector('.rp').style.transform=`scale(${rd.s.toFixed(4)})`;
+    wire(t);
+    glint($('ai'),t,9.9,10.8);
+    if(t>=10&&t<14) label(t,'AI & automation',10.35,13.55,'ai'); }
+
+  // 4 · the reveal: Keniya and TurnFlow return as thin surfaces and fold into the stack with the demo
+  { const ghosts=[['kn',-1],['tf',1]];
+    ghosts.forEach(([id,side],i)=>{ if(t<T.fold[0]) return; const k=ease.cubicInOut(seg(t,T.fold[0]+0.1+i*0.12,T.fold[0]+1.4+i*0.12));
+      setPanel($(id),{x:side*lerp(900,260,k)*(PT?0.6:1),y:lerp(PT?-400:-80,PT?-180:-40,k)*(PT?1:1)+(PT?side*120:0),z:lerp(-500,-1500,k),rx:lerp(30,62,k),ry:side*lerp(-30,-8,k),s:lerp(0.55,0.35,k),op:sstep(T.fold[0]+0.1,T.fold[0]+0.4,t)*(1-sstep(T.fold[0]+1.0+i*0.12,T.fold[0]+1.45+i*0.12,t))}); }); }
+
+  // 5 · slabs across the lens (the two concealed transitions)
+  slab($('slab1'),t,...T.slab1,1); slab($('slab2'),t,...T.slab2,-1);
+
+  // 6 · "Code you own." then the end card
+  endCard(t);
+
+  // cursor
+  { const c=OM.cursor(t,HAND,CLICKS); const vis=CURVIS.some(([a,b])=>t>=a&&t<b); $('cursor').style.opacity=vis?1:0;
+    $('cursor').style.transform=`translate(${px(c.x-4)},${px(c.y-3)}) scale(${c.s})`; CUR=c; }
+  $('hud').textContent='t='+t.toFixed(3);
+  return Promise.all(['heroA','heroB'].map(id=>$(id).decode().catch(()=>{})));
+}
+function slab(el,t,t0,t1,dir){ const k=ease.expoInOut(seg(t,t0,t1)); const on=t>t0&&t<t1; el.style.display=on?'block':'none'; if(!on) return;
+  const w=W*1.5, h=H*1.6; el.style.width=w+'px'; el.style.height=h+'px';
+  const x=dir>0?lerp(W+80,-w-80,k):lerp(-w-80,W+80,k); el.style.transform=`translate(${px(x)},${px(-(h-H)/2)}) rotate(${(dir*-6).toFixed(2)}deg)`; }
+function wire(t){
+  const svg=$('wire'), bd=$('aiBd'), m=$('aiMsg'), d=$('aiDraft');
+  const a=[m.offsetLeft+m.offsetWidth, m.offsetTop+m.offsetHeight/2];
+  const b=[d.offsetLeft-2, d.offsetTop+44];
+  const p=$('wireP'); const dpath=PT?`M${a[0]-m.offsetWidth/2} ${a[1]+m.offsetHeight/2} C${a[0]-m.offsetWidth/2} ${a[1]+160},${b[0]+120} ${b[1]-200},${b[0]+120} ${b[1]-2}`:`M${a[0]} ${a[1]} C${a[0]+120} ${a[1]},${b[0]-140} ${b[1]},${b[0]} ${b[1]}`;
+  p.setAttribute('d',dpath); svg.setAttribute('width',bd.offsetWidth); svg.setAttribute('height',bd.offsetHeight);
+  const L=p.getTotalLength(), k=ease.expoInOut(seg(t,...T.wire)); p.style.strokeDasharray=L; p.style.strokeDashoffset=(L*(1-k)).toFixed(1); p.style.opacity=k>0?1:0;
+  const pt=p.getPointAtLength(L*k); const D=$('wireD'); D.setAttribute('cx',pt.x); D.setAttribute('cy',pt.y); D.style.opacity=k>0&&k<1?1:0;
+}
+let ENDL={};
+function layoutEnd(){
+  const o=$('own'); o.style.fontSize=LY.own.fs+'px'; const ow=o.offsetWidth; ENDL.own=[LY.own.center?LY.own.x-ow/2:LY.own.x,LY.own.y-LY.own.fs*0.5];
+  const lg=$('logo'); lg.style.fontSize=LY.logo.fs+'px'; lg.querySelector('.t').style.fontSize=(LY.logo.fs*0.42)+'px'; const lw=lg.offsetWidth; ENDL.logo=[PT?LY.logo.x-lw/2:LY.logo.x,LY.logo.y];
+  const c=$('cta'); c.style.fontSize=LY.cta.fs+'px'; c.style.padding=PT?'28px 46px':'26px 44px'; const cw=c.offsetWidth; ENDL.cta=[PT?LY.cta.x-cw/2:LY.cta.x,LY.cta.y];
+  const u=$('url'); u.style.fontSize=LY.url.fs+'px'; const uw=u.offsetWidth; ENDL.url=[PT?LY.url.x-uw/2:LY.url.x+6,LY.url.y];
+}
+function endCard(t){
+  { const o=$('own'); const out=sstep(T.end[0],T.end[0]+0.28,t); o.style.display=t>=T.own&&t<T.end[1]?'block':'none';
+    [...o.children].forEach((s,i)=>{ const w=OM.wordRise(t,T.own+i*0.14,{dist:36}); s.style.opacity=t<T.own+i*0.14?0:(w.op*(1-out)).toFixed(3); s.style.transform=`translateY(${px(w.y-out*24)})`; });
+    o.style.transform=`translate(${px(ENDL.own[0])},${px(ENDL.own[1])})`; }
+  const put=(id,t0,xy,d=26)=>{ const e=$(id); const w=OM.wordRise(t,t0,{dist:d}); e.style.opacity=t<t0?0:w.op.toFixed(3); e.style.transform=`translate(${px(xy[0])},${px(xy[1]+w.y)})`; };
+  put('logo',T.end[0]+0.32,ENDL.logo); put('cta',T.end[0]+0.48,ENDL.cta); put('url',T.end[0]+0.6,ENDL.url,18);
+  $('end').style.display=t>=T.own-0.05?'block':'none';
+}
+
+// ── contract ──
+window.__track=t=>{ seek(t); const r=el=>{ const b=el.getBoundingClientRect(); return {x:b.x,y:b.y,w:b.width,h:b.height,op:+getComputedStyle(el).opacity}; };
+  let kn=r($('kn'));
+  if(t<T.swapKn[1]){ const h=LAYERS[3].h/2+0.004, P=[[-.81,-.81],[.81,-.81],[-.81,.81],[.81,.81]].map(([x,z])=>proj(L3[3].g.localToWorld(new THREE.Vector3(x,h,z))));   // the stack's screen is the website
+    const xs=P.map(p=>p[0]), ys=P.map(p=>p[1]); kn={x:Math.min(...xs),y:Math.min(...ys),w:Math.max(...xs)-Math.min(...xs),h:Math.max(...ys)-Math.min(...ys),op:1}; }
+  return {kn,tf:r($('tf')),ai:r($('ai')),logo:r($('logo')),cta:r($('cta')),url:r($('url')),cursor:{x:CUR.x,y:CUR.y,w:30,h:40,op:+$('cursor').style.opacity}}; };
+window.__motion=(t0,t1)=>{ let d=0; const inn=(a,b)=>t1>a&&t0<b;
+  if(inn(...T.pull)||inn(...T.dive)) d=Math.max(d,700*Math.abs(ease.cubicInOut(seg(t1,...T.pull))-ease.cubicInOut(seg(t0,...T.pull)))+1400*Math.abs(ease.expoIn(seg(t1,...T.dive))-ease.expoIn(seg(t0,...T.dive))));
+  for(const s of [T.slab1,T.slab2]) if(inn(...s)) d=Math.max(d,W*2.6*Math.abs(ease.expoInOut(seg(t1,...s))-ease.expoInOut(seg(t0,...s))));
+  if(inn(T.fold[0],T.camEnd)) d=Math.max(d,900*Math.abs(ease.quintOut(seg(t1,T.fold[0]+0.4,T.camEnd))-ease.quintOut(seg(t0,T.fold[0]+0.4,T.camEnd)))+60);
+  if(inn(...T.knTurn)||inn(...T.knArc)||inn(...T.tfIn)||inn(...T.aiIn)) d=Math.max(d,60);
+  const a=OM.spline(HAND,t0), b=OM.spline(HAND,t1); d=Math.max(d,Math.hypot(a[0]-b[0],a[1]-b[1])); return d; };
+window.__seek=async t=>{ await seek(t); return true; };
+const imgs=[...document.images]; BOXES.forEach(b=>{ const i=new Image(); i.src=b.img; imgs.push(i); });
+window.__ready=document.fonts.ready.then(()=>Promise.all([...document.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})))).then(()=>{
+  const im=new Image(); im.src=window.SCREEN_IMG; return im.decode().then(()=>paintScreen(im)); }).then(()=>{ layoutEnd(); setPanel($('kn'),{op:1}); buildHand(); return seek(0); });
+if(q.has('t')) __ready.then(()=>seek(parseFloat(q.get('t'))));
+if(q.has('hud')) $('hud').style.display='block';
+if(q.has('play')) __ready.then(()=>{const t0=performance.now();(function loop(){seek(((performance.now()-t0)/1000)%DUR);requestAnimationFrame(loop);})();});
+</script>
+</body>
+</html>
