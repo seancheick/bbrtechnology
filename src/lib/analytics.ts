@@ -8,6 +8,7 @@ export type AnalyticsEvent =
   | "estimator_used"
   | "estimate_sent"
   | "inquiry_submitted"
+  | "inquiry_failed"
   | "booking_completed";
 
 type Props = Record<string, string | number | boolean | undefined>;

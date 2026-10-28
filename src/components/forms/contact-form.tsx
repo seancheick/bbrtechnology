@@ -43,7 +43,14 @@ export function ContactForm({
     setStatus("submitting");
     try {
       const res = await fetch(FORMSPREE, { method: "POST", body: data, headers: { Accept: "application/json" } });
-      if (!res.ok) throw new Error(String(res.status));
+      if (!res.ok) {
+        // Formspree error codes only (e.g. TYPE_EMAIL), never field values
+        const body = await res.json().catch(() => ({}));
+        const codes = (body.errors ?? []).map((err: { code?: string }) => err.code).filter(Boolean);
+        track("inquiry_failed", { status: res.status, reason: codes.join(",") || undefined });
+        setStatus("error");
+        return;
+      }
       track("inquiry_submitted", {
         offer: String(data.get("service") ?? ""),
         budget: String(data.get("budget") ?? ""),
@@ -52,6 +59,7 @@ export function ContactForm({
       setStatus("success");
       form.reset();
     } catch {
+      track("inquiry_failed", { status: 0, reason: "network" });
       setStatus("error");
     }
   }
